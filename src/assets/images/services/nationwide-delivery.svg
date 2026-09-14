@@ -1,0 +1,110 @@
+<svg
+  width="720"
+  height="460"
+  viewBox="0 0 720 460"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <radialGradient
+      id="mapGlow"
+      cx="0"
+      cy="0"
+      r="1"
+      gradientTransform="translate(360 225) rotate(90) scale(150 250)"
+    >
+      <stop stop-color="#FF4B52" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#E50914" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+  </defs>
+
+  <ellipse
+    cx="360"
+    cy="245"
+    rx="245"
+    ry="150"
+    fill="url(#mapGlow)"
+    filter="url(#glow)"
+  />
+
+  <path
+    d="M154 185C196 117 273 80 350 87C408 92 471 125 509 176C539 217 556 270 536 312C509 369 428 391 360 387C288 383 210 354 167 299C136 259 129 221 154 185Z"
+    fill="#151515"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M183 213C253 228 304 180 357 159C408 138 449 163 501 186"
+    stroke="#E50914"
+    stroke-width="4"
+    opacity=".65"
+  />
+
+  <path
+    d="M207 289C262 263 297 281 344 314C384 343 433 339 479 306"
+    stroke="#E50914"
+    stroke-width="4"
+    opacity=".65"
+  />
+
+  <path
+    d="M303 108C291 159 311 187 342 220C373 253 376 294 347 341"
+    stroke="#E50914"
+    stroke-width="4"
+    opacity=".65"
+  />
+
+  <path
+    d="M414 118C394 153 407 188 440 215C473 242 485 276 464 316"
+    stroke="#E50914"
+    stroke-width="4"
+    opacity=".65"
+  />
+
+  <path
+    d="M192 206L283 175L359 221L444 181L524 218"
+    stroke="#FF4B52"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <circle cx="192" cy="206" r="9" fill="#E50914"/>
+  <circle cx="283" cy="175" r="9" fill="#E50914"/>
+
+  <circle
+    cx="359"
+    cy="221"
+    r="11"
+    fill="white"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <circle cx="444" cy="181" r="9" fill="#E50914"/>
+  <circle cx="524" cy="218" r="9" fill="#E50914"/>
+
+  <path
+    d="M359 204V238M342 221H376"
+    stroke="#E50914"
+    stroke-width="3"
+  />
+
+  <text
+    x="360"
+    y="410"
+    text-anchor="middle"
+    fill="#E50914"
+    font-family="Arial, sans-serif"
+    font-size="18"
+    font-weight="700"
+    letter-spacing="4"
+  >
+    NATIONWIDE ROUTE GRID
+  </text>
+</svg>

@@ -26,7 +26,7 @@ export default function NavHeader({
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <NavbarThreeBackground />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <div className="flex h-18 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="group flex items-center gap-3">

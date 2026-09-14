@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, CheckCircle2, Mail } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");

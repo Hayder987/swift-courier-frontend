@@ -1,6 +1,6 @@
+import Public3DBackground from "@/components/layout/public/Background/Public3DBackground";
 import Footer from "@/components/layout/public/Footer/Footer";
 import NavHeader from "@/components/layout/public/Navbar/NavHeader";
-import Public3DBackground from "@/components/layout/public/Background/Public3DBackground";
 
 export default function PublicLayout({
   children,
@@ -15,7 +15,7 @@ export default function PublicLayout({
         <NavHeader />
 
         <main className="min-h-[calc(100vh-72px)]">
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-380 px-4 sm:px-6 lg:px-8">
             {children}
           </div>
         </main>

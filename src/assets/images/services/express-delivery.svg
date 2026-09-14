@@ -1,0 +1,121 @@
+<svg
+  width="720"
+  height="460"
+  viewBox="0 0 720 460"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="vanGradient" x1="150" y1="160" x2="570" y2="350">
+      <stop stop-color="#FF4B52"/>
+      <stop offset="1" stop-color="#A80008"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+
+  <ellipse
+    cx="370"
+    cy="325"
+    rx="245"
+    ry="48"
+    fill="#E50914"
+    opacity=".16"
+    filter="url(#glow)"
+  />
+
+  <path
+    d="M108 255H476L558 320H108V255Z"
+    fill="url(#vanGradient)"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M476 255H543L613 320H476V255Z"
+    fill="#181818"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M496 270H540L576 304H496V270Z"
+    fill="#F4F4F4"
+  />
+
+  <path
+    d="M135 190H475V255H108V217L135 190Z"
+    fill="#1C1C1C"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M160 207H258V239H160V207Z"
+    fill="#E50914"
+    opacity=".22"
+    stroke="#E50914"
+    stroke-width="3"
+  />
+
+  <path
+    d="M276 207H358V239H276V207Z"
+    fill="#E50914"
+    opacity=".22"
+    stroke="#E50914"
+    stroke-width="3"
+  />
+
+  <path
+    d="M375 207H450V239H375V207Z"
+    fill="#E50914"
+    opacity=".22"
+    stroke="#E50914"
+    stroke-width="3"
+  />
+
+  <circle
+    cx="202"
+    cy="326"
+    r="35"
+    fill="#111"
+    stroke="#E50914"
+    stroke-width="6"
+  />
+
+  <circle cx="202" cy="326" r="14" fill="#E50914"/>
+
+  <circle
+    cx="520"
+    cy="326"
+    r="35"
+    fill="#111"
+    stroke="#E50914"
+    stroke-width="6"
+  />
+
+  <circle cx="520" cy="326" r="14" fill="#E50914"/>
+
+  <path
+    d="M86 177H188M54 201H174M72 225H130"
+    stroke="#E50914"
+    stroke-width="5"
+    stroke-linecap="round"
+    opacity=".75"
+  />
+
+  <text
+    x="360"
+    y="410"
+    text-anchor="middle"
+    fill="#E50914"
+    font-family="Arial, sans-serif"
+    font-size="18"
+    font-weight="700"
+    letter-spacing="4"
+  >
+    EXPRESS SPEED MODE
+  </text>
+</svg>

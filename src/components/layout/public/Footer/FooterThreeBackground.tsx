@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import * as THREE from "three";
+import type * as THREE from "three";
 
 function FloatingOrb() {
   const meshRef = useRef<THREE.Mesh>(null);

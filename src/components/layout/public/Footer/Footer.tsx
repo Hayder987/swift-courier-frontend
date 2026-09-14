@@ -1,8 +1,8 @@
 "use client";
 
+import { ArrowUpRight, Mail, MapPin, Package, Phone } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { ArrowUpRight, Mail, MapPin, Package, Phone } from "lucide-react";
 
 import {
   FaFacebookF,
@@ -113,9 +113,9 @@ const Footer = () => {
       <FooterThreeBackground />
 
       {/* Top ambient gradient */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e50914]/60 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#e50914]/60 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         {/* Newsletter / CTA section */}
         <div className="border-b border-border py-12 sm:py-16">
           <div className="grid gap-8 lg:grid-cols-[1.4fr_0.8fr] lg:items-center">
@@ -228,7 +228,8 @@ const Footer = () => {
           {/* Copyright */}
           <div className="flex flex-col gap-1 text-sm text-muted-foreground">
             <p>
-              © {new Date().getFullYear()} SwiftCourier@Hayder. All rights reserved.
+              © {new Date().getFullYear()} SwiftCourier@Hayder. All rights
+              reserved.
             </p>
 
             <p className="text-xs">Built for smarter logistics.</p>

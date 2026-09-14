@@ -1,0 +1,112 @@
+<svg
+  width="720"
+  height="460"
+  viewBox="0 0 720 460"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="towerGradient" x1="250" y1="80" x2="470" y2="360">
+      <stop stop-color="#FF4B52"/>
+      <stop offset="1" stop-color="#990009"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="25"/>
+    </filter>
+  </defs>
+
+  <ellipse
+    cx="360"
+    cy="325"
+    rx="185"
+    ry="65"
+    fill="#E50914"
+    opacity=".14"
+    filter="url(#glow)"
+  />
+
+  <path
+    d="M238 355V128L360 76L482 128V355H238Z"
+    fill="url(#towerGradient)"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M286 146H434M286 192H434M286 238H434M286 284H434"
+    stroke="white"
+    stroke-width="6"
+    opacity=".2"
+  />
+
+  <path
+    d="M315 120V355M360 96V355M405 120V355"
+    stroke="#E50914"
+    stroke-width="3"
+    opacity=".55"
+  />
+
+  <path
+    d="M324 306H396V355H324V306Z"
+    fill="#111"
+    stroke="#E50914"
+    stroke-width="4"
+  />
+
+  <rect
+    x="155"
+    y="264"
+    width="86"
+    height="70"
+    rx="8"
+    fill="#F2F2F2"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M155 284L198 302L241 284M198 302V334"
+    stroke="#E50914"
+    stroke-width="4"
+  />
+
+  <rect
+    x="479"
+    y="264"
+    width="86"
+    height="70"
+    rx="8"
+    fill="#171717"
+    stroke="#E50914"
+    stroke-width="5"
+  />
+
+  <path
+    d="M479 284L522 302L565 284M522 302V334"
+    stroke="#E50914"
+    stroke-width="4"
+  />
+
+  <circle cx="360" cy="50" r="8" fill="#E50914"/>
+
+  <path
+    d="M360 58V88M340 72H380"
+    stroke="#E50914"
+    stroke-width="3"
+    opacity=".7"
+  />
+
+  <text
+    x="360"
+    y="410"
+    text-anchor="middle"
+    fill="#E50914"
+    font-family="Arial, sans-serif"
+    font-size="18"
+    font-weight="700"
+    letter-spacing="4"
+  >
+    BUSINESS NETWORK
+  </text>
+</svg> 
