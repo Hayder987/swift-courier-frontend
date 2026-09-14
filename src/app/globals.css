@@ -119,7 +119,6 @@
   --sidebar-ring: oklch(0.577 0.245 27.325);
 }
 
-
 .dark {
   --background: oklch(0.13 0.01 20);
   --foreground: oklch(0.985 0 0);

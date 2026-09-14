@@ -1,19 +1,17 @@
 "use client";
 
+import { Package } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Package } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
 import ProfileMenu from "./ProfileMenu";
 import ThemeToggle from "./ThemeToggle";
-const NavbarThreeBackground = dynamic(
-  () => import("./NavbarThreeBackground"),
-  {
-    ssr: false,
-    loading: () => null,
-  },
-);
+
+const NavbarThreeBackground = dynamic(() => import("./NavbarThreeBackground"), {
+  ssr: false,
+  loading: () => null,
+});
 
 type NavHeaderProps = {
   isAuthenticated?: boolean;
@@ -31,10 +29,7 @@ export default function NavHeader({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-18 items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="group flex items-center gap-3"
-          >
+          <Link href="/" className="group flex items-center gap-3">
             <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#e50914] text-white shadow-lg shadow-red-500/20">
               <Package className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
 
