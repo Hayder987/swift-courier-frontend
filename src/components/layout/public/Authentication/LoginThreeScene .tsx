@@ -1,6 +1,5 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Float,
   Html,
@@ -8,6 +7,7 @@ import {
   PerspectiveCamera,
   Sparkles,
 } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
@@ -491,7 +491,6 @@ function ScanBeam({ colors }: { colors: ThemeColors }) {
   );
 }
 
-
 /* =========================================================
    SCENE PARALLAX
 ========================================================= */
@@ -525,7 +524,6 @@ function SceneMotion({ colors }: { colors: ThemeColors }) {
       <RadarRings colors={colors} />
 
       <DeliveryRoute colors={colors} />
-
     </group>
   );
 }

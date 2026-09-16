@@ -3,7 +3,6 @@ import Link from "next/link";
 import LoginThreeScene from "@/components/layout/public/Authentication/LoginThreeScene ";
 import RegisterForm from "@/components/layout/public/Authentication/RegisterForm";
 
-
 export default function RegisterPage() {
   return (
     <main className="min-h-svh bg-background text-foreground transition-colors duration-300">
@@ -46,7 +45,6 @@ export default function RegisterPage() {
             </Link>
 
             <div className="flex items-center gap-2">
-
               <Link
                 href="/login"
                 className="hidden rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:block"

@@ -1,13 +1,12 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 
 import "./globals.css";
 
+import { Toaster } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
 import ThemeProvider from "@/providers/ThemeProvider";
-import { Toaster } from "@/components/ui/toast";
 
 const inter = Inter({
   subsets: ["latin"],

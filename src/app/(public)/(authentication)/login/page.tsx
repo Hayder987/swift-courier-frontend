@@ -97,7 +97,9 @@ export default function LoginPage() {
                   <path d="M12 14v3" />
                 </svg>
 
-                <span>Your connection is protected with secure authentication.</span>
+                <span>
+                  Your connection is protected with secure authentication.
+                </span>
               </div>
             </div>
           </div>
@@ -159,8 +161,8 @@ export default function LoginPage() {
               </h2>
 
               <p className="mt-4 max-w-md text-sm leading-6 text-white/45">
-                Track shipments, connect couriers and keep every delivery
-                moving through one intelligent logistics network.
+                Track shipments, connect couriers and keep every delivery moving
+                through one intelligent logistics network.
               </p>
 
               <div className="mt-6 flex items-center gap-6">

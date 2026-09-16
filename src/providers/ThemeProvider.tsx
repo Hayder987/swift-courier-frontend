@@ -1,16 +1,13 @@
-
 "use client";
 
-import type { ReactNode } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import type { ReactNode } from "react";
 
 interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export default function ThemeProvider({
-  children,
-}: ThemeProviderProps) {
+export default function ThemeProvider({ children }: ThemeProviderProps) {
   return (
     <NextThemesProvider
       attribute="class"

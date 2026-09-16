@@ -1,20 +1,24 @@
 "use client";
 
-import { useForm } from "@tanstack/react-form";
-import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
 import { Button } from "@base-ui/react/button";
 import { Input } from "@base-ui/react/input";
-import { loginSchema } from "@/validation";
-import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
+import { useForm } from "@tanstack/react-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "@/components/ui/toast";
 import { useLogin } from "@/hooks";
-import { useRouter } from "next/navigation";
+import { loginSchema } from "@/validation";
+
+import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate: login, isPending: loginPending } = useLogin();
 
@@ -23,9 +27,11 @@ export default function LoginForm() {
       email: "superadmin@swift.com",
       password: "Swift@Admin123",
     },
+
     validators: {
       onSubmit: loginSchema,
     },
+
     onSubmit: ({ value }) => {
       const loginData = {
         email: value.email,
@@ -33,14 +39,19 @@ export default function LoginForm() {
       };
 
       login(loginData, {
-        onSuccess: (res) => {
+        onSuccess: async () => {
           toast.add({
             title: "Login Success",
             description: "Welcome back",
             type: "success",
           });
+
+          await queryClient.invalidateQueries({
+            queryKey: ["user"],
+          });
           router.push("/");
         },
+
         onError: (err) => {
           toast.add({
             title: "Authorization failure",
@@ -75,9 +86,7 @@ export default function LoginForm() {
         }}
       >
         <FieldGroup className="gap-5">
-          {/* =========================
-              EMAIL
-          ========================== */}
+          {/* Email */}
           <form.Field name="email">
             {(field) => {
               const isInvalid =
@@ -120,9 +129,7 @@ export default function LoginForm() {
             }}
           </form.Field>
 
-          {/* =========================
-              PASSWORD
-          ========================== */}
+          {/* Password */}
           <form.Field name="password">
             {(field) => {
               const isInvalid =
@@ -189,9 +196,7 @@ export default function LoginForm() {
             }}
           </form.Field>
 
-          {/* =========================
-              SUBMIT
-          ========================== */}
+          {/* Submit */}
           <Button
             type="submit"
             disabled={loginPending}

@@ -1,13 +1,12 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import { Eye, EyeClosed, User, Mail, Phone } from "lucide-react";
+import { Eye, EyeClosed, Mail, Phone, User } from "lucide-react";
 import { useState } from "react";
-
+import { registerZodSchema } from "@/validation";
+import { Button } from "../../../ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
 import { Input } from "../../../ui/input";
-import { Button } from "../../../ui/button";
-import { registerZodSchema } from "@/validation";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);

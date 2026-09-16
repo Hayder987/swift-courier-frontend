@@ -1,8 +1,12 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { ChevronDown, LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "@/components/ui/toast";
+import { useLogout } from "@/hooks";
 
 type ProfileMenuProps = {
   userName?: string;
@@ -12,6 +16,40 @@ export default function ProfileMenu({
   userName = "Profile",
 }: ProfileMenuProps) {
   const [open, setOpen] = useState(false);
+
+  const { mutate: logout, isPending: logoutPending } = useLogout();
+
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess: async () => {
+        queryClient.setQueryData(["user"], null);
+        await queryClient.invalidateQueries({
+          queryKey: ["user"],
+        });
+
+        setOpen(false);
+
+        toast.add({
+          title: "Logged out",
+          description: "Logged out successfully",
+          type: "success",
+        });
+
+        router.push("/");
+      },
+
+      onError: (error) => {
+        toast.add({
+          title: "Logout failed",
+          description: error.message || "Something went wrong",
+          type: "error",
+        });
+      },
+    });
+  };
 
   return (
     <div className="relative">
@@ -32,6 +70,7 @@ export default function ProfileMenu({
 
       {open && (
         <div className="absolute right-0 top-12 z-50 w-52 rounded-2xl border border-border bg-background p-2 shadow-xl">
+          {/* Profile */}
           <Link
             href="/profile"
             onClick={() => setOpen(false)}
@@ -41,21 +80,26 @@ export default function ProfileMenu({
             Profile
           </Link>
 
+          {/* Dashboard */}
           <Link
-            href="/settings"
+            href="/dashboard"
             onClick={() => setOpen(false)}
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted"
           >
             <Settings className="h-4 w-4" />
-            Settings
+            Dashboard
           </Link>
 
+          {/* Logout */}
           <button
             type="button"
-            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-red-600 transition hover:bg-red-500/10"
+            onClick={handleLogout}
+            disabled={logoutPending}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-red-600 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <LogOut className="h-4 w-4" />
-            Logout
+
+            {logoutPending ? "Logging out..." : "Logout"}
           </button>
         </div>
       )}

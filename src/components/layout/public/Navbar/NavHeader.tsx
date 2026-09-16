@@ -3,7 +3,10 @@
 import { Package } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+
+import { useGetMe } from "@/hooks";
 import { NAV_ITEMS } from "@/lib/constants";
+
 import MobileMenu from "./MobileMenu";
 import ProfileMenu from "./ProfileMenu";
 import ThemeToggle from "./ThemeToggle";
@@ -13,15 +16,12 @@ const NavbarThreeBackground = dynamic(() => import("./NavbarThreeBackground"), {
   loading: () => null,
 });
 
-type NavHeaderProps = {
-  isAuthenticated?: boolean;
-  userName?: string;
-};
+export default function NavHeader() {
+  const { data, isLoading } = useGetMe();
 
-export default function NavHeader({
-  isAuthenticated = false,
-  userName = "Profile",
-}: NavHeaderProps) {
+  const user = data?.data?.user;
+  console.log(data?.data?.user);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <NavbarThreeBackground />
@@ -47,7 +47,7 @@ export default function NavHeader({
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground transition hover:underline hover:text-[#e50914] duration-300"
+                className="rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground transition duration-300 hover:text-[#e50914] hover:underline"
               >
                 {item.label}
               </Link>
@@ -58,9 +58,13 @@ export default function NavHeader({
           <div className="hidden items-center gap-2 lg:flex">
             <ThemeToggle />
 
-            {isAuthenticated ? (
-              <ProfileMenu userName={userName} />
-            ) : (
+            {/* Loading */}
+            {isLoading && (
+              <div className="h-10 w-20 animate-pulse rounded-xl bg-muted" />
+            )}
+
+            {/* Logged Out */}
+            {!isLoading && !user && (
               <Link
                 href="/login"
                 className="rounded-xl bg-[#e50914] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-500/20 transition hover:bg-[#c70812] hover:shadow-red-500/30"
@@ -68,6 +72,9 @@ export default function NavHeader({
                 Login
               </Link>
             )}
+
+            {/* Logged In */}
+            {!isLoading && user && <ProfileMenu userName={user.name} />}
           </div>
 
           {/* Mobile Actions */}
