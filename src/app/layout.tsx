@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import ThemeProvider from "@/providers/ThemeProvider";
+import Providers from "@/providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -35,9 +36,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <Providers>
+        <body className="min-h-full flex flex-col">
+          <ThemeProvider>{children}</ThemeProvider>
+        </body>
+      </Providers>
     </html>
   );
 }
