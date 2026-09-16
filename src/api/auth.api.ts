@@ -12,3 +12,7 @@ export function userLogout() {
 export function getMe() {
   return apiClient("/users/me");
 }
+
+export function googleOAuth(payload: { idToken: string }) {
+  return apiClient("/auth/google", { method: "POST", body: payload });
+}

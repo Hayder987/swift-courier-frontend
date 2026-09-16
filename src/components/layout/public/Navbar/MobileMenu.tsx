@@ -3,11 +3,16 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useGetMe } from "@/hooks";
 import { NAV_ITEMS } from "@/lib/constants";
+import ProfileMenu from "./ProfileMenu";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+
+  const { data, isLoading } = useGetMe();
+
+  const user = data?.data?.user;
 
   return (
     <div className="lg:hidden">
@@ -35,13 +40,23 @@ export default function MobileMenu() {
               </Link>
             ))}
 
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="mt-2 flex items-center justify-center rounded-xl bg-[#e50914] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#c70812]"
-            >
-              Login
-            </Link>
+            {/* Loading */}
+            {isLoading && (
+              <div className="h-10 w-20 animate-pulse rounded-xl bg-muted" />
+            )}
+
+            {/* Logged Out */}
+            {!isLoading && !user && (
+              <Link
+                href="/login"
+                className="rounded-xl bg-[#e50914] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-500/20 transition hover:bg-[#c70812] hover:shadow-red-500/30"
+              >
+                Login
+              </Link>
+            )}
+
+            {/* Logged In */}
+            {!isLoading && user && <ProfileMenu userName={user.name} />}
           </nav>
         </div>
       )}

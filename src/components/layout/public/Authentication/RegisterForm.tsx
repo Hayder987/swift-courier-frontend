@@ -7,6 +7,7 @@ import { registerZodSchema } from "@/validation";
 import { Button } from "../../../ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
 import { Input } from "../../../ui/input";
+import GoogleLoginComponent from "../../modules/GoogleLogin";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -219,6 +220,20 @@ export default function RegisterForm() {
           </form.Subscribe>
         </FieldGroup>
       </form>
+
+      {/* Divider */}
+      <div className="relative flex items-center">
+        <div className="h-px flex-1 bg-border" />
+
+        <span className="px-3 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+          Or continue with
+        </span>
+
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      {/* Google */}
+      <GoogleLoginComponent />
 
       {/* Login link */}
       <p className="text-center text-xs text-muted-foreground">
