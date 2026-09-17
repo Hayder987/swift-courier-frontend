@@ -51,3 +51,22 @@ export const registerZodSchema = z
       ),
   })
   .strict();
+
+export type IRegisterUserPayload = z.infer<typeof registerZodSchema>;
+
+// verify EmailSchema
+export const verifyEmailZodSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email("Please provide a valid email address"),
+
+  otp: z
+    .string()
+    .trim()
+    .length(6, "OTP must be exactly 6 digits")
+    .regex(/^\d{6}$/, "OTP must contain only numbers"),
+});
+
+export type IVerifyEmailPayload = z.infer<typeof verifyEmailZodSchema>;

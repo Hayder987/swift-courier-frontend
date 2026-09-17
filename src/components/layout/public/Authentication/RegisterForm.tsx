@@ -2,7 +2,10 @@
 
 import { useForm } from "@tanstack/react-form";
 import { Eye, EyeClosed, Mail, Phone, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "@/components/ui/toast";
+import { useRegisterUser } from "@/hooks";
 import { registerZodSchema } from "@/validation";
 import { Button } from "../../../ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
@@ -10,7 +13,10 @@ import { Input } from "../../../ui/input";
 import GoogleLoginComponent from "../../modules/GoogleLogin";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  const { mutate: registration, isPending } = useRegisterUser();
 
   const form = useForm({
     defaultValues: {
@@ -24,8 +30,42 @@ export default function RegisterForm() {
       onSubmit: registerZodSchema,
     },
 
-    onSubmit: ({ value }) => {
-      console.log(value);
+    onSubmit: async ({ value }) => {
+      const registrationData = {
+        name: value.name,
+        email: value.email,
+        password: value.password,
+        phone: value.phone,
+      };
+
+      registration(registrationData, {
+        onSuccess: (res) => {
+          if (!res.success) {
+            toast.add({
+              title: "Server Failure",
+              description: "Something went wrong. Please try again",
+              type: "error",
+            });
+          }
+
+          toast.add({
+            title: "Registration Successful",
+            description: "Please verify your account",
+            type: "success",
+          });
+          const params = new URLSearchParams({ email: registrationData.email });
+          router.push(`/register/verify-account?${params.toString()}`);
+        },
+
+        onError: (err) => {
+          toast.add({
+            title: "Authorization failure",
+            description:
+              err.message || "Something went wrong. Please try again",
+            type: "error",
+          });
+        },
+      });
     },
   });
 
@@ -205,19 +245,17 @@ export default function RegisterForm() {
           </form.Field>
 
           {/* Submit */}
-          <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="h-11 w-full bg-[#e50914] font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all duration-300 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.25)]"
           >
-            {([canSubmit, isSubmitting]) => (
-              <Button
-                type="submit"
-                disabled={!canSubmit || isSubmitting}
-                className="h-11 w-full bg-[#e50914] font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all duration-300 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.25)]"
-              >
-                {isSubmitting ? "Creating account..." : "Create account"}
-              </Button>
+            {isPending && (
+              <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
             )}
-          </form.Subscribe>
+
+            {isPending ? "Submitting..." : "Register"}
+          </Button>
         </FieldGroup>
       </form>
 
