@@ -70,3 +70,11 @@ export const verifyEmailZodSchema = z.object({
 });
 
 export type IVerifyEmailPayload = z.infer<typeof verifyEmailZodSchema>;
+
+// resend OTP Schema
+export const resendOtpZodSchema = z.object({
+  email: z.email("Invalid email address"),
+  emailVerifyOtp: z.boolean(),
+});
+
+export type IResendOtpPayload = z.infer<typeof resendOtpZodSchema>;

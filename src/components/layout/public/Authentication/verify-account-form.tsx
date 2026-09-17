@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { CheckCircle2, Mail, RefreshCw, ShieldCheck } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -26,8 +27,7 @@ import {
 } from "@/components/ui/input-otp";
 import { toast } from "@/components/ui/toast";
 import { useVerifyAccount } from "@/hooks";
-
-const RESEND_COOLDOWN = 120;
+import { ResendOtpSend } from "./ResendOtpSend";
 
 export default function VerifyAccountForm() {
   const searchParams = useSearchParams();
@@ -35,9 +35,9 @@ export default function VerifyAccountForm() {
 
   const [otp, setOtp] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
-  const [resendTimer, setResendTimer] = useState(RESEND_COOLDOWN);
 
   const { mutate: verify, isPending: verifyPending } = useVerifyAccount();
+  const queryClient = useQueryClient();
 
   const email = searchParams.get("email") || "";
 
@@ -47,17 +47,10 @@ export default function VerifyAccountForm() {
     }
   }, [email, router]);
 
-  useEffect(() => {
-    if (resendTimer <= 0) {
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setResendTimer((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [resendTimer]);
+  const resendPayload = {
+    email,
+    emailVerifyOtp: true,
+  };
 
   const handleOTP = () => {
     if (otp.length !== 6) {
@@ -71,11 +64,13 @@ export default function VerifyAccountForm() {
     };
 
     verify(verifyData, {
-      onSuccess: (res) => {
+      onSuccess: async (res) => {
+        // Server returned an unsuccessful response
         if (!res.success) {
           toast.add({
-            title: "Verification Failed",
-            description: "Something went wrong. Please try again.",
+            title: "Server Failure",
+            description:
+              res.message || "Something went wrong. Please try again",
             type: "error",
           });
 
@@ -88,12 +83,14 @@ export default function VerifyAccountForm() {
           type: "success",
         });
 
+        await queryClient.invalidateQueries({
+          queryKey: ["user"],
+        });
         router.push("/");
       },
 
       onError: (err) => {
         setIsInvalid(true);
-
         toast.add({
           title: "Verification Failed",
           description:
@@ -219,29 +216,10 @@ export default function VerifyAccountForm() {
                 ]}
               />
             )}
-
-            {/* Resend */}
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <FieldDescription className="m-0 text-xs text-slate-400 dark:text-slate-500">
-                Didn&apos;t receive the code?
-              </FieldDescription>
-
-              <button
-                type="button"
-                disabled={resendTimer > 0}
-                className="inline-flex shrink-0 items-center gap-1.5 text-xs font-bold text-[#e50914] transition-colors hover:text-[#c90812] disabled:cursor-not-allowed disabled:text-slate-400 dark:hover:text-[#ff3340] dark:disabled:text-slate-600"
-              >
-                <RefreshCw
-                  className={`size-3.5 transition-transform duration-300 ${
-                    resendTimer > 0 ? "" : "hover:rotate-180"
-                  }`}
-                />
-
-                {resendTimer > 0 ? `Resend in ${resendTimer}s` : "Resend code"}
-              </button>
-            </div>
           </Field>
         </form>
+        {/* Resend */}
+        <ResendOtpSend payload={resendPayload} />
       </CardContent>
 
       <CardFooter className="flex flex-col gap-3 px-5 pb-7 pt-6 sm:px-8 sm:pb-9">

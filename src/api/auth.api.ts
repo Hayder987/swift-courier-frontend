@@ -1,6 +1,10 @@
 import apiClient from "@/lib/apiClient";
 import type { ILoginPayload } from "@/types/auth.types";
-import type { IRegisterUserPayload, IVerifyEmailPayload } from "@/validation";
+import type {
+  IRegisterUserPayload,
+  IResendOtpPayload,
+  IVerifyEmailPayload,
+} from "@/validation";
 
 export function userLogin(paylod: ILoginPayload) {
   return apiClient(`/auth/login`, { method: "POST", body: paylod });
@@ -12,6 +16,10 @@ export function userRegister(payload: IRegisterUserPayload) {
 
 export function verifyAccount(payload: IVerifyEmailPayload) {
   return apiClient("/auth/verify-email", { method: "POST", body: payload });
+}
+
+export function resendAuthOtp(payload: IResendOtpPayload) {
+  return apiClient("/auth/resend-otp", { method: "POST", body: payload });
 }
 
 export function userLogout() {

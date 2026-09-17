@@ -22,7 +22,7 @@ export default function RegisterForm() {
     defaultValues: {
       name: "",
       email: "",
-      password: "",
+      password: "User@123",
       phone: "",
     },
 

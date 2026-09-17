@@ -43,10 +43,10 @@ export default function VerifyAccountPage() {
           </Link>
 
           <Link
-            href="/login"
+            href="/register"
             className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm backdrop-blur transition-all duration-300 hover:border-[#e50914]/20 hover:bg-[#e50914]/5 hover:text-[#e50914] dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:border-[#e50914]/30 dark:hover:bg-[#e50914]/10 dark:hover:text-[#ff3340] sm:px-5 sm:py-2.5 sm:text-sm"
           >
-            Sign In
+            Sign Up
           </Link>
         </header>
 
