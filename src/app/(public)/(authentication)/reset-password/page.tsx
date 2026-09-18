@@ -1,16 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import logo from "@/assets/logo/logo.png";
-import VerifyAccountForm from "@/components/layout/public/Authentication/verify-account-form";
 
-export default function VerifyAccountPage() {
+import logo from "@/assets/logo/logo.png";
+import ResetPasswordForm from "@/components/layout/public/Authentication/reset-password-form";
+
+export default function ResetPasswordPage() {
   return (
     <main className="min-h-svh bg-white text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-white lg:grid lg:grid-cols-2">
-      {/* Left - Verification */}
+      {/* Left - Reset Password */}
       <section className="relative flex min-h-svh flex-col overflow-hidden bg-white dark:bg-slate-950">
-        {/* Background decorations */}
+        {/* Background Decorations */}
         <div className="pointer-events-none absolute -left-32 -top-32 size-72 rounded-full bg-[#e50914]/5 blur-3xl dark:bg-[#e50914]/10" />
+
         <div className="pointer-events-none absolute -bottom-40 -right-40 size-96 rounded-full bg-[#e50914]/5 blur-3xl dark:bg-[#e50914]/10" />
 
         {/* Header */}
@@ -43,14 +45,14 @@ export default function VerifyAccountPage() {
           </Link>
 
           <Link
-            href="/register"
+            href="/login"
             className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm backdrop-blur transition-all duration-300 hover:border-[#e50914]/20 hover:bg-[#e50914]/5 hover:text-[#e50914] dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:border-[#e50914]/30 dark:hover:bg-[#e50914]/10 dark:hover:text-[#ff3340] sm:px-5 sm:py-2.5 sm:text-sm"
           >
-            Sign Up
+            Back to Login
           </Link>
         </header>
 
-        {/* Form area */}
+        {/* Form Area */}
         <div className="relative z-10 flex flex-1 items-center justify-center px-5 py-8 sm:px-8 sm:py-12 lg:px-10">
           <div className="w-full max-w-md">
             <Suspense
@@ -58,12 +60,12 @@ export default function VerifyAccountPage() {
                 <div className="flex min-h-80 items-center justify-center">
                   <div className="flex items-center gap-3 text-sm font-medium text-slate-500 dark:text-slate-400">
                     <span className="size-5 animate-spin rounded-full border-2 border-slate-200 border-t-[#e50914] dark:border-slate-700 dark:border-t-[#e50914]" />
-                    Loading verification...
+                    Loading password reset...
                   </div>
                 </div>
               }
             >
-              <VerifyAccountForm />
+              <ResetPasswordForm />
             </Suspense>
           </div>
         </div>
@@ -78,10 +80,10 @@ export default function VerifyAccountPage() {
 
       {/* Right - Premium Visual */}
       <section className="relative hidden overflow-hidden bg-slate-50 transition-colors duration-300 dark:bg-slate-950 lg:block">
-        {/* Red glow - Top Right */}
+        {/* Red Glow - Top Right */}
         <div className="pointer-events-none absolute -right-32 -top-32 size-[500px] rounded-full bg-[#e50914]/8 blur-[120px] dark:bg-[#e50914]/20" />
 
-        {/* Red glow - Bottom Left */}
+        {/* Red Glow - Bottom Left */}
         <div className="pointer-events-none absolute -bottom-40 -left-40 size-[500px] rounded-full bg-[#e50914]/5 blur-[120px] dark:bg-[#e50914]/10" />
 
         {/* Grid */}
@@ -100,8 +102,9 @@ export default function VerifyAccountPage() {
           <div className="flex justify-end">
             <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-4 py-2 shadow-sm backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-white/5 dark:shadow-none">
               <span className="size-2 animate-pulse rounded-full bg-[#e50914] shadow-[0_0_10px_rgba(229,9,20,0.55)]" />
+
               <span className="text-xs font-semibold text-slate-600 dark:text-white/70">
-                Secure Verification
+                Secure Password Reset
               </span>
             </div>
           </div>
@@ -121,26 +124,33 @@ export default function VerifyAccountPage() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M9 12.75 11.25 15 15 9.75"
+                  d="M16.5 10.5V7.75a4.5 4.5 0 0 0-9 0v2.75"
                 />
+
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9Z"
+                  d="M6.75 10.5h10.5a1.75 1.75 0 0 1 1.75 1.75v7A1.75 1.75 0 0 1 17.25 21h-10.5A1.75 1.75 0 0 1 5 19.25v-7a1.75 1.75 0 0 1 1.75-1.75Z"
+                />
+
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 14.25v2.25"
                 />
               </svg>
             </div>
 
             {/* Heading */}
             <h1 className="text-4xl font-black leading-[1.08] tracking-tight text-slate-950 transition-colors duration-300 dark:text-white xl:text-5xl 2xl:text-6xl">
-              One step away from
-              <span className="block text-[#e50914]">faster delivery.</span>
+              Create a new
+              <span className="block text-[#e50914]">secure password.</span>
             </h1>
 
             {/* Description */}
             <p className="mt-6 max-w-lg text-base leading-7 text-slate-500 transition-colors duration-300 dark:text-slate-400 xl:text-lg">
-              Verify your email to activate your SwiftCourier account and start
-              managing your deliveries with confidence.
+              Choose a strong password to protect your SwiftCourier account and
+              keep your deliveries secure.
             </p>
 
             {/* Feature Cards */}
@@ -148,35 +158,32 @@ export default function VerifyAccountPage() {
               {[
                 {
                   title: "Secure",
-                  text: "Protected account",
+                  text: "Strong protection",
                   icon: "✓",
                 },
                 {
-                  title: "Fast",
-                  text: "Instant verification",
-                  icon: "⚡",
+                  title: "Private",
+                  text: "Account stays safe",
+                  icon: "◆",
                 },
                 {
-                  title: "Reliable",
-                  text: "Trusted delivery",
-                  icon: "◆",
+                  title: "Protected",
+                  text: "Encrypted access",
+                  icon: "⌁",
                 },
               ].map((item) => (
                 <div
                   key={item.title}
                   className="group rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#e50914]/20 hover:shadow-[0_15px_35px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none dark:hover:border-[#e50914]/20 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
                 >
-                  {/* Icon */}
                   <div className="mb-3 flex size-8 items-center justify-center rounded-lg bg-[#e50914]/8 text-xs font-bold text-[#e50914] transition-all duration-300 group-hover:bg-[#e50914]/15 group-hover:shadow-[0_0_18px_rgba(229,9,20,0.15)] dark:bg-[#e50914]/10 dark:group-hover:bg-[#e50914]/15">
                     {item.icon}
                   </div>
 
-                  {/* Title */}
                   <p className="text-sm font-bold text-slate-800 transition-colors duration-300 dark:text-white">
                     {item.title}
                   </p>
 
-                  {/* Description */}
                   <p className="mt-1 text-[11px] text-slate-400 transition-colors duration-300 dark:text-slate-500">
                     {item.text}
                   </p>
@@ -188,11 +195,12 @@ export default function VerifyAccountPage() {
           {/* Bottom */}
           <div className="flex items-center justify-between border-t border-slate-200 pt-6 transition-colors duration-300 dark:border-white/10">
             <p className="text-xs text-slate-400 dark:text-slate-500">
-              Your privacy and security matter to us.
+              Your account security matters to us.
             </p>
 
             <div className="flex items-center gap-2">
               <span className="size-1.5 rounded-full bg-[#e50914] shadow-[0_0_8px_rgba(229,9,20,0.5)]" />
+
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                 SwiftCourier
               </span>

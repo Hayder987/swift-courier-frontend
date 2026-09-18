@@ -1,8 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  forgotPassword,
   getMe,
   googleOAuth,
   resendAuthOtp,
+  resetPassword,
   userLogin,
   userLogout,
   userRegister,
@@ -24,6 +26,18 @@ export function useRegisterUser() {
 export function useVerifyAccount() {
   return useMutation({
     mutationFn: verifyAccount,
+  });
+}
+
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: forgotPassword,
+  });
+}
+
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: resetPassword,
   });
 }
 

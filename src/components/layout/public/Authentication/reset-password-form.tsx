@@ -1,10 +1,17 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { CheckCircle2, Mail, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  LockKeyhole,
+  Mail,
+  ShieldCheck,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,52 +21,83 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { toast } from "@/components/ui/toast";
-import { useVerifyAccount } from "@/hooks";
-import { ResendOtpSend } from "./ResendOtpSend";
+import { useResetPassword } from "@/hooks";
+import { ResetPasswordZodSchema } from "@/validation";
 
-export default function VerifyAccountForm() {
+export default function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [otp, setOtp] = useState("");
-  const [isInvalid, setIsInvalid] = useState(false);
-
-  const { mutate: verify, isPending: verifyPending } = useVerifyAccount();
-  const queryClient = useQueryClient();
+  const { mutate: resetPassword, isPending: resetPending } = useResetPassword();
 
   const email = searchParams.get("email") || "";
 
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [isOtpInvalid, setIsOtpInvalid] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+
   useEffect(() => {
     if (!email) {
-      router.replace("/");
+      router.replace("/forgot-password");
     }
   }, [email, router]);
 
-  const resendPayload = {
-    email,
-    emailVerifyOtp: true,
-  };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-  const handleOTP = () => {
+    setIsOtpInvalid(false);
+    setPasswordError("");
+
+    // OTP validation
     if (otp.length !== 6) {
-      setIsInvalid(true);
+      setIsOtpInvalid(true);
       return;
     }
 
-    const verifyData = {
+    // Password validation
+    const validationResult = ResetPasswordZodSchema.safeParse({
       email,
       otp,
+      newPassword,
+    });
+
+    if (!validationResult.success) {
+      const newPasswordIssue = validationResult.error.issues.find(
+        (issue) => issue.path[0] === "newPassword",
+      );
+
+      if (newPasswordIssue) {
+        setPasswordError(newPasswordIssue.message);
+      }
+
+      return;
+    }
+
+    const resetData = {
+      email,
+      otp,
+      newPassword,
     };
 
-    verify(verifyData, {
-      onSuccess: async (res) => {
+    resetPassword(resetData, {
+      onSuccess: (res) => {
         // Server returned an unsuccessful response
         if (!res.success) {
           toast.add({
@@ -73,21 +111,20 @@ export default function VerifyAccountForm() {
         }
 
         toast.add({
-          title: "Verification Successful",
-          description: "Your SwiftCourier account is ready.",
+          title: "Password Reset Successful",
+          description:
+            "Your password has been reset successfully. Please login with your new password.",
           type: "success",
         });
 
-        await queryClient.invalidateQueries({
-          queryKey: ["user"],
-        });
-        router.push("/");
+        router.push("/login");
       },
 
       onError: (err) => {
-        setIsInvalid(true);
+        setIsOtpInvalid(true);
+
         toast.add({
-          title: "Verification Failed",
+          title: "Password Reset Failed",
           description:
             err.message || "The verification code is invalid or expired.",
           type: "error",
@@ -120,11 +157,12 @@ export default function VerifyAccountForm() {
         {/* Heading */}
         <div className="space-y-2">
           <CardTitle className="text-2xl font-black tracking-tight text-slate-950 dark:text-white sm:text-3xl">
-            Verify your account
+            Reset your password
           </CardTitle>
 
           <CardDescription className="max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400 sm:text-[15px]">
-            Enter the 6-digit verification code we sent to your email address.
+            Enter the verification code we sent to your email and create a new
+            password for your account.
           </CardDescription>
         </div>
 
@@ -136,7 +174,7 @@ export default function VerifyAccountForm() {
 
           <div className="min-w-0">
             <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-              Code sent to
+              Reset code sent to
             </p>
 
             <p className="truncate text-sm font-semibold text-slate-700 dark:text-slate-200">
@@ -147,15 +185,9 @@ export default function VerifyAccountForm() {
       </CardHeader>
 
       <CardContent className="px-5 sm:px-8">
-        <form
-          id="otp-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            handleOTP();
-          }}
-        >
-          <Field data-invalid={isInvalid}>
+        <form id="reset-password-form" onSubmit={handleSubmit}>
+          {/* OTP */}
+          <Field data-invalid={isOtpInvalid}>
             {/* Label */}
             <div className="mb-3 flex items-center justify-between">
               <FieldLabel
@@ -170,15 +202,15 @@ export default function VerifyAccountForm() {
               </span>
             </div>
 
-            {/* OTP */}
+            {/* OTP Input */}
             <InputOTP
               maxLength={6}
               value={otp}
               onChange={(value) => {
                 setOtp(value);
 
-                if (isInvalid) {
-                  setIsInvalid(false);
+                if (isOtpInvalid) {
+                  setIsOtpInvalid(false);
                 }
               }}
               autoComplete="one-time-code"
@@ -199,8 +231,8 @@ export default function VerifyAccountForm() {
               </InputOTPGroup>
             </InputOTP>
 
-            {/* Error */}
-            {isInvalid && (
+            {/* OTP Error */}
+            {isOtpInvalid && (
               <FieldError
                 className="mt-2"
                 errors={[
@@ -212,35 +244,105 @@ export default function VerifyAccountForm() {
               />
             )}
           </Field>
+
+          {/* New Password */}
+          <Field className="mt-5">
+            <FieldLabel
+              htmlFor="newPassword"
+              className="text-sm font-bold text-slate-800 dark:text-slate-200"
+            >
+              New password
+            </FieldLabel>
+
+            <div className="relative mt-2">
+              <LockKeyhole className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400" />
+
+              <Input
+                id="newPassword"
+                name="newPassword"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                placeholder="Enter your new password"
+                value={newPassword}
+                onChange={(event) => {
+                  setNewPassword(event.target.value);
+
+                  if (passwordError) {
+                    setPasswordError("");
+                  }
+                }}
+                className="h-12 pr-11 pl-10"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700 dark:hover:text-slate-200"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+              </button>
+            </div>
+
+            <FieldDescription>
+              Password must be at least 8 characters long.
+            </FieldDescription>
+
+            {passwordError && <FieldError>{passwordError}</FieldError>}
+          </Field>
+
+          {/* Security Note */}
+          <div className="mt-5 flex gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
+            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-600" />
+
+            <p className="text-xs leading-5 text-slate-600 dark:text-slate-400">
+              Choose a strong password that you do not use on other websites.
+              Your new password will replace your existing password.
+            </p>
+          </div>
         </form>
-        {/* Resend */}
-        <ResendOtpSend payload={resendPayload} />
       </CardContent>
 
       <CardFooter className="flex flex-col gap-3 px-5 pb-7 pt-6 sm:px-8 sm:pb-9">
-        {/* Verify button */}
+        {/* Reset button */}
         <Button
           type="submit"
-          form="otp-form"
-          disabled={verifyPending || otp.length !== 6}
+          form="reset-password-form"
+          disabled={resetPending || otp.length !== 6 || !newPassword}
           className="h-12 w-full rounded-xl bg-[#e50914] px-6 text-sm font-bold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all duration-300 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.28)] disabled:pointer-events-none disabled:opacity-50 sm:h-13 sm:rounded-2xl"
         >
-          {verifyPending ? (
+          {resetPending ? (
             <>
               <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Verifying...
+              Resetting password...
             </>
           ) : (
             <>
               <CheckCircle2 className="size-4" />
-              Verify account
+              Reset password
             </>
           )}
         </Button>
 
+        {/* Login */}
+        <p className="text-center text-sm text-slate-500 dark:text-slate-400">
+          Remember your password?{" "}
+          <button
+            type="button"
+            onClick={() => router.push("/login")}
+            className="font-semibold text-[#e50914] hover:underline"
+          >
+            Back to Login
+          </button>
+        </p>
+
         {/* Terms */}
         <p className="text-center text-[10px] leading-5 text-slate-400 dark:text-slate-600 sm:text-[11px]">
-          By verifying your account, you agree to use SwiftCourier according to
+          By resetting your password, you agree to use SwiftCourier according to
           our terms and policies.
         </p>
       </CardFooter>

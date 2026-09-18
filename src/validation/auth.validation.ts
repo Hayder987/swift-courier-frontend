@@ -14,6 +14,7 @@ export const loginSchema = z.object({
     ),
 });
 
+// register zod schema
 export const registerZodSchema = z
   .object({
     name: z
@@ -78,3 +79,26 @@ export const resendOtpZodSchema = z.object({
 });
 
 export type IResendOtpPayload = z.infer<typeof resendOtpZodSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().trim().email("Please enter a valid email address."),
+});
+
+export type IForgotPasswordPayload = z.infer<typeof forgotPasswordSchema>;
+
+// reset password
+// reset Pass Zod Schema
+export const ResetPasswordZodSchema = z.object({
+  email: z.email(),
+  newPassword: z
+    .string()
+    .min(8, "Password Must Minimum 8 Characters Long.")
+    .regex(/[a-z]/, "Password must contain atleast 1 Lowercase Letter")
+    .regex(/[A-Z]/, "Password must contain atleast 1 Uppercase Letter")
+
+    .regex(/[0-9]/, "Password must contain atleast 1 Number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain atleast 1 Special Character"),
+  otp: z.string().length(6),
+});
+
+export type IResetPasswordPayload = z.infer<typeof ResetPasswordZodSchema>;

@@ -240,6 +240,15 @@ export default function LoginForm() {
           Create an account
         </Link>
       </p>
+      <p className="text-center text-xs text-muted-foreground">
+        ForgotPassword?{" "}
+        <Link
+          href="/forgot-password"
+          className="font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-[#e50914] hover:decoration-[#e50914]"
+        >
+          Reset Now
+        </Link>
+      </p>
     </div>
   );
 }
