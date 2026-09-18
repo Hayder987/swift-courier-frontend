@@ -10,8 +10,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -33,7 +32,7 @@ const defaultValues = {
 };
 
 const ContactForm = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   const { mutate: createContact, isPending } = useCreateContact();
 
@@ -64,8 +63,6 @@ const ContactForm = () => {
             return;
           }
 
-          setSubmitted(true);
-
           toast.add({
             title: "Message Sent",
             description:
@@ -74,6 +71,7 @@ const ContactForm = () => {
           });
 
           form.reset();
+          router.push("/");
         },
 
         onError: (error) => {
@@ -89,50 +87,6 @@ const ContactForm = () => {
       });
     },
   });
-
-  if (submitted) {
-    return (
-      <Card className="relative overflow-hidden border-slate-200 bg-white/90 shadow-2xl shadow-slate-900/5 backdrop-blur-xl dark:border-white/8 dark:bg-slate-950/80 dark:shadow-black/30">
-        {/* Top accent */}
-        <div className="absolute inset-x-0 top-0 h-1 bg-[#e50914]" />
-
-        {/* Background glow */}
-        <div className="pointer-events-none absolute -top-32 -right-24 size-64 rounded-full bg-[#e50914]/5 blur-3xl" />
-
-        <CardContent className="relative flex min-h-125 flex-col items-center justify-center px-6 py-12 text-center sm:px-10">
-          <div className="relative mb-7">
-            <div className="absolute inset-0 animate-ping rounded-full bg-emerald-500/10" />
-
-            <div className="relative flex size-20 items-center justify-center rounded-3xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-500">
-              <CheckCircle2 className="size-9" />
-            </div>
-          </div>
-
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/15 bg-emerald-500/5 px-3 py-1.5 text-[9px] font-bold tracking-[0.15em] text-emerald-500 uppercase">
-            <Sparkles className="size-3" />
-            Message Received
-          </div>
-
-          <h2 className="text-3xl font-black tracking-[-0.04em] text-slate-950 dark:text-white sm:text-4xl">
-            Thanks for reaching out.
-          </h2>
-
-          <p className="mt-4 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
-            Your message has been successfully submitted. Our team will review
-            it and get back to you as soon as possible.
-          </p>
-
-          <Button
-            type="button"
-            onClick={() => setSubmitted(false)}
-            className="mt-8 h-11 bg-[#e50914] px-6 font-semibold text-white hover:bg-[#c70812]"
-          >
-            Send Another Message
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card className="relative overflow-hidden border-slate-200 bg-white/90 shadow-2xl shadow-slate-900/5 backdrop-blur-xl dark:border-white/8 dark:bg-slate-950/80 dark:shadow-black/30">

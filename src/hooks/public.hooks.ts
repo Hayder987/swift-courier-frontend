@@ -1,8 +1,8 @@
-import { postContact } from "@/api/public.api"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query";
+import { postContact } from "@/api/public.api";
 
-export const useCreateContact = () =>{
-    return useMutation ({
-        mutationFn : postContact
-    })
-}
+export const useCreateContact = () => {
+  return useMutation({
+    mutationFn: postContact,
+  });
+};

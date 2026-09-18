@@ -19,8 +19,6 @@ export default function GoogleAuthProvider({
   }
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
-      {children}
-    </GoogleOAuthProvider>
+    <GoogleOAuthProvider clientId={clientId}>{children}</GoogleOAuthProvider>
   );
 }
