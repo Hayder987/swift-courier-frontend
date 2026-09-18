@@ -81,27 +81,11 @@ export default function ForgotPasswordForm() {
       {/* Brand */}
       <div className="mb-10">
         <Link href="/" className="inline-flex items-center gap-2.5">
-          <div
-            className="
-              flex size-10 items-center justify-center
-              rounded-xl
-              bg-[#e50914]
-              text-sm font-black
-              text-white
-              shadow-[0_8px_25px_rgba(229,9,20,0.22)]
-            "
-          >
+          <div className="flex size-10 items-center justify-center rounded-xl bg-[#e50914] text-sm font-black text-white shadow-[0_8px_25px_rgba(229,9,20,0.22)]">
             SC
           </div>
 
-          <span
-            className="
-              text-xl font-black
-              tracking-tight
-              text-slate-950
-              dark:text-white
-            "
-          >
+          <span className="text-xl font-black tracking-tight text-slate-950 dark:text-white">
             Swift<span className="text-[#e50914]">Courier</span>
           </span>
         </Link>
@@ -109,41 +93,15 @@ export default function ForgotPasswordForm() {
 
       {/* Header */}
       <div className="mb-8">
-        <div
-          className="
-            mb-5 flex size-12 items-center justify-center
-            rounded-xl
-            border border-[#e50914]/15
-            bg-[#e50914]/5
-            text-[#e50914]
-
-            dark:border-[#e50914]/20
-            dark:bg-[#e50914]/10
-          "
-        >
+        <div className="mb-5 flex size-12 items-center justify-center rounded-xl border border-[#e50914]/15 bg-[#e50914]/5 text-[#e50914] dark:border-[#e50914]/20 dark:bg-[#e50914]/10">
           <ShieldCheck className="size-6" />
         </div>
 
-        <h2
-          className="
-            text-3xl font-black
-            tracking-tight
-            text-slate-950
-            sm:text-4xl
-            dark:text-white
-          "
-        >
+        <h2 className="text-3xl font-black tracking-tight text-slate-950 sm:text-4xl dark:text-white">
           Forgot your password?
         </h2>
 
-        <p
-          className="
-            mt-3 max-w-md
-            text-sm leading-6
-            text-slate-500
-            dark:text-slate-400
-          "
-        >
+        <p className="mt-3 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
           Enter the email address associated with your SwiftCourier account.
           We&apos;ll send you a verification code to reset your password.
         </p>
@@ -168,25 +126,13 @@ export default function ForgotPasswordForm() {
               <Field data-invalid={isInvalid}>
                 <FieldLabel
                   htmlFor={field.name}
-                  className="
-                    text-sm font-semibold
-                    text-slate-700
-                    dark:text-slate-200
-                  "
+                  className="text-sm font-semibold text-slate-700 dark:text-slate-200"
                 >
                   Email address
                 </FieldLabel>
 
                 <div className="relative mt-2">
-                  <Mail
-                    className="
-                      pointer-events-none
-                      absolute left-3.5 top-1/2
-                      size-4
-                      -translate-y-1/2
-                      text-slate-400
-                    "
-                  />
+                  <Mail className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
 
                   <Input
                     id={field.name}
@@ -198,38 +144,11 @@ export default function ForgotPasswordForm() {
                     onBlur={field.handleBlur}
                     onChange={(event) => field.handleChange(event.target.value)}
                     aria-invalid={isInvalid}
-                    className="
-                      h-12
-                      rounded-xl
-                      border-slate-200
-                      bg-white
-                      pl-10
-                      text-sm
-                      shadow-sm
-                      transition-all
-
-                      placeholder:text-slate-400
-
-                      focus:border-[#e50914]
-                      focus:ring-[#e50914]/20
-
-                      dark:border-white/10
-                      dark:bg-white/[0.04]
-                      dark:text-white
-                      dark:placeholder:text-slate-500
-                      dark:focus:border-[#e50914]
-                    "
+                    className="h-12 rounded-xl border-slate-200 bg-white pl-10 text-sm shadow-sm transition-all placeholder:text-slate-400 focus:border-[#e50914] focus:ring-[#e50914]/20 dark:border-white/10 dark:bg-white/4 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#e50914]"
                   />
                 </div>
 
-                <FieldDescription
-                  className="
-                    mt-2
-                    text-xs
-                    text-slate-400
-                    dark:text-slate-500
-                  "
-                >
+                <FieldDescription className="mt-2 text-xs text-slate-400 dark:text-slate-500">
                   Use the email you used when creating your account.
                 </FieldDescription>
 
@@ -243,35 +162,11 @@ export default function ForgotPasswordForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="
-            h-12 w-full
-            rounded-xl
-            bg-[#e50914]
-            text-sm font-bold
-            text-white
-            shadow-[0_10px_30px_rgba(229,9,20,0.20)]
-            transition-all duration-300
-
-            hover:-translate-y-0.5
-            hover:bg-[#c90812]
-            hover:shadow-[0_14px_35px_rgba(229,9,20,0.28)]
-
-            disabled:cursor-not-allowed
-            disabled:opacity-60
-            disabled:hover:translate-y-0
-          "
+          className="h-12 w-full rounded-xl bg-[#e50914] text-sm font-bold text-white shadow-[0_10px_30px_rgba(229,9,20,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.28)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         >
           {isPending ? (
             <span className="flex items-center gap-2">
-              <span
-                className="
-                  size-4 animate-spin
-                  rounded-full
-                  border-2
-                  border-white/30
-                  border-t-white
-                "
-              />
+              <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
               Sending code...
             </span>
           ) : (
@@ -289,12 +184,7 @@ export default function ForgotPasswordForm() {
           Remember your password?{" "}
           <Link
             href="/login"
-            className="
-              font-bold
-              text-[#e50914]
-              transition-colors
-              hover:text-[#c90812]
-            "
+            className="font-bold text-[#e50914] transition-colors hover:text-[#c90812]"
           >
             Back to login
           </Link>
@@ -302,33 +192,10 @@ export default function ForgotPasswordForm() {
       </div>
 
       {/* Security Note */}
-      <div
-        className="
-          mt-8 flex items-start gap-3
-          rounded-xl
-          border border-slate-200
-          bg-slate-50
-          p-4
+      <div className="mt-8 flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/3">
+        <ShieldCheck className="mt-0.5 size-4 shrink-0 text-[#e50914]" />
 
-          dark:border-white/10
-          dark:bg-white/[0.03]
-        "
-      >
-        <ShieldCheck
-          className="
-            mt-0.5 size-4
-            shrink-0
-            text-[#e50914]
-          "
-        />
-
-        <p
-          className="
-            text-xs leading-5
-            text-slate-500
-            dark:text-slate-500
-          "
-        >
+        <p className="text-xs leading-5 text-slate-500 dark:text-slate-500">
           For your security, never share your verification code or password with
           anyone.
         </p>
