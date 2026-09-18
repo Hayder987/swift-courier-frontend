@@ -20,7 +20,6 @@ export default function NavHeader() {
   const { data, isLoading } = useGetMe();
 
   const user = data?.data?.user;
-  console.log(data?.data?.user);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">

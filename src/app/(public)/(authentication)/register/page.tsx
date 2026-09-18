@@ -15,7 +15,7 @@ export default function RegisterPage() {
 
             <div className="absolute -bottom-40 right-0 size-100 rounded-full bg-[#e50914]/4 blur-[120px]" />
 
-            <div className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035] [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:44px_44px]" />
+            <div className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035] bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-size-[44px_44px]" />
           </div>
 
           {/* Header */}
@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
           {/* Form area */}
           <div className="relative z-10 flex flex-1 items-center justify-center px-5 py-8 sm:px-8 lg:px-10">
-            <div className="w-full max-w-[420px]">
+            <div className="w-full max-w-105">
               {/* Card */}
               <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-card/80 p-5 shadow-[0_25px_80px_rgba(0,0,0,0.06)] backdrop-blur-2xl dark:shadow-[0_25px_80px_rgba(0,0,0,0.25)] sm:p-7">
                 {/* Top accent */}
@@ -138,7 +138,7 @@ export default function RegisterPage() {
                 Join the delivery network
               </p>
 
-              <h2 className="max-w-xl text-3xl font-semibold leading-[1.08] tracking-[-0.05em] text-white xl:text-[42px]">
+              <h2 className="max-w-xl text-3xl font-semibold leading-[1.08] tracking-tighter text-white xl:text-[42px]">
                 Move faster.
                 <br />
                 <span className="text-white/45">Deliver smarter.</span>

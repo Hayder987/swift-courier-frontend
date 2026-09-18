@@ -81,10 +81,10 @@ export default function ResetPasswordPage() {
       {/* Right - Premium Visual */}
       <section className="relative hidden overflow-hidden bg-slate-50 transition-colors duration-300 dark:bg-slate-950 lg:block">
         {/* Red Glow - Top Right */}
-        <div className="pointer-events-none absolute -right-32 -top-32 size-[500px] rounded-full bg-[#e50914]/8 blur-[120px] dark:bg-[#e50914]/20" />
+        <div className="pointer-events-none absolute -right-32 -top-32 size-125 rounded-full bg-[#e50914]/8 blur-[120px] dark:bg-[#e50914]/20" />
 
         {/* Red Glow - Bottom Left */}
-        <div className="pointer-events-none absolute -bottom-40 -left-40 size-[500px] rounded-full bg-[#e50914]/5 blur-[120px] dark:bg-[#e50914]/10" />
+        <div className="pointer-events-none absolute -bottom-40 -left-40 size-125 rounded-full bg-[#e50914]/5 blur-[120px] dark:bg-[#e50914]/10" />
 
         {/* Grid */}
         <div
@@ -174,7 +174,7 @@ export default function ResetPasswordPage() {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="group rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#e50914]/20 hover:shadow-[0_15px_35px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none dark:hover:border-[#e50914]/20 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
+                  className="group rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#e50914]/20 hover:shadow-[0_15px_35px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/4 dark:shadow-none dark:hover:border-[#e50914]/20 ark:hover:bg-white/6 dark:hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
                 >
                   <div className="mb-3 flex size-8 items-center justify-center rounded-lg bg-[#e50914]/8 text-xs font-bold text-[#e50914] transition-all duration-300 group-hover:bg-[#e50914]/15 group-hover:shadow-[0_0_18px_rgba(229,9,20,0.15)] dark:bg-[#e50914]/10 dark:group-hover:bg-[#e50914]/15">
                     {item.icon}
