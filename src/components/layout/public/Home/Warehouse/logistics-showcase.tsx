@@ -3,7 +3,7 @@
 import { Boxes, MapPin, PackageCheck, Truck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import CourierWarehouseScene from "../../courier-warehouse-scene";
+import CourierWarehouseScene from "./courier-warehouse-scene";
 
 export default function LogisticsShowcase() {
   return (
