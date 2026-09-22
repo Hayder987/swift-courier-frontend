@@ -124,8 +124,8 @@ export default function GlobalLoading() {
         </div>
 
         {/* Progress */}
-        <div className="mt-7 w-full max-w-[230px]">
-          <div className="h-[3px] overflow-hidden rounded-full bg-muted">
+        <div className="mt-7 w-full max-w-57.5">
+          <div className="h-0.75 overflow-hidden rounded-full bg-muted">
             <div
               className="h-full rounded-full bg-[#e50914] transition-[width] duration-200 ease-out"
               style={{

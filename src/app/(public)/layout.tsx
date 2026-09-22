@@ -1,6 +1,7 @@
 import Public3DBackground from "@/components/layout/public/Background/Public3DBackground";
 import Footer from "@/components/layout/public/Footer/Footer";
 import NavHeader from "@/components/layout/public/Navbar/NavHeader";
+import GlobalLoading from "@/components/loading/global-loading";
 
 export default function PublicLayout({
   children,
@@ -16,6 +17,7 @@ export default function PublicLayout({
 
         <main className="min-h-[calc(100vh-72px)]">
           <div className="mx-auto w-full max-w-380 px-4 sm:px-6 lg:px-8">
+            <GlobalLoading />
             {children}
           </div>
         </main>

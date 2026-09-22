@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
-
 import "./globals.css";
-
-import GlobalLoader from "@/components/loading/global-loading";
 import { Toaster } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
@@ -50,7 +47,6 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <Providers>
           <ThemeProvider>
-            <GlobalLoader />
             {children}
             <Toaster />
           </ThemeProvider>
