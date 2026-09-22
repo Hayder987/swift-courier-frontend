@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import LogoutButton from "@/components/auth/LogoutButton";
 import {
   Sidebar,
   SidebarContent,
@@ -190,14 +190,7 @@ export function DashboardSidebar({ role }: DashboardSidebarProps) {
 
           {/* Logout */}
           <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Logout"
-              className="h-10 rounded-xl text-muted-foreground transition-colors hover:bg-[#e50914]/10 hover:text-[#e50914]"
-            >
-              <LogOut className="size-4" />
-
-              <span>Logout</span>
-            </SidebarMenuButton>
+            <LogoutButton className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-[#e50914]/10 hover:text-[#e50914] disabled:pointer-events-none disabled:opacity-50" />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
