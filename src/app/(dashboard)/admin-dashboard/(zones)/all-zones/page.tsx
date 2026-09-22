@@ -1,9 +1,5 @@
-
-
 const AllZonePage = () => {
-  return (
-    <div>AllZonePage</div>
-  )
-}
+  return <div>AllZonePage</div>;
+};
 
-export default AllZonePage
+export default AllZonePage;

@@ -1,8 +1,8 @@
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export interface SidebarItem {
   title: string;
-  icon : LucideIcon;
+  icon: LucideIcon;
   url: string;
 }
 

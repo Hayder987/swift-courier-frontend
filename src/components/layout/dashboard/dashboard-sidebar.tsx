@@ -4,7 +4,6 @@ import {
   ChevronRight,
   LogOut,
   Package,
-  Settings,
   ShieldCheck,
   UserRound,
 } from "lucide-react";
@@ -24,9 +23,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  adminRoutes,
-} from "@/routes/admin.routes";
+import { adminRoutes } from "@/routes/admin.routes";
 import type { UserRole } from "@/types";
 import type { SidebarItems } from "@/types/sidebar.type";
 
@@ -34,13 +31,18 @@ const sidebarRoutes: Partial<Record<UserRole, SidebarItems>> = {
   ADMIN: adminRoutes,
 };
 
+const roleLabel = {
+  ADMIN: "Administrator",
+  SUPER_ADMIN: "Administrator",
+  COURIER: "Employee",
+  CUSTOMER: "User",
+} as const;
+
 type DashboardSidebarProps = {
   role: UserRole;
 };
 
-export function DashboardSidebar({
-  role,
-}: DashboardSidebarProps) {
+export function DashboardSidebar({ role }: DashboardSidebarProps) {
   const pathname = usePathname();
 
   const routes: SidebarItems = sidebarRoutes[role] ?? [];
@@ -60,19 +62,14 @@ export function DashboardSidebar({
         >
           {/* Logo */}
           <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#e50914] text-white shadow-lg shadow-[#e50914]/20 transition-transform duration-300 group-hover:scale-105">
-            <Package
-              className="size-5"
-              strokeWidth={2}
-            />
+            <Package className="size-5" strokeWidth={2} />
           </div>
 
           {/* Brand */}
           <div className="grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
             <span className="truncate text-sm font-bold tracking-tight">
               Swift
-              <span className="text-[#e50914]">
-                Courier
-              </span>
+              <span className="text-[#e50914]">Courier</span>
             </span>
 
             <span className="truncate text-[10px] text-muted-foreground">
@@ -88,10 +85,7 @@ export function DashboardSidebar({
 
       <SidebarContent className="px-2 py-4">
         {routes.map((group) => (
-          <SidebarGroup
-            key={group.title}
-            className="mb-2"
-          >
+          <SidebarGroup key={group.title} className="mb-2">
             <SidebarGroupLabel className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/60 group-data-[collapsible=icon]:hidden">
               {group.title}
             </SidebarGroupLabel>
@@ -104,16 +98,12 @@ export function DashboardSidebar({
                   const isActive =
                     pathname === item.url ||
                     (item.url !== "/admin-dashboard" &&
-                      pathname.startsWith(
-                        `${item.url}/`,
-                      ));
+                      pathname.startsWith(`${item.url}/`));
 
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
-                        render={
-                          <Link href={item.url} />
-                        }
+                        render={<Link href={item.url} />}
                         isActive={isActive}
                         tooltip={item.title}
                         className={`
@@ -181,24 +171,18 @@ export function DashboardSidebar({
         {/* User */}
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              render={
-                <Link href="/admin-dashboard/my-profile" />
-              }
-              tooltip="Profile"
-              className="h-11 rounded-xl"
-            >
+            <SidebarMenuButton tooltip="Profile" className="h-11 rounded-xl">
               <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted">
                 <UserRound className="size-4" />
               </div>
 
               <div className="grid min-w-0 flex-1 text-left text-xs leading-tight group-data-[collapsible=icon]:hidden">
                 <span className="truncate font-semibold">
-                 {`${role} Account`}
+                  {`${role} Account`}
                 </span>
 
                 <span className="truncate text-[10px] text-muted-foreground">
-                  {`${role === "ADMIN" ? "Administrator" : "User"}`}
+                  {roleLabel[role as keyof typeof roleLabel] ?? "Guest"}
                 </span>
               </div>
             </SidebarMenuButton>

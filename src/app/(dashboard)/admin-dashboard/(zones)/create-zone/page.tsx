@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const CreateZonePage = () => {
-  return (
-    <div>CreateZonePage</div>
-  )
-}
+  return <div>CreateZonePage</div>;
+};
 
-export default CreateZonePage
+export default CreateZonePage;

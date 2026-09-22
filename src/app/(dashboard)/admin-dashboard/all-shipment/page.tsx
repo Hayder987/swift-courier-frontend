@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AllShipmentPage = () => {
-  return (
-    <div>AllShipmentPage</div>
-  )
-}
+  return <div>AllShipmentPage</div>;
+};
 
-export default AllShipmentPage
+export default AllShipmentPage;

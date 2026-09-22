@@ -1,9 +1,9 @@
 "use client";
 
-import { useGetMe } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { type ReactNode, useEffect } from "react";
+import { useGetMe } from "@/hooks";
 import LoadingScreen from "../loading/LoadingScreen";
-import { ReactNode, useEffect } from "react";
 
 export default function AuthGuard({ children }: { children: ReactNode }) {
   const router = useRouter();

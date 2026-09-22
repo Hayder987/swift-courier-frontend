@@ -4,9 +4,10 @@ import {
   MapPlus,
   PackageCheck,
   Truck,
+  UserRound,
   Users,
 } from "lucide-react";
-import { SidebarItems } from "@/types";
+import type { SidebarItems } from "@/types";
 
 const prefix = "/admin-dashboard";
 
@@ -18,6 +19,11 @@ export const adminRoutes: SidebarItems = [
         title: "Dashboard",
         url: `${prefix}`,
         icon: LayoutDashboard,
+      },
+      {
+        title: "My Profile",
+        url: `${prefix}/my-profile`,
+        icon: UserRound,
       },
     ],
   },

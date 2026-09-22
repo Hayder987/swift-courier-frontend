@@ -3,14 +3,15 @@
 import { Bell, Search } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { DashboardSidebar } from "./dashboard-sidebar";
 import type { UserRole } from "@/types";
+import ThemeToggle from "../public/Navbar/ThemeToggle";
+import { DashboardSidebar } from "./dashboard-sidebar";
 
 type DashboardShellProps = {
   children: ReactNode;
@@ -45,10 +46,12 @@ export default function DashboardShell({
           </div>
 
           <div className="ml-auto flex items-center gap-1.5">
+            <ThemeToggle />
+
             <Button
               variant="ghost"
               size="icon"
-              className="relative size-9 rounded-xl transition-colors hover:bg-muted"
+              className="relative size-8 rounded-full transition-colors hover:bg-muted"
             >
               <Bell className="size-4" />
 
