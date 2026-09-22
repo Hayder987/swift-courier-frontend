@@ -1,31 +1,55 @@
 "use client";
 
-import {
-  Float,
-  Line,
-  OrbitControls,
-  PerspectiveCamera,
-  Stars,
-} from "@react-three/drei";
+import { Line } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-function LogisticsOrb({ dark }: { dark: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
+const RED = "#e50914";
 
+interface AboutThreeSceneProps {
+  dark: boolean;
+  mounted: boolean;
+}
+
+interface OrbRefs {
+  group: THREE.Group | null;
+  core: THREE.Mesh | null;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Logistics Orb                                 */
+/* -------------------------------------------------------------------------- */
+
+function LogisticsOrb({ dark }: { dark: boolean }) {
+  const refs = useRef<OrbRefs>({
+    group: null,
+    core: null,
+  });
+
+  const timeRef = useRef(0);
+
+  /*
+   * Generate location nodes only once.
+   * 24 -> 16 nodes to reduce draw calls.
+   */
   const points = useMemo(() => {
     const result: THREE.Vector3[] = [];
+    const count = 16;
+    const radius = 2.55;
 
-    for (let i = 0; i < 24; i++) {
-      const phi = Math.acos(-1 + (2 * i) / 24);
-      const theta = Math.sqrt(24 * Math.PI) * phi;
+    for (let i = 0; i < count; i++) {
+      const phi = Math.acos(-1 + (2 * i) / count);
+
+      const theta = Math.sqrt(count * Math.PI) * phi;
 
       result.push(
         new THREE.Vector3(
-          2.55 * Math.cos(theta) * Math.sin(phi),
-          2.55 * Math.sin(theta) * Math.sin(phi),
-          2.55 * Math.cos(phi),
+          radius * Math.cos(theta) * Math.sin(phi),
+
+          radius * Math.sin(theta) * Math.sin(phi),
+
+          radius * Math.cos(phi),
         ),
       );
     }
@@ -34,55 +58,67 @@ function LogisticsOrb({ dark }: { dark: boolean }) {
   }, []);
 
   useFrame((_, delta) => {
-    if (!groupRef.current) return;
+    timeRef.current += delta;
 
-    groupRef.current.rotation.y += delta * 0.12;
-    groupRef.current.rotation.x = Math.sin(Date.now() * 0.00025) * 0.08;
+    const time = timeRef.current;
+
+    if (refs.current.group) {
+      refs.current.group.rotation.y += delta * 0.12;
+
+      refs.current.group.rotation.x = Math.sin(time * 0.25) * 0.08;
+    }
+
+    if (refs.current.core) {
+      const pulse = 1 + Math.sin(time * 2.2) * 0.08;
+
+      refs.current.core.scale.setScalar(pulse);
+    }
   });
 
   return (
-    <group ref={groupRef}>
+    <group
+      ref={(node) => {
+        refs.current.group = node;
+      }}
+    >
       {/* Main globe */}
       <mesh>
-        <sphereGeometry args={[2.55, 64, 64]} />
+        <sphereGeometry args={[2.55, 32, 32]} />
 
         <meshStandardMaterial
           color={dark ? "#171717" : "#f8fafc"}
           transparent
-          opacity={0.88}
-          metalness={0.85}
-          roughness={0.25}
+          opacity={0.9}
+          metalness={0.7}
+          roughness={0.3}
         />
       </mesh>
 
-      {/* Wireframe shell */}
+      {/* Lightweight wireframe shell */}
       <mesh>
-        <sphereGeometry args={[2.62, 32, 32]} />
+        <sphereGeometry args={[2.62, 20, 20]} />
 
         <meshBasicMaterial
-          color="#e50914"
+          color={RED}
           wireframe
           transparent
-          opacity={dark ? 0.24 : 0.13}
+          opacity={dark ? 0.22 : 0.11}
         />
       </mesh>
 
       {/* Location nodes */}
       {points.map((point) => (
-        <Float
-          key={`${point.x}-${point.y}-${point.z}`}
-          speed={1 + Math.abs(point.x * point.y) * 0.2}
-          rotationIntensity={0.1}
-          floatIntensity={0.08}
+        <mesh
+          key={`${point.x.toFixed(2)}-${point.y.toFixed(2)}-${point.z.toFixed(2)}`}
+          position={point}
         >
-          <mesh position={point}>
-            <sphereGeometry args={[0.055, 12, 12]} />
-            <meshBasicMaterial color="#e50914" />
-          </mesh>
-        </Float>
+          <sphereGeometry args={[0.06, 8, 8]} />
+
+          <meshBasicMaterial color={RED} />
+        </mesh>
       ))}
 
-      {/* Connection lines */}
+      {/* Network connections */}
       <Line
         points={[
           [-2.1, 0.8, 0.5],
@@ -90,10 +126,10 @@ function LogisticsOrb({ dark }: { dark: boolean }) {
           [1.4, 1.05, 0.75],
           [2.1, -0.35, 0.2],
         ]}
-        color="#e50914"
-        lineWidth={1.4}
+        color={RED}
+        lineWidth={1.2}
         transparent
-        opacity={0.8}
+        opacity={0.75}
       />
 
       <Line
@@ -102,127 +138,204 @@ function LogisticsOrb({ dark }: { dark: boolean }) {
           [-0.35, -1.45, 0.8],
           [1.35, -1.05, 0.45],
         ]}
-        color="#e50914"
-        lineWidth={1.1}
+        color={RED}
+        lineWidth={1}
         transparent
-        opacity={0.55}
+        opacity={0.5}
+      />
+
+      {/* Additional small network line */}
+      <Line
+        points={[
+          [-1.5, 0.2, 1.35],
+          [-0.2, 0.55, 1.8],
+          [1.25, 0.1, 1.35],
+        ]}
+        color={RED}
+        lineWidth={0.8}
+        transparent
+        opacity={0.35}
       />
 
       {/* Core */}
-      <mesh>
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshBasicMaterial color="#e50914" />
+      <mesh
+        ref={(node) => {
+          refs.current.core = node;
+        }}
+      >
+        <sphereGeometry args={[0.28, 16, 16]} />
+
+        <meshBasicMaterial color={RED} toneMapped={false} />
       </mesh>
 
-      <pointLight color="#e50914" intensity={7} distance={8} />
+      {/* Soft red illumination */}
+      <pointLight color={RED} intensity={dark ? 3.5 : 1.8} distance={6} />
     </group>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                               Orbit Ring                                   */
+/* -------------------------------------------------------------------------- */
 
 function OrbitRing({
   radius,
   rotation,
   dark,
+  speed,
 }: {
   radius: number;
   rotation: [number, number, number];
   dark: boolean;
+  speed: number;
 }) {
+  const ref = useRef<THREE.Mesh>(null);
+
+  useFrame((_, delta) => {
+    if (!ref.current) return;
+
+    ref.current.rotation.z += delta * speed;
+  });
+
   return (
-    <mesh rotation={rotation}>
-      <torusGeometry args={[radius, 0.008, 8, 128]} />
+    <mesh ref={ref} rotation={rotation}>
+      <torusGeometry args={[radius, 0.008, 6, 64]} />
 
       <meshBasicMaterial
-        color="#e50914"
+        color={RED}
         transparent
-        opacity={dark ? 0.38 : 0.22}
+        opacity={dark ? 0.32 : 0.18}
+        depthWrite={false}
       />
     </mesh>
   );
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             Ambient Particles                              */
+/* -------------------------------------------------------------------------- */
+
+function AmbientParticles({ dark }: { dark: boolean }) {
+  const positions = useMemo(() => {
+    const count = dark ? 70 : 25;
+    const data = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      const index = i * 3;
+
+      data[index] = (Math.random() - 0.5) * 10;
+
+      data[index + 1] = (Math.random() - 0.5) * 7;
+
+      data[index + 2] = (Math.random() - 0.5) * 7;
+    }
+
+    return {
+      data,
+      count,
+    };
+  }, [dark]);
+
+  const attribute = useMemo(
+    () => new THREE.BufferAttribute(positions.data, 3),
+    [positions.data],
+  );
+
+  return (
+    <points>
+      <bufferGeometry>
+        <primitive object={attribute} attach="attributes-position" />
+      </bufferGeometry>
+
+      <pointsMaterial
+        color={RED}
+        size={0.025}
+        transparent
+        opacity={dark ? 0.35 : 0.12}
+        sizeAttenuation
+        depthWrite={false}
+      />
+    </points>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Scene                                     */
+/* -------------------------------------------------------------------------- */
+
 function Scene({ dark }: { dark: boolean }) {
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 9]} />
+      {/* Soft lighting */}
+      <ambientLight intensity={dark ? 0.7 : 1.1} />
 
-      <ambientLight intensity={dark ? 0.6 : 1} />
+      <directionalLight position={[4, 5, 5]} intensity={dark ? 1.25 : 1.5} />
 
-      <directionalLight position={[5, 5, 5]} intensity={dark ? 2 : 1.5} />
+      {/* Logistics globe */}
+      <LogisticsOrb dark={dark} />
 
-      <directionalLight position={[-5, -3, -4]} color="#e50914" intensity={2} />
-
-      <Stars
-        radius={20}
-        depth={12}
-        count={dark ? 1200 : 350}
-        factor={1.8}
-        saturation={0}
-        fade
-        speed={0.35}
+      {/* Orbit rings */}
+      <OrbitRing
+        radius={3.35}
+        rotation={[Math.PI / 2.7, 0.25, 0]}
+        speed={0.18}
+        dark={dark}
       />
 
-      <Float speed={0.7} rotationIntensity={0.12} floatIntensity={0.18}>
-        <LogisticsOrb dark={dark} />
-
-        <OrbitRing
-          radius={3.35}
-          rotation={[Math.PI / 2.7, 0.25, 0]}
-          dark={dark}
-        />
-
-        <OrbitRing
-          radius={3.75}
-          rotation={[1.2, Math.PI / 3, 0.35]}
-          dark={dark}
-        />
-
-        <OrbitRing
-          radius={4.05}
-          rotation={[0.35, 1.1, Math.PI / 5]}
-          dark={dark}
-        />
-      </Float>
-
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.45}
-        minPolarAngle={Math.PI / 2.4}
-        maxPolarAngle={Math.PI / 1.7}
+      <OrbitRing
+        radius={3.75}
+        rotation={[1.2, Math.PI / 3, 0.35]}
+        speed={-0.12}
+        dark={dark}
       />
+
+      <OrbitRing
+        radius={4.05}
+        rotation={[0.35, 1.1, Math.PI / 5]}
+        speed={0.08}
+        dark={dark}
+      />
+
+      {/* Lightweight particles */}
+      <AmbientParticles dark={dark} />
     </>
   );
 }
 
-interface AboutThreeSceneProps {
-  dark: boolean;
-  mounted: boolean;
-}
+/* -------------------------------------------------------------------------- */
+/*                         Main About Scene                                   */
+/* -------------------------------------------------------------------------- */
 
-const AboutThreeScene = ({ dark, mounted }: AboutThreeSceneProps) => {
+export default function AboutThreeScene({
+  dark,
+  mounted,
+}: AboutThreeSceneProps) {
   return (
     <div className="relative h-105 w-full sm:h-125 lg:h-150">
-      <div className="absolute inset-0 rounded-full bg-[#e50914]/5 blur-[100px]" />
+      {/* CSS ambient glow */}
+      <div className="pointer-events-none absolute inset-0 rounded-full bg-[#e50914]/5 blur-[100px]" />
 
       <div className="absolute inset-0">
         {mounted && (
           <Canvas
-            dpr={[1, 1.7]}
+            dpr={[1, 1.25]}
+            camera={{
+              position: [0, 0, 9],
+              fov: 42,
+              near: 0.1,
+              far: 100,
+            }}
             gl={{
               antialias: true,
               alpha: true,
+              powerPreference: "high-performance",
             }}
+            frameloop="always"
           >
-            <Suspense fallback={null}>
-              <Scene dark={dark} />
-            </Suspense>
+            <Scene dark={dark} />
           </Canvas>
         )}
       </div>
     </div>
   );
-};
-
-export default AboutThreeScene;
+}

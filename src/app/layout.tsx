@@ -3,11 +3,11 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 
 import "./globals.css";
 
+import GlobalLoader from "@/components/loading/global-loading";
 import { Toaster } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
 import ThemeProvider from "@/providers/ThemeProvider";
-import GlobalLoader from "@/components/loading/global-loading";
 
 const inter = Inter({
   subsets: ["latin"],

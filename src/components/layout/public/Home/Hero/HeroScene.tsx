@@ -1,60 +1,68 @@
 "use client";
 
-import { Float, Sparkles } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Line } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
-function EnergyCore({ isDark }: { isDark: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
+const RED = "#e50914";
+const WHITE = "#ffffff";
 
-  useFrame((state, delta) => {
-    if (!groupRef.current) {
-      return;
-    }
+type Vec3 = [number, number, number];
 
-    groupRef.current.rotation.y += delta * 0.35;
+interface SceneRefs {
+  root: THREE.Group | null;
+  core: THREE.Group | null;
+  orbit1: THREE.Mesh | null;
+  orbit2: THREE.Mesh | null;
+  orbit3: THREE.Mesh | null;
+  pod: THREE.Group | null;
+  energy: THREE.Mesh | null;
+  nodeLeft: THREE.Mesh | null;
+  nodeCenter: THREE.Mesh | null;
+  nodeRight: THREE.Mesh | null;
+}
 
-    groupRef.current.rotation.x =
-      Math.sin(state.clock.elapsedTime * 0.7) * 0.08;
-  });
-
+function EnergyCore({
+  isDark,
+  refs,
+}: {
+  isDark: boolean;
+  refs: React.MutableRefObject<SceneRefs>;
+}) {
   return (
-    <group ref={groupRef}>
+    <group ref={(node) => (refs.current.core = node)}>
+      {/* Main energy shell */}
       <mesh>
-        <icosahedronGeometry args={[0.72, 2]} />
-
-        <meshStandardMaterial
-          color="#e50914"
-          emissive="#e50914"
-          emissiveIntensity={isDark ? 2.5 : 1.4}
-          roughness={0.18}
-          metalness={0.85}
-          wireframe
-          transparent
-          opacity={isDark ? 0.8 : 0.55}
-        />
-      </mesh>
-
-      <mesh scale={0.55}>
-        <icosahedronGeometry args={[0.72, 2]} />
+        <icosahedronGeometry args={[0.72, 1]} />
 
         <meshBasicMaterial
-          color="#e50914"
-          wireframe
+          color={RED}
           transparent
-          opacity={isDark ? 0.35 : 0.2}
+          opacity={isDark ? 0.72 : 0.48}
+          wireframe
         />
       </mesh>
 
-      <mesh>
-        <sphereGeometry args={[0.22, 32, 32]} />
+      {/* Inner shell */}
+      <mesh scale={0.55}>
+        <icosahedronGeometry args={[0.72, 1]} />
 
-        <meshBasicMaterial color={isDark ? "#ffffff" : "#e50914"} />
+        <meshBasicMaterial
+          color={RED}
+          transparent
+          opacity={isDark ? 0.3 : 0.16}
+          wireframe
+        />
       </mesh>
 
-      <pointLight color="#e50914" intensity={isDark ? 8 : 4} distance={5} />
+      {/* Energy center */}
+      <mesh>
+        <sphereGeometry args={[0.2, 16, 16]} />
+
+        <meshBasicMaterial color={isDark ? WHITE : RED} />
+      </mesh>
     </group>
   );
 }
@@ -62,302 +70,353 @@ function EnergyCore({ isDark }: { isDark: boolean }) {
 function OrbitRing({
   radius,
   rotation,
-  speed,
   opacity,
+  speed,
+  refs,
+  refKey,
 }: {
   radius: number;
-  rotation: [number, number, number];
-  speed: number;
+  rotation: Vec3;
   opacity: number;
+  speed: number;
+  refs: React.MutableRefObject<SceneRefs>;
+  refKey: "orbit1" | "orbit2" | "orbit3";
 }) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((_, delta) => {
-    if (!ref.current) {
-      return;
-    }
-
-    ref.current.rotation.z += delta * speed;
-  });
-
   return (
-    <mesh ref={ref} rotation={rotation}>
-      <torusGeometry args={[radius, 0.012, 10, 180]} />
+    <mesh
+      ref={(node) => {
+        refs.current[refKey] = node;
+      }}
+      rotation={rotation}
+    >
+      <torusGeometry args={[radius, 0.008, 6, 64]} />
 
-      <meshBasicMaterial color="#e50914" transparent opacity={opacity} />
+      <meshBasicMaterial color={RED} transparent opacity={opacity} />
     </mesh>
   );
 }
 
-function RouteBeam({
-  start,
-  end,
-}: {
-  start: [number, number, number];
-  end: [number, number, number];
-}) {
-  const points = [
-    new THREE.Vector3(...start),
-    new THREE.Vector3(
-      (start[0] + end[0]) / 2,
-      Math.max(start[1], end[1]) + 0.55,
-      (start[2] + end[2]) / 2,
-    ),
-    new THREE.Vector3(...end),
-  ];
-
-  const curve = new THREE.CatmullRomCurve3(points);
-
-  const geometry = new THREE.TubeGeometry(curve, 48, 0.012, 8, false);
+function RoutePath() {
+  const points = useMemo<Vec3[]>(
+    () => [
+      [-1.8, 0, 0],
+      [0, 0.72, 0],
+      [1.8, 0, 0],
+    ],
+    [],
+  );
 
   return (
-    <mesh geometry={geometry}>
-      <meshBasicMaterial color="#e50914" transparent opacity={0.65} />
-    </mesh>
+    <Line
+      points={points}
+      color={RED}
+      transparent
+      opacity={0.55}
+      lineWidth={1}
+    />
   );
 }
 
 function RouteNode({
   position,
   active = false,
+  refs,
+  refKey,
 }: {
-  position: [number, number, number];
+  position: Vec3;
   active?: boolean;
+  refs: React.MutableRefObject<SceneRefs>;
+  refKey: "nodeLeft" | "nodeCenter" | "nodeRight";
 }) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    if (!ref.current) {
-      return;
-    }
-
-    const pulse = 1 + Math.sin(state.clock.elapsedTime * 3.5) * 0.08;
-
-    ref.current.scale.setScalar(pulse);
-  });
-
   return (
     <group position={position}>
-      <mesh ref={ref}>
-        <sphereGeometry args={[active ? 0.12 : 0.075, 24, 24]} />
+      <mesh
+        ref={(node) => {
+          refs.current[refKey] = node;
+        }}
+      >
+        <sphereGeometry args={[active ? 0.11 : 0.07, 12, 12]} />
 
-        <meshStandardMaterial
-          color={active ? "#ffffff" : "#e50914"}
-          emissive="#e50914"
-          emissiveIntensity={active ? 5 : 2}
-          metalness={0.4}
-          roughness={0.2}
-        />
+        <meshBasicMaterial color={active ? WHITE : RED} />
       </mesh>
 
-      <mesh scale={active ? 2.2 : 1.7}>
-        <ringGeometry args={[0.07, 0.085, 32]} />
+      {/* Node ring */}
+      <mesh scale={active ? 2 : 1.6}>
+        <ringGeometry args={[0.07, 0.08, 20]} />
 
         <meshBasicMaterial
-          color="#e50914"
+          color={RED}
           transparent
-          opacity={0.35}
+          opacity={active ? 0.42 : 0.25}
           side={THREE.DoubleSide}
         />
       </mesh>
-
-      {active && <pointLight color="#e50914" intensity={3} distance={2} />}
     </group>
   );
 }
 
-function DeliveryPod() {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (!groupRef.current) {
-      return;
-    }
-
-    groupRef.current.rotation.y =
-      Math.sin(state.clock.elapsedTime * 0.45) * 0.18;
-
-    groupRef.current.position.y =
-      Math.sin(state.clock.elapsedTime * 1.4) * 0.08;
-  });
-
+function DeliveryPod({ refs }: { refs: React.MutableRefObject<SceneRefs> }) {
   return (
-    <group ref={groupRef} position={[0.25, 0.15, 0]}>
-      <mesh castShadow>
+    <group
+      ref={(node) => {
+        refs.current.pod = node;
+      }}
+      position={[0.25, 0.15, 0]}
+    >
+      {/* Main body */}
+      <mesh>
         <boxGeometry args={[0.8, 0.45, 0.48]} />
 
-        <meshStandardMaterial
-          color="#171717"
-          metalness={0.85}
-          roughness={0.18}
-        />
+        <meshBasicMaterial color="#171717" />
       </mesh>
 
+      {/* Red top */}
       <mesh position={[0, 0.25, 0]}>
         <boxGeometry args={[0.58, 0.06, 0.32]} />
 
-        <meshStandardMaterial
-          color="#e50914"
-          emissive="#e50914"
-          emissiveIntensity={1.8}
-          metalness={0.65}
-          roughness={0.2}
-        />
+        <meshBasicMaterial color={RED} />
       </mesh>
 
+      {/* Label */}
       <mesh position={[0, -0.08, 0.245]}>
         <boxGeometry args={[0.45, 0.13, 0.025]} />
 
         <meshBasicMaterial color="#f5f5f5" />
       </mesh>
 
+      {/* Wheels */}
       <mesh position={[0.27, -0.18, 0]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.08, 24]} />
+        <cylinderGeometry args={[0.075, 0.075, 0.07, 12]} />
 
-        <meshStandardMaterial
-          color="#e50914"
-          emissive="#e50914"
-          emissiveIntensity={1}
-        />
+        <meshBasicMaterial color={RED} />
       </mesh>
 
       <mesh position={[-0.27, -0.18, 0]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.08, 24]} />
+        <cylinderGeometry args={[0.075, 0.075, 0.07, 12]} />
 
-        <meshStandardMaterial
-          color="#e50914"
-          emissive="#e50914"
-          emissiveIntensity={1}
-        />
+        <meshBasicMaterial color={RED} />
       </mesh>
     </group>
   );
 }
 
-function MovingEnergy() {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    if (!ref.current) {
-      return;
-    }
-
-    const progress = (state.clock.elapsedTime * 0.18) % 1;
-
-    ref.current.position.x = -1.8 + progress * 3.6;
-
-    ref.current.position.y = 0.15 + Math.sin(progress * Math.PI) * 0.75;
-  });
-
+function MovingEnergy({ refs }: { refs: React.MutableRefObject<SceneRefs> }) {
   return (
-    <mesh ref={ref}>
-      <sphereGeometry args={[0.045, 16, 16]} />
+    <mesh
+      ref={(node) => {
+        refs.current.energy = node;
+      }}
+    >
+      <sphereGeometry args={[0.045, 10, 10]} />
 
-      <meshBasicMaterial color="#ffffff" />
+      <meshBasicMaterial color={WHITE} />
     </mesh>
   );
 }
 
 function SceneContent({ isDark }: { isDark: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (!groupRef.current) {
-      return;
-    }
-
-    const targetX = state.pointer.x * 0.08;
-    const targetY = state.pointer.y * 0.05;
-
-    groupRef.current.rotation.y +=
-      (targetX - groupRef.current.rotation.y) * 0.025;
-
-    groupRef.current.rotation.x +=
-      (-targetY - groupRef.current.rotation.x) * 0.025;
+  const refs = useRef<SceneRefs>({
+    root: null,
+    core: null,
+    orbit1: null,
+    orbit2: null,
+    orbit3: null,
+    pod: null,
+    energy: null,
+    nodeLeft: null,
+    nodeCenter: null,
+    nodeRight: null,
   });
 
+  const elapsed = useRef(0);
+
+  const { viewport } = useThree();
+
+  const isMobile = viewport.width < 6;
+
+  useFrame((state, delta) => {
+    elapsed.current += delta;
+
+    const time = elapsed.current;
+    const current = refs.current;
+
+    /*
+     * Single animation loop
+     * Instead of many independent useFrame calls.
+     */
+
+    // Main pointer interaction
+    if (current.root) {
+      const targetX = state.pointer.x * 0.08;
+      const targetY = state.pointer.y * 0.05;
+
+      current.root.rotation.y += (targetX - current.root.rotation.y) * 0.025;
+
+      current.root.rotation.x += (-targetY - current.root.rotation.x) * 0.025;
+    }
+
+    // Energy core rotation
+    if (current.core) {
+      current.core.rotation.y += delta * 0.32;
+
+      current.core.rotation.x = Math.sin(time * 0.7) * 0.07;
+
+      current.core.position.y = Math.sin(time * 1.1) * 0.035;
+    }
+
+    // Orbit animations
+    if (current.orbit1) {
+      current.orbit1.rotation.z += delta * 0.65;
+    }
+
+    if (current.orbit2) {
+      current.orbit2.rotation.z -= delta * 0.45;
+    }
+
+    if (current.orbit3) {
+      current.orbit3.rotation.z += delta * 0.25;
+    }
+
+    // Delivery pod
+    if (current.pod) {
+      current.pod.rotation.y = Math.sin(time * 0.45) * 0.16;
+
+      current.pod.position.y = 0.15 + Math.sin(time * 1.35) * 0.07;
+    }
+
+    // Moving delivery signal
+    if (current.energy) {
+      const progress = (time * 0.18) % 1;
+
+      current.energy.position.x = -1.8 + progress * 3.6;
+
+      current.energy.position.y = Math.sin(progress * Math.PI) * 0.72;
+    }
+
+    // Node pulse
+    const pulse = 1 + Math.sin(time * 3.2) * 0.07;
+
+    if (current.nodeLeft) {
+      current.nodeLeft.scale.setScalar(pulse);
+    }
+
+    if (current.nodeCenter) {
+      current.nodeCenter.scale.setScalar(1 + Math.sin(time * 3.2) * 0.1);
+    }
+
+    if (current.nodeRight) {
+      current.nodeRight.scale.setScalar(pulse);
+    }
+  });
+
+  const particleCount = isMobile ? (isDark ? 25 : 15) : isDark ? 45 : 25;
+
   return (
-    <group ref={groupRef}>
-      <ambientLight intensity={isDark ? 0.5 : 1.1} />
+    <group
+      ref={(node) => {
+        refs.current.root = node;
+      }}
+    >
+      {/* Lightweight lighting */}
+      <ambientLight intensity={isDark ? 0.45 : 0.9} />
 
-      <directionalLight position={[3, 4, 5]} intensity={isDark ? 2 : 1.6} />
+      <directionalLight position={[3, 4, 5]} intensity={isDark ? 1.4 : 1} />
 
-      <pointLight
-        position={[0, 1, 1]}
-        color="#e50914"
-        intensity={isDark ? 4 : 2.5}
-        distance={7}
+      {/* Main energy core */}
+      <EnergyCore isDark={isDark} refs={refs} />
+
+      {/* Orbit rings */}
+      <OrbitRing
+        radius={1.05}
+        rotation={[Math.PI / 2, 0.2, 0]}
+        speed={0.65}
+        opacity={isDark ? 0.4 : 0.26}
+        refs={refs}
+        refKey="orbit1"
       />
 
-      <Float speed={1.4} rotationIntensity={0.18} floatIntensity={0.3}>
-        <EnergyCore isDark={isDark} />
+      <OrbitRing
+        radius={1.3}
+        rotation={[0.7, 0.3, 0.5]}
+        speed={-0.45}
+        opacity={isDark ? 0.24 : 0.15}
+        refs={refs}
+        refKey="orbit2"
+      />
 
-        <OrbitRing
-          radius={1.05}
-          rotation={[Math.PI / 2, 0.2, 0]}
-          speed={0.8}
-          opacity={isDark ? 0.42 : 0.3}
-        />
-
-        <OrbitRing
-          radius={1.3}
-          rotation={[0.7, 0.3, 0.5]}
-          speed={-0.55}
-          opacity={isDark ? 0.25 : 0.18}
-        />
-
-        <OrbitRing
-          radius={1.55}
-          rotation={[1.1, 0.2, 0.8]}
-          speed={0.3}
-          opacity={isDark ? 0.16 : 0.1}
-        />
-      </Float>
-
-      <DeliveryPod />
-
-      <RouteBeam start={[-1.8, 0, 0]} end={[1.8, 0, 0]} />
-
-      <RouteNode position={[-1.8, 0, 0]} />
-
-      <RouteNode position={[0, 0.75, 0]} active />
-
-      <RouteNode position={[1.8, 0, 0]} />
-
-      <MovingEnergy />
-
-      <Sparkles
-        count={isDark ? 90 : 55}
-        scale={[5.5, 3.5, 3]}
-        size={isDark ? 1.1 : 0.7}
+      <OrbitRing
+        radius={1.55}
+        rotation={[1.1, 0.2, 0.8]}
         speed={0.25}
-        color="#e50914"
+        opacity={isDark ? 0.14 : 0.08}
+        refs={refs}
+        refKey="orbit3"
       />
 
-      <Sparkles
-        count={isDark ? 35 : 15}
-        scale={[4, 2.5, 2]}
-        size={isDark ? 1.7 : 1}
-        speed={0.12}
-        color={isDark ? "#ffffff" : "#e50914"}
+      {/* Delivery */}
+      <DeliveryPod refs={refs} />
+
+      {/* Route */}
+      <RoutePath />
+
+      {/* Route nodes */}
+      <RouteNode position={[-1.8, 0, 0]} refs={refs} refKey="nodeLeft" />
+
+      <RouteNode
+        position={[0, 0.72, 0]}
+        active
+        refs={refs}
+        refKey="nodeCenter"
       />
+
+      <RouteNode position={[1.8, 0, 0]} refs={refs} refKey="nodeRight" />
+
+      {/* Moving signal */}
+      <MovingEnergy refs={refs} />
+
+      {/* Lightweight particles */}
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[
+              new Float32Array(
+                Array.from(
+                  { length: particleCount * 3 },
+                  () => (Math.random() - 0.5) * 5,
+                ),
+              ),
+              3,
+            ]}
+          />
+        </bufferGeometry>
+
+        <pointsMaterial
+          color={isDark ? RED : RED}
+          size={isMobile ? 0.025 : 0.035}
+          transparent
+          opacity={isDark ? 0.45 : 0.2}
+          sizeAttenuation
+        />
+      </points>
     </group>
   );
 }
 
 export default function HeroScene() {
   const { resolvedTheme } = useTheme();
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const isDark = mounted && resolvedTheme === "dark";
-
   if (!mounted) {
     return null;
   }
+
+  const isDark = resolvedTheme === "dark";
 
   return (
     <Canvas
@@ -365,9 +424,9 @@ export default function HeroScene() {
         position: [0, 0.1, 5.5],
         fov: 38,
         near: 0.1,
-        far: 100,
+        far: 50,
       }}
-      dpr={[1, 1.5]}
+      dpr={[1, 1.25]}
       gl={{
         antialias: true,
         alpha: true,

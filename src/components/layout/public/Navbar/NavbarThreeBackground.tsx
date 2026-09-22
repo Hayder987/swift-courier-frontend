@@ -1,106 +1,210 @@
 "use client";
 
+import { Line } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
-import type * as THREE from "three";
+import { useRef } from "react";
+import * as THREE from "three";
 
-function FloatingOrb() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const elapsedTimeRef = useRef(0);
+const RED = "#e50914";
 
-  useFrame((_state, delta) => {
-    const mesh = meshRef.current;
+type NetworkNode = {
+  id: string;
+  position: [number, number, number];
+};
 
-    if (!mesh) {
+const NETWORK_NODES: NetworkNode[] = [
+  {
+    id: "identity",
+    position: [-4.8, 0.15, -0.5],
+  },
+  {
+    id: "password",
+    position: [-3.1, -0.35, -0.2],
+  },
+  {
+    id: "encryption",
+    position: [-1.5, 0.25, -0.4],
+  },
+  {
+    id: "authentication",
+    position: [0, -0.1, -0.3],
+  },
+  {
+    id: "verification",
+    position: [1.6, 0.3, -0.4],
+  },
+  {
+    id: "session",
+    position: [3.2, -0.25, -0.2],
+  },
+  {
+    id: "secure",
+    position: [4.8, 0.1, -0.5],
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/* NETWORK LINE                                                               */
+/* -------------------------------------------------------------------------- */
+
+function NetworkLine({
+  start,
+  end,
+}: {
+  start: [number, number, number];
+  end: [number, number, number];
+}) {
+  return (
+    <Line
+      points={[start, end]}
+      color={RED}
+      lineWidth={0.6}
+      transparent
+      opacity={0.12}
+    />
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* SECURITY NETWORK                                                           */
+/* -------------------------------------------------------------------------- */
+
+function SecurityNetwork() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (!groupRef.current) {
       return;
     }
 
-    elapsedTimeRef.current += delta;
+    const time = state.clock.elapsedTime;
 
-    const time = elapsedTimeRef.current;
+    groupRef.current.position.x = Math.sin(time * 0.15) * 0.05;
 
-    mesh.rotation.x = time * 0.08;
-    mesh.rotation.y = time * 0.12;
-    mesh.position.y = Math.sin(time * 0.5) * 0.08;
+    groupRef.current.rotation.y = Math.sin(time * 0.12) * 0.015;
   });
 
   return (
-    <mesh ref={meshRef} position={[3, 0, 0]} scale={1.6}>
-      <icosahedronGeometry args={[1, 3]} />
+    <group ref={groupRef}>
+      {/* Network connections */}
+      {NETWORK_NODES.slice(0, -1).map((node, index) => {
+        const nextNode = NETWORK_NODES[index + 1];
+
+        return (
+          <NetworkLine
+            key={`${node.id}-${nextNode.id}`}
+            start={node.position}
+            end={nextNode.position}
+          />
+        );
+      })}
+
+      {/* Network nodes */}
+      {NETWORK_NODES.map((node) => (
+        <mesh key={node.id} position={node.position}>
+          <sphereGeometry args={[0.025, 8, 8]} />
+
+          <meshBasicMaterial
+            color={RED}
+            transparent
+            opacity={0.45}
+            depthWrite={false}
+          />
+        </mesh>
+      ))}
+
+      {/* Central authentication node */}
+      <mesh position={[0, -0.1, 0]}>
+        <sphereGeometry args={[0.055, 8, 8]} />
+
+        <meshBasicMaterial color={RED} toneMapped={false} />
+      </mesh>
+    </group>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* MOVING SECURITY SIGNAL                                                     */
+/* -------------------------------------------------------------------------- */
+
+function MovingSignal() {
+  const signalRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (!signalRef.current) {
+      return;
+    }
+
+    const progress = (state.clock.elapsedTime * 0.08) % 1;
+
+    signalRef.current.position.x = -4.8 + progress * 9.6;
+
+    signalRef.current.position.y =
+      0.15 + Math.sin(progress * Math.PI * 6) * 0.12;
+  });
+
+  return (
+    <mesh ref={signalRef}>
+      <sphereGeometry args={[0.045, 8, 8]} />
+
+      <meshBasicMaterial color={RED} toneMapped={false} />
+    </mesh>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* SECURITY PULSE                                                             */
+/* -------------------------------------------------------------------------- */
+
+function SecurityPulse() {
+  const ringRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (!ringRef.current) {
+      return;
+    }
+
+    const progress = (state.clock.elapsedTime * 0.22) % 1;
+
+    ringRef.current.scale.setScalar(1 + progress * 1.8);
+
+    const material = ringRef.current.material as THREE.MeshBasicMaterial;
+
+    material.opacity = 0.18 - progress * 0.18;
+  });
+
+  return (
+    <mesh ref={ringRef} position={[0, -0.1, -0.1]}>
+      <ringGeometry args={[0.35, 0.365, 32]} />
 
       <meshBasicMaterial
-        color="#e50914"
+        color={RED}
         transparent
-        opacity={0.045}
-        wireframe
+        opacity={0.18}
         depthWrite={false}
+        side={THREE.DoubleSide}
       />
     </mesh>
   );
 }
 
-function FloatingParticles() {
-  const pointsRef = useRef<THREE.Points>(null);
-  const elapsedTimeRef = useRef(0);
-
-  const positions = useMemo(() => {
-    const particleCount = 70;
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let index = 0; index < particleCount; index++) {
-      const x = ((index * 37) % 100) / 100;
-      const y = ((index * 67) % 100) / 100;
-      const z = ((index * 97) % 100) / 100;
-
-      particlePositions[index * 3] = (x - 0.5) * 12;
-      particlePositions[index * 3 + 1] = (y - 0.5) * 2;
-      particlePositions[index * 3 + 2] = (z - 0.5) * 3;
-    }
-
-    return particlePositions;
-  }, []);
-
-  useFrame((_state, delta) => {
-    const points = pointsRef.current;
-
-    if (!points) {
-      return;
-    }
-
-    elapsedTimeRef.current += delta;
-
-    const time = elapsedTimeRef.current;
-
-    points.rotation.y = time * 0.015;
-    points.position.x = Math.sin(time * 0.2) * 0.15;
-  });
-
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-
-      <pointsMaterial
-        color="#e50914"
-        size={0.025}
-        transparent
-        opacity={0.35}
-        sizeAttenuation
-        depthWrite={false}
-      />
-    </points>
-  );
-}
+/* -------------------------------------------------------------------------- */
+/* SCENE                                                                      */
+/* -------------------------------------------------------------------------- */
 
 function Scene() {
   return (
     <>
-      <FloatingOrb />
-      <FloatingParticles />
+      <SecurityNetwork />
+      <MovingSignal />
+      <SecurityPulse />
     </>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/* NAVBAR BACKGROUND                                                          */
+/* -------------------------------------------------------------------------- */
 
 export default function NavbarThreeBackground() {
   return (
@@ -110,7 +214,7 @@ export default function NavbarThreeBackground() {
           position: [0, 0, 5],
           fov: 45,
         }}
-        dpr={[1, 1.5]}
+        dpr={[1, 1.25]}
         gl={{
           alpha: true,
           antialias: true,
@@ -121,8 +225,11 @@ export default function NavbarThreeBackground() {
         <Scene />
       </Canvas>
 
-      {/* Soft SwiftCourier red ambient glow */}
-      <div className="absolute left-1/2 top-0 h-32 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/[0.035] blur-3xl" />
+      {/* Premium SwiftCourier red atmosphere */}
+      <div className="absolute left-1/2 top-0 h-24 w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/[0.035] blur-3xl" />
+
+      {/* Subtle bottom fade */}
+      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background to-transparent" />
     </div>
   );
 }
