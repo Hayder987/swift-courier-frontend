@@ -10,7 +10,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
 
   const { data, isPending, isError } = useGetMe();
 
-  const user = data?.data;
+  const user = data?.data?.user;
 
   useEffect(() => {
     if (isPending) {

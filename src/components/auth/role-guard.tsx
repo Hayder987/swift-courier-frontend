@@ -17,9 +17,10 @@ export default function RoleGuard({ children, roles }: IProps) {
 
   const { data, isPending, isError } = useGetMe();
 
-  const user = data?.user;
+  const user = data?.data?.user;
+  console.log(user)
 
-  const isAuthorized = !!user && roles.includes(user.role);
+  const isAuthorized = !!user && roles.includes(user?.role);
 
   useEffect(() => {
     if (isPending) {
