@@ -422,7 +422,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
             ROLE SPECIFIC DETAILS
         ========================================================== */}
 
-        <Card className="mt-6 overflow-hidden rounded-3xl border-[#e50914]/10 bg-[#e50914]/[0.025] shadow-sm">
+        <Card className="mt-6 overflow-hidden rounded-3xl border-[#e50914]/10 bg-[#e50914]/2.5 shadow-sm">
           <CardContent className="p-5 sm:p-6">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-3">

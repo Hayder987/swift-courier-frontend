@@ -10,8 +10,9 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import type { UserRole } from "@/types";
-import ThemeToggle from "../public/Navbar/ThemeToggle";
-import { DashboardSidebar } from "./dashboard-sidebar";
+import ThemeToggle from "../../public/Navbar/ThemeToggle";
+import { DashboardSidebar } from "../dashboard-sidebar";
+import NotificationSheet from "../notification/NotificationSheet";
 
 type DashboardShellProps = {
   children: ReactNode;
@@ -47,18 +48,7 @@ export default function DashboardShell({
 
           <div className="ml-auto flex items-center gap-1.5">
             <ThemeToggle />
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative size-8 rounded-full transition-colors hover:bg-muted"
-            >
-              <Bell className="size-4" />
-
-              <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#e50914]" />
-
-              <span className="sr-only">Notifications</span>
-            </Button>
+            <NotificationSheet />
           </div>
         </header>
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import RoleGuard from "@/components/auth/role-guard";
-import DashboardShell from "@/components/layout/dashboard/dashboard-shell";
+import DashboardShell from "@/components/layout/dashboard/sidebar/dashboard-shell";
 
 const courier = "COURIER";
 

@@ -7,8 +7,8 @@ import type {
   IVerifyEmailPayload,
 } from "@/validation";
 
-export function userLogin(paylod: ILoginPayload) {
-  return apiClient(`/auth/login`, { method: "POST", body: paylod });
+export function userLogin(payload: ILoginPayload) {
+  return apiClient(`/auth/login`, { method: "POST", body: payload });
 }
 
 export function userRegister(payload: IRegisterUserPayload) {
