@@ -1,7 +1,7 @@
 import ProfileContainer from "@/components/layout/dashboard/commmon/ProfileContainer";
 
-const CustomerProfilePage = () => {
+const SuperAdminProfilePage = () => {
   return <ProfileContainer />;
 };
 
-export default CustomerProfilePage;
+export default SuperAdminProfilePage;

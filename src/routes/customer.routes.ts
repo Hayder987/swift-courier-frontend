@@ -2,11 +2,13 @@ import {
   LayoutDashboard,
   MapPinned,
   MapPlus,
+  PackagePlus,
+  PackageSearch,
   UserRound,
 } from "lucide-react";
 import type { SidebarItems } from "@/types";
 
-const prefix = "/admin-dashboard";
+const prefix = "/customer-dashboard";
 
 export const customerRoutes: SidebarItems = [
   {
@@ -29,13 +31,13 @@ export const customerRoutes: SidebarItems = [
     items: [
       {
         title: "Create Shipment",
-        url: `${prefix}/create-zone`,
-        icon: MapPlus,
+        url: `${prefix}/create-shipment`,
+        icon: PackagePlus,
       },
       {
         title: "My Shipment",
-        url: `${prefix}/all-zones`,
-        icon: MapPinned,
+        url: `${prefix}/my-shipment`,
+        icon: PackageSearch,
       },
     ],
   },

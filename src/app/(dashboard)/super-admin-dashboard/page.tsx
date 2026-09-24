@@ -1,9 +1,11 @@
 import WelcomeDashBoard from "@/components/layout/dashboard/commmon/WelcomeDashBoard";
 
-export default function AdminDashboard() {
+const SuperAdminPage = () => {
   return (
     <div>
-      <WelcomeDashBoard role={"ADMIN"} />
+      <WelcomeDashBoard role={"SUPER_ADMIN"} />
     </div>
   );
-}
+};
+
+export default SuperAdminPage;

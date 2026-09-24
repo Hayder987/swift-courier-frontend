@@ -23,12 +23,16 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { courierRoutes, customerRoutes, superAdminRoutes } from "@/routes";
 import { adminRoutes } from "@/routes/admin.routes";
 import type { UserRole } from "@/types";
 import type { SidebarItems } from "@/types/sidebar.type";
 
 const sidebarRoutes: Partial<Record<UserRole, SidebarItems>> = {
   ADMIN: adminRoutes,
+  SUPER_ADMIN: superAdminRoutes,
+  COURIER: courierRoutes,
+  CUSTOMER: customerRoutes,
 };
 
 const roleLabel = {

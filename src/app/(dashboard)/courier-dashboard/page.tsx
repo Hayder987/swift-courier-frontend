@@ -1,9 +1,11 @@
 import WelcomeDashBoard from "@/components/layout/dashboard/commmon/WelcomeDashBoard";
 
-export default function AdminDashboard() {
+const CourierWelcomePage = () => {
   return (
     <div>
-      <WelcomeDashBoard role={"ADMIN"} />
+      <WelcomeDashBoard role={"COURIER"} />
     </div>
   );
-}
+};
+
+export default CourierWelcomePage;

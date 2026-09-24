@@ -1,7 +1,7 @@
 import ProfileContainer from "@/components/layout/dashboard/commmon/ProfileContainer";
 
-const CustomerProfilePage = () => {
+const CourierProfilePage = () => {
   return <ProfileContainer />;
 };
 
-export default CustomerProfilePage;
+export default CourierProfilePage;

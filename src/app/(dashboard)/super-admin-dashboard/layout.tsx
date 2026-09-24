@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import RoleGuard from "@/components/auth/role-guard";
 import DashboardShell from "@/components/layout/dashboard/dashboard-shell";
 
-const customer = "CUSTOMER";
+const superAdmin = "SUPER_ADMIN";
 
 export default function layout({ children }: { children: ReactNode }) {
   return (
-    <RoleGuard roles={["CUSTOMER"]}>
-      <DashboardShell role={customer}>{children}</DashboardShell>
+    <RoleGuard roles={["SUPER_ADMIN"]}>
+      <DashboardShell role={superAdmin}>{children}</DashboardShell>
     </RoleGuard>
   );
 }

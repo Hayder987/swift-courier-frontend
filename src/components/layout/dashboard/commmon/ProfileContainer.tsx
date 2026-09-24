@@ -1,8 +1,8 @@
 "use client";
 
 import LoadingScreen from "@/components/loading/LoadingScreen";
-import ProfileComponent from "./ProfileComponent";
 import { useGetMe } from "@/hooks";
+import ProfileComponent from "./ProfileComponent";
 
 const ProfileContainer = () => {
   const { data, isPending, isError } = useGetMe();

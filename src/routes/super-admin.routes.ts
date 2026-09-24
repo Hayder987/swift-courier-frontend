@@ -1,14 +1,7 @@
-import {
-  LayoutDashboard,
-  MapPinned,
-  PackageCheck,
-  Truck,
-  UserRound,
-  Users,
-} from "lucide-react";
+import { LayoutDashboard, ScrollText, UserRound } from "lucide-react";
 import type { SidebarItems } from "@/types";
 
-const prefix = "/admin-dashboard";
+const prefix = "/super-admin-dashboard";
 
 export const superAdminRoutes: SidebarItems = [
   {
@@ -30,24 +23,9 @@ export const superAdminRoutes: SidebarItems = [
     title: "Management",
     items: [
       {
-        title: "Approved Courier",
-        url: `${prefix}/approve-courier`,
-        icon: Truck,
-      },
-      {
-        title: "All Users",
-        url: `${prefix}/all-users`,
-        icon: Users,
-      },
-      {
-        title: "All Shipments",
-        url: `${prefix}/all-shipment`,
-        icon: PackageCheck,
-      },
-      {
-        title: "Zones",
-        url: `${prefix}/zones`,
-        icon: MapPinned,
+        title: "All Audit Logs",
+        url: `${prefix}/audit-logs`,
+        icon: ScrollText,
       },
     ],
   },

@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export type UserRole = "SUPER_ADMIN" | "ADMIN" | "COURIER" | "CUSTOMER";
 
 export type UserProfile = {
@@ -54,4 +56,13 @@ export type ProfileUser = {
 
 export type ProfileComponentProps = {
   user: ProfileUser;
+};
+
+export type RoleContent = {
+  badge: string;
+  title: string;
+  highlight: string;
+  description: string;
+  icon: LucideIcon;
+  features: string[];
 };

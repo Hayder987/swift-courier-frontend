@@ -115,13 +115,9 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
       ========================================================== */}
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute -left-32 -top-32 size-80 rounded-full bg-[#e50914]/10 blur-3xl dark:bg-[#e50914]/15 "
-        />
+        <div className="absolute -left-32 -top-32 size-80 rounded-full bg-[#e50914]/10 blur-3xl dark:bg-[#e50914]/15 " />
 
-        <div
-          className=" absolute -right-32 top-20 size-96 rounded-full bg-[#e50914]/5 blur-3xl "
-        />
+        <div className=" absolute -right-32 top-20 size-96 rounded-full bg-[#e50914]/5 blur-3xl " />
 
         <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(to_right,#e50914_1px,transparent_1px),linear-gradient(to_bottom,#e50914_1px,transparent_1px)][background-size:32px_32px]" />
       </div>
