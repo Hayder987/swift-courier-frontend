@@ -1,5 +1,3 @@
-"use client";
-
 import {
   BadgeCheck,
   BriefcaseBusiness,
@@ -118,18 +116,11 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="
-            absolute -left-32 -top-32 size-80 rounded-full
-            bg-[#e50914]/10 blur-3xl
-            dark:bg-[#e50914]/15
-          "
+          className="absolute -left-32 -top-32 size-80 rounded-full bg-[#e50914]/10 blur-3xl dark:bg-[#e50914]/15 "
         />
 
         <div
-          className="
-            absolute -right-32 top-20 size-96 rounded-full
-            bg-[#e50914]/5 blur-3xl
-          "
+          className=" absolute -right-32 top-20 size-96 rounded-full bg-[#e50914]/5 blur-3xl "
         />
 
         <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(to_right,#e50914_1px,transparent_1px),linear-gradient(to_bottom,#e50914_1px,transparent_1px)][background-size:32px_32px]" />
@@ -169,7 +160,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
 
         <Card className="relative overflow-hidden rounded-3xl border-border/60 bg-background/75 shadow-sm backdrop-blur-xl">
           {/* Top red line */}
-          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-[#e50914] to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-[#e50914] to-transparent" />
 
           {/* Ambient glow */}
           <div className="pointer-events-none absolute -right-20 -top-24 size-72 rounded-full bg-[#e50914]/10 blur-3xl" />
@@ -180,7 +171,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
               <div className="flex min-w-0 items-center gap-4 sm:gap-5">
                 {/* Avatar */}
                 <div className="relative shrink-0">
-                  <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#e50914]/50 via-transparent to-[#e50914]/20 blur-sm" />
+                  <div className="absolute -inset-1 rounded-full bg-linear-to-br from-[#e50914]/50 via-transparent to-[#e50914]/20 blur-sm" />
 
                   <div className="relative flex size-20 items-center justify-center overflow-hidden rounded-full border-2 border-background bg-muted shadow-xl sm:size-24">
                     {showImage ? (
@@ -245,7 +236,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
               </div>
 
               {/* Account meta */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:min-w-[360px]">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:min-w-90">
                 <div className="rounded-2xl border border-border/50 bg-muted/30 p-3">
                   <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                     Account

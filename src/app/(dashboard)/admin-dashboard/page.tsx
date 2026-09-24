@@ -1,7 +1,9 @@
+import WelcomeDashBoard from "@/components/layout/dashboard/commmon/WelcomeDashBoard";
+
 export default function AdminDashboard() {
   return (
     <div>
-      <h1> This is admin dashboard </h1>
+      <WelcomeDashBoard role={"ADMIN"}/>
     </div>
   );
 }
