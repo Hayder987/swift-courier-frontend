@@ -7,15 +7,22 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "@/components/ui/toast";
 import { useLogout } from "@/hooks";
+import type { UserRole } from "@/types";
 
 type ProfileMenuProps = {
-  userName?: string;
+  userName: string;
+  userRole: UserRole;
 };
 
-export default function ProfileMenu({
-  userName = "Profile",
-}: ProfileMenuProps) {
+export default function ProfileMenu({ userName, userRole }: ProfileMenuProps) {
   const [open, setOpen] = useState(false);
+
+  const dashboardRoute: Record<UserRole, string> = {
+    SUPER_ADMIN: "/super-admin-dashboard",
+    ADMIN: "/admin-dashboard",
+    CUSTOMER: "/customer-dashboard",
+    COURIER: "/courier-dashboard",
+  };
 
   const { mutate: logout, isPending: logoutPending } = useLogout();
 
@@ -72,7 +79,7 @@ export default function ProfileMenu({
         <div className="absolute right-0 top-12 z-50 w-52 rounded-2xl border border-border bg-background p-2 shadow-xl">
           {/* Profile */}
           <Link
-            href="/profile"
+            href={`${dashboardRoute[userRole]}/my-profile`}
             onClick={() => setOpen(false)}
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted"
           >
@@ -81,14 +88,16 @@ export default function ProfileMenu({
           </Link>
 
           {/* Dashboard */}
-          <Link
-            href="/dashboard"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted"
-          >
-            <Settings className="h-4 w-4" />
-            Dashboard
-          </Link>
+          {userRole && (
+            <Link
+              href={dashboardRoute[userRole]}
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition hover:bg-muted"
+            >
+              <Settings className="h-4 w-4" />
+              Dashboard
+            </Link>
+          )}
 
           {/* Logout */}
           <button

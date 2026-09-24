@@ -23,11 +23,11 @@ const WelcomeDashBoard = ({ role }: WelcomeDashBoardProps) => {
   return (
     <main className="relative min-h-[calc(100vh-2rem)] w-full overflow-hidden rounded-3xl border border-border bg-background">
       {/* BACKGROUND */}
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-[#e50914]/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-40 -left-40 h-[450px] w-[450px] rounded-full bg-[#e50914]/5 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-125 w-125 rounded-full bg-[#e50914]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-112.5 w-112.5 rounded-full bg-[#e50914]/5 blur-[120px]" />
 
       {/* Grid */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.035] bg-[linear-gradient(to_right,#e50914_1px,transparent_1px),linear-gradient(to_bottom,#e50914_1px,transparent_1px)] bg-[size:48px_48px]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.035] bg-[linear-gradient(to_right,#e50914_1px,transparent_1px),linear-gradient(to_bottom,#e50914_1px,transparent_1px)] bg-size-[48px_48px]" />
 
       {/* DECORATIVE ELEMENTS */}
       <div className="pointer-events-none absolute left-[8%] top-[15%] hidden size-2 rounded-full bg-[#e50914] shadow-[0_0_18px_#e50914] sm:block" />
@@ -53,7 +53,7 @@ const WelcomeDashBoard = ({ role }: WelcomeDashBoardProps) => {
               <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
                 {content.title}
                 <span className="mt-1 block">
-                  <span className="bg-gradient-to-r from-[#e50914] via-[#ff333d] to-[#e50914] bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-[#e50914] via-[#ff333d] to-[#e50914] bg-clip-text text-transparent">
                     {content.highlight}
                   </span>
                   <span className="text-foreground">.</span>
@@ -103,15 +103,15 @@ const WelcomeDashBoard = ({ role }: WelcomeDashBoardProps) => {
             {/* RIGHT VISUAL */}
             <div className="relative flex items-center justify-center">
               {/* Outer glow */}
-              <div className="absolute size-[260px] rounded-full bg-[#e50914]/10 blur-[80px] sm:size-[340px]" />
+              <div className="absolute size-65 rounded-full bg-[#e50914]/10 blur-[80px] sm:size-85" />
 
               {/* Main visual */}
-              <div className="relative w-full max-w-[430px] overflow-hidden rounded-[2rem] border border-border bg-card/50 p-5 shadow-2xl backdrop-blur-2xl sm:p-7">
+              <div className="relative w-full max-w-107.5 overflow-hidden rounded-[2rem] border border-border bg-card/50 p-5 shadow-2xl backdrop-blur-2xl sm:p-7">
                 {/* Top red line */}
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#e50914] to-transparent" />
+                <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-transparent via-[#e50914] to-transparent" />
 
                 {/* Inner background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#e50914]/5 via-transparent to-[#e50914]/5" />
+                <div className="absolute inset-0 bg-linear-to-br from-[#e50914]/5 via-transparent to-[#e50914]/5" />
 
                 <div className="relative">
                   {/* Icon area */}

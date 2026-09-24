@@ -27,7 +27,7 @@ export default function MobileMenu() {
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-[72px] border-b border-border bg-background/95 px-4 pb-4 shadow-xl backdrop-blur-xl">
+        <div className="absolute left-0 right-0 top-18 border-b border-border bg-background/95 px-4 pb-4 shadow-xl backdrop-blur-xl">
           <nav className="mx-auto max-w-7xl rounded-2xl border border-border bg-background p-2">
             {NAV_ITEMS.map((item) => (
               <Link
@@ -56,7 +56,9 @@ export default function MobileMenu() {
             )}
 
             {/* Logged In */}
-            {!isLoading && user && <ProfileMenu userName={user.name} />}
+            {!isLoading && user && (
+              <ProfileMenu userName={user.name} userRole={user.role} />
+            )}
           </nav>
         </div>
       )}

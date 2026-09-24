@@ -3,10 +3,8 @@
 import { Package } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-
 import { useGetMe } from "@/hooks";
 import { NAV_ITEMS } from "@/lib/constants";
-
 import MobileMenu from "./MobileMenu";
 import ProfileMenu from "./ProfileMenu";
 import ThemeToggle from "./ThemeToggle";
@@ -18,7 +16,6 @@ const NavbarThreeBackground = dynamic(() => import("./NavbarThreeBackground"), {
 
 export default function NavHeader() {
   const { data, isLoading } = useGetMe();
-
   const user = data?.data?.user;
 
   return (
@@ -73,7 +70,9 @@ export default function NavHeader() {
             )}
 
             {/* Logged In */}
-            {!isLoading && user && <ProfileMenu userName={user.name} />}
+            {!isLoading && user && (
+              <ProfileMenu userName={user?.name} userRole={user?.role} />
+            )}
           </div>
 
           {/* Mobile Actions */}

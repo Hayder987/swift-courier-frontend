@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ChevronRight,
-  LogOut,
-  Package,
-  ShieldCheck,
-  UserRound,
-} from "lucide-react";
+import { ChevronRight, Package, ShieldCheck, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogoutButton from "@/components/auth/LogoutButton";
@@ -99,10 +93,9 @@ export function DashboardSidebar({ role }: DashboardSidebarProps) {
                 {group.items.map((item) => {
                   const Icon = item.icon;
 
-                  const isActive =
-                    pathname === item.url ||
-                    (item.url !== "/admin-dashboard" &&
-                      pathname.startsWith(`${item.url}/`));
+                  const isActive = pathname === item.url;
+                  // (item.url !== "/admin-dashboard" &&
+                  //   pathname.startsWith(`${item.url}/`));
 
                   return (
                     <SidebarMenuItem key={item.title}>
