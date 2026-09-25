@@ -11,8 +11,8 @@ export const NAV_ITEMS = [
     label: "Contact",
     href: "/contact",
   },
-  // {
-  //   label: "My Location",
-  //   href: "/my-location",
-  // },
+  {
+    label: "FAQs",
+    href: "/faq",
+  },
 ] as const;
