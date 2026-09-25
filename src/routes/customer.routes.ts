@@ -1,5 +1,7 @@
 import {
+  Bike,
   LayoutDashboard,
+  Locate,
   MapPinned,
   MapPlus,
   PackagePlus,
@@ -47,7 +49,12 @@ export const customerRoutes: SidebarItems = [
       {
         title: "Be a Courier",
         url: `${prefix}/be-courier`,
-        icon: PackagePlus,
+        icon: Bike,
+      },
+      {
+        title: "My Location",
+        url: `${prefix}/my-location`,
+        icon: Locate,
       },
     ],
   },
