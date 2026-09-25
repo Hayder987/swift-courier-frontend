@@ -12,7 +12,7 @@ export const NAV_ITEMS = [
     href: "/contact",
   },
   {
-    label: "Be a Courier",
-    href: "/be-courier",
+    label: "My Location",
+    href: "/my-location",
   },
 ] as const;

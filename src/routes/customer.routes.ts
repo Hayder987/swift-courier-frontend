@@ -41,4 +41,14 @@ export const customerRoutes: SidebarItems = [
       },
     ],
   },
+  {
+    title: "Others",
+    items: [
+      {
+        title: "Be a Courier",
+        url: `${prefix}/be-courier`,
+        icon: PackagePlus,
+      },
+    ],
+  },
 ];

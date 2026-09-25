@@ -6,14 +6,11 @@ import {
   BadgeCheck,
   Bike,
   CheckCircle2,
-  FileText,
   FileUp,
   GraduationCap,
   IdCard,
   Loader2,
   MapPin,
-  ShieldCheck,
-  Trash2,
   UploadCloud,
 } from "lucide-react";
 
@@ -28,47 +25,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/toast";
-
 import { useApplyCourier } from "@/hooks/employee.hook";
 import { courierApplicationSchema } from "@/validation/courier-application-validation";
 
-const MAX_FILE_SIZE = 5;
-const MAX_VEHICLE_DOCUMENTS = 5;
-const MAX_NATIONAL_ID_FILES = 2;
+import {
+  FileList,
+  FileUploadBox,
+  isValidFile,
+  MAX_FILE_SIZE,
+  MAX_NATIONAL_ID_FILES,
+  MAX_VEHICLE_DOCUMENTS,
+  SelectedFile,
+} from "./CourierFileUpload";
 
 const defaultValues = {
-  permanentAddress: "pabna sadar, pabna, bangladesh",
-  permanentCity: "pabna",
-  vehicleLicenseNumber: "58698774585",
-  qualifications: "BBA",
+  permanentAddress: "",
+  permanentCity: "",
+  vehicleLicenseNumber: "",
+  qualifications: "",
   resume: null as File | null,
   vehicleDocuments: [] as File[],
   nationalIdPic: [] as File[],
-};
-
-const ACCEPTED_FILE_TYPES = [
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
-
-const isValidFile = (file: File) => {
-  const maxSize = MAX_FILE_SIZE * 1024 * 1024;
-
-  return file.size <= maxSize && ACCEPTED_FILE_TYPES.includes(file.type);
-};
-
-const formatFileSize = (bytes: number) => {
-  if (bytes < 1024) {
-    return `${bytes} B`;
-  }
-
-  if (bytes < 1024 * 1024) {
-    return `${(bytes / 1024).toFixed(1)} KB`;
-  }
-
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 };
 
 const CourierApplyForm = () => {
@@ -84,11 +61,8 @@ const CourierApplyForm = () => {
     onSubmit: async ({ value }) => {
       const courierData = {
         permanentAddress: value.permanentAddress.trim(),
-
         permanentCity: value.permanentCity.trim(),
-
         vehicleLicenseNumber: value.vehicleLicenseNumber.trim(),
-
         qualifications: value.qualifications.trim(),
       };
 
@@ -145,7 +119,6 @@ const CourierApplyForm = () => {
 
       {/* Decorative Glows */}
       <div className="pointer-events-none absolute -top-32 -right-24 size-64 rounded-full bg-[#e50914]/6 blur-3xl dark:bg-[#e50914]/10" />
-
       <div className="pointer-events-none absolute -bottom-32 -left-24 size-64 rounded-full bg-[#e50914]/4 blur-3xl dark:bg-[#e50914]/8" />
 
       {/* Header */}
@@ -176,16 +149,12 @@ const CourierApplyForm = () => {
           onSubmit={(event) => {
             event.preventDefault();
             event.stopPropagation();
-
             form.handleSubmit();
           }}
           className="space-y-5"
           noValidate
         >
-          {/* ---------------------------------------------------------- */}
           {/* Permanent City */}
-          {/* ---------------------------------------------------------- */}
-
           <form.Field name="permanentCity">
             {(field) => {
               const isInvalid =
@@ -222,10 +191,7 @@ const CourierApplyForm = () => {
             }}
           </form.Field>
 
-          {/* ---------------------------------------------------------- */}
-          {/* Address */}
-          {/* ---------------------------------------------------------- */}
-
+          {/* Permanent Address */}
           <form.Field name="permanentAddress">
             {(field) => {
               const isInvalid =
@@ -258,10 +224,7 @@ const CourierApplyForm = () => {
             }}
           </form.Field>
 
-          {/* ---------------------------------------------------------- */}
           {/* Vehicle + Qualification */}
-          {/* ---------------------------------------------------------- */}
-
           <div className="grid gap-5 sm:grid-cols-2">
             <form.Field name="vehicleLicenseNumber">
               {(field) => {
@@ -334,10 +297,7 @@ const CourierApplyForm = () => {
             </form.Field>
           </div>
 
-          {/* ---------------------------------------------------------- */}
           {/* Resume */}
-          {/* ---------------------------------------------------------- */}
-
           <form.Field name="resume">
             {(field) => {
               const isInvalid =
@@ -384,10 +344,7 @@ const CourierApplyForm = () => {
             }}
           </form.Field>
 
-          {/* ---------------------------------------------------------- */}
           {/* Vehicle Documents */}
-          {/* ---------------------------------------------------------- */}
-
           <form.Field name="vehicleDocuments">
             {(field) => {
               const isInvalid =
@@ -413,7 +370,6 @@ const CourierApplyForm = () => {
                       multiple
                       onChange={(incoming) => {
                         const validFiles = incoming.filter(isValidFile);
-
                         const remaining = MAX_VEHICLE_DOCUMENTS - files.length;
 
                         field.handleChange([
@@ -430,7 +386,6 @@ const CourierApplyForm = () => {
                     files={files}
                     onRemove={(index) => {
                       field.handleChange(files.filter((_, i) => i !== index));
-
                       field.handleBlur();
                     }}
                   />
@@ -441,10 +396,7 @@ const CourierApplyForm = () => {
             }}
           </form.Field>
 
-          {/* ---------------------------------------------------------- */}
-          {/* NID */}
-          {/* ---------------------------------------------------------- */}
-
+          {/* National ID */}
           <form.Field name="nationalIdPic">
             {(field) => {
               const isInvalid =
@@ -470,7 +422,6 @@ const CourierApplyForm = () => {
                       multiple
                       onChange={(incoming) => {
                         const validFiles = incoming.filter(isValidFile);
-
                         const remaining = MAX_NATIONAL_ID_FILES - files.length;
 
                         field.handleChange([
@@ -487,7 +438,6 @@ const CourierApplyForm = () => {
                     files={files}
                     onRemove={(index) => {
                       field.handleChange(files.filter((_, i) => i !== index));
-
                       field.handleBlur();
                     }}
                   />
@@ -498,11 +448,8 @@ const CourierApplyForm = () => {
             }}
           </form.Field>
 
-          {/* ---------------------------------------------------------- */}
           {/* Security */}
-          {/* ---------------------------------------------------------- */}
-
-          <div className="flex items-start gap-2.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-4 py-3 dark:border-white/6 dark:bg-white/[0.025]">
+          <div className="flex items-start gap-2.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-4 py-3 dark:border-white/6 dark:bg-white/2.5">
             <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-emerald-500" />
 
             <p className="text-[10px] leading-5 text-slate-500 dark:text-slate-500">
@@ -511,10 +458,7 @@ const CourierApplyForm = () => {
             </p>
           </div>
 
-          {/* ---------------------------------------------------------- */}
           {/* Submit */}
-          {/* ---------------------------------------------------------- */}
-
           <Button
             type="submit"
             disabled={isPending}
@@ -536,145 +480,6 @@ const CourierApplyForm = () => {
         </form>
       </CardContent>
     </Card>
-  );
-};
-
-/* -------------------------------------------------------------------------- */
-/* File Upload Box                                                            */
-/* -------------------------------------------------------------------------- */
-
-const FileUploadBox = ({
-  icon,
-  title,
-  description,
-  multiple = false,
-  onChange,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  multiple?: boolean;
-  onChange: (files: File[]) => void;
-}) => {
-  return (
-    <label className="group flex min-h-24 cursor-pointer items-center gap-4 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-4 transition-all duration-300 hover:border-[#e50914]/30 hover:bg-[#e50914]/[0.02] dark:border-white/8 dark:bg-white/[0.025] dark:hover:border-[#e50914]/30 dark:hover:bg-[#e50914]/[0.03]">
-      <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#e50914]/8 text-[#e50914] transition-all duration-300 group-hover:bg-[#e50914]/12 group-hover:shadow-[0_0_20px_rgba(229,9,20,0.1)]">
-        {icon}
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <p className="text-sm font-bold text-slate-800 dark:text-white">
-          {title}
-        </p>
-
-        <p className="mt-1 text-[11px] leading-5 text-slate-400 dark:text-slate-500">
-          {description}
-        </p>
-      </div>
-
-      <FileText className="hidden size-4 text-slate-400 sm:block" />
-
-      <input
-        type="file"
-        multiple={multiple}
-        accept=".pdf,.jpg,.jpeg,.png,.webp"
-        className="sr-only"
-        onChange={(event) => {
-          const files = Array.from(event.target.files ?? []);
-
-          onChange(files);
-
-          event.target.value = "";
-        }}
-      />
-    </label>
-  );
-};
-
-/* -------------------------------------------------------------------------- */
-/* Selected File                                                              */
-/* -------------------------------------------------------------------------- */
-
-const SelectedFile = ({
-  file,
-  onRemove,
-}: {
-  file: File;
-  onRemove: () => void;
-}) => {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-3.5 dark:border-white/8 dark:bg-white/[0.025]">
-      <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#e50914]/10 text-[#e50914]">
-        <FileText className="size-4" />
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-semibold text-slate-700 dark:text-white">
-          {file.name}
-        </p>
-
-        <p className="mt-0.5 text-[10px] text-slate-400">
-          {formatFileSize(file.size)}
-        </p>
-      </div>
-
-      <button
-        type="button"
-        onClick={onRemove}
-        className="flex size-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-500"
-      >
-        <Trash2 className="size-3.5" />
-      </button>
-    </div>
-  );
-};
-
-/* -------------------------------------------------------------------------- */
-/* File List                                                                  */
-/* -------------------------------------------------------------------------- */
-
-const FileList = ({
-  files,
-  onRemove,
-}: {
-  files: File[];
-  onRemove: (index: number) => void;
-}) => {
-  if (!files.length) {
-    return null;
-  }
-
-  return (
-    <div className="mt-2 space-y-2">
-      {files.map((file, index) => (
-        <div
-          key={`${file.name}-${file.lastModified}-${index}`}
-          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white/60 px-3 py-2.5 dark:border-white/8 dark:bg-white/[0.02]"
-        >
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#e50914]/8 text-[#e50914]">
-            <FileText className="size-3.5" />
-          </div>
-
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-medium text-slate-700 dark:text-slate-200">
-              {file.name}
-            </p>
-
-            <p className="text-[10px] text-slate-400">
-              {formatFileSize(file.size)}
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => onRemove(index)}
-            className="flex size-7 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-500"
-          >
-            <Trash2 className="size-3.5" />
-          </button>
-        </div>
-      ))}
-    </div>
   );
 };
 

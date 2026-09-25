@@ -1,11 +1,12 @@
 "use client";
 
-import { Clock3, Package, Trash2 } from "lucide-react";
-
+import { useQueryClient } from "@tanstack/react-query";
+import { Clock3, Loader2, Package, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
+import { toast } from "@/components/ui/toast";
+import { useDeleteNotification } from "@/hooks/notifications.hook";
 import { type INotification, typeConfig } from "@/types/notification.type";
 
 type NotificationCardProps = {
@@ -14,6 +15,7 @@ type NotificationCardProps = {
 
 const NotificationCard = ({ notification }: NotificationCardProps) => {
   const config = typeConfig[notification.type] ?? typeConfig.GENERAL;
+  const { mutate: deleteNotification, isPending } = useDeleteNotification();
 
   const Icon = config.icon;
 
@@ -34,6 +36,33 @@ const NotificationCard = ({ notification }: NotificationCardProps) => {
     },
   );
 
+  const queryClient = useQueryClient();
+
+  const handleDelete = (id: string) => {
+    deleteNotification(id, {
+      onSuccess: () => {
+        toast.add({
+          title: "Deleted Successfully!",
+          description: "This notification was deleted successfully.",
+          type: "success",
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["notifications"],
+        });
+      },
+
+      onError: (error) => {
+        toast.add({
+          title: "Delete Failed!",
+          description:
+            error instanceof Error
+              ? error.message
+              : "Failed to delete this notification.",
+          type: "error",
+        });
+      },
+    });
+  };
   return (
     <Card
       className={`group relative overflow-hidden border border-border/60 bg-card/90 shadow-sm backdrop-blur-xl transition-all duration-200 hover:border-[#e50914]/25 hover:bg-muted/20 hover:shadow-md ${
@@ -84,13 +113,19 @@ const NotificationCard = ({ notification }: NotificationCardProps) => {
 
               {/* Delete */}
               <Button
+                onClick={() => handleDelete(notification.id)}
+                disabled={isPending}
                 type="button"
                 variant="ghost"
                 size="icon"
                 className="size-7 shrink-0 rounded-lg text-muted-foreground opacity-100 transition-all hover:bg-red-500/10 hover:text-red-500 sm:opacity-0 sm:group-hover:opacity-100"
                 aria-label="Delete notification"
               >
-                <Trash2 className="size-3.5" />
+                {isPending ? (
+                  <Loader2 className="size-3.5 animate-spin" />
+                ) : (
+                  <Trash2 className="size-3.5" />
+                )}
               </Button>
             </div>
 
