@@ -2,6 +2,7 @@
 
 import { Loader2, Package, ShieldCheck, Truck } from "lucide-react";
 import { useEffect, useState } from "react";
+import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 
 type LoadingScreenProps = {
   label?: string;
@@ -20,6 +21,9 @@ export default function LoadingScreen({
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background px-4">
+      {/* Dashboard Skeleton */}
+      <DashboardSkeleton />
+
       {/* Background Grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
@@ -52,10 +56,14 @@ export default function LoadingScreen({
             {/* Logo / Loader */}
             <div className="relative mb-6">
               {/* Outer Ring */}
-              <div className="absolute inset-0 animate-ping rounded-full border border-[#e50914]/20" />
+              <div
+                className={`absolute inset-0 rounded-full border border-[#e50914]/20 ${
+                  mounted ? "animate-ping" : ""
+                }`}
+              />
 
+              {/* Main Loader */}
               <div className="relative flex size-20 items-center justify-center rounded-2xl border border-[#e50914]/20 bg-[#e50914]/5 shadow-lg shadow-[#e50914]/10 sm:size-24">
-                {/* Rotating Ring */}
                 <div className="absolute inset-1.5 animate-spin rounded-xl border-2 border-transparent border-r-[#e50914]/30 border-t-[#e50914]" />
 
                 <Package
@@ -79,6 +87,7 @@ export default function LoadingScreen({
               </h1>
             </div>
 
+            {/* Description */}
             <p className="max-w-xs text-xs leading-5 text-muted-foreground sm:text-sm">
               {description}
             </p>
