@@ -37,7 +37,7 @@ export default function LoadingScreen({
       />
 
       {/* Ambient Glows */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/10 blur-[100px] sm:size-[420px] sm:blur-[130px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/10 blur-[100px] sm:size-105 sm:blur-[130px]" />
 
       <div className="pointer-events-none absolute -left-24 top-1/4 size-56 rounded-full bg-[#e50914]/5 blur-[90px]" />
 

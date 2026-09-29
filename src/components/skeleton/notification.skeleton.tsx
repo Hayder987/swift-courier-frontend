@@ -8,6 +8,7 @@ const NotificationSkeleton = () => {
         <div className="flex items-start gap-3">
           {/* Icon skeleton */}
           <Skeleton className="size-10 shrink-0 rounded-xl" />
+          
 
           <div className="min-w-0 flex-1">
             {/* Title + button */}

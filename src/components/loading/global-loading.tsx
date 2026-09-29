@@ -45,17 +45,17 @@ export default function GlobalLoading() {
   return (
     <main
       aria-label="Loading SwiftCourier"
-      className={`fixed inset-0 z-[9999] flex min-h-screen items-center justify-center overflow-hidden bg-background text-foreground transition-opacity duration-500 ${
+      className={`fixed inset-0 z-9999 flex min-h-screen items-center justify-center overflow-hidden bg-background text-foreground transition-opacity duration-500 ${
         progress >= 100 ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
       {/* Ambient red glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/[0.035] blur-[100px] dark:bg-[#e50914]/[0.07]" />
+        <div className="absolute left-1/2 top-1/2 h-90 w-90 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/[0.035] blur-[100px] dark:bg-[#e50914]/[0.07]" />
 
-        <div className="absolute -left-40 top-1/3 h-72 w-72 rounded-full bg-[#e50914]/[0.025] blur-[90px] dark:bg-[#e50914]/[0.04]" />
+        <div className="absolute -left-40 top-1/3 h-72 w-72 rounded-full bg-[#e50914]/2.5 blur-[90px] dark:bg-[#e50914]/4" />
 
-        <div className="absolute -right-40 bottom-1/3 h-72 w-72 rounded-full bg-[#e50914]/[0.025] blur-[90px] dark:bg-[#e50914]/[0.04]" />
+        <div className="absolute -right-40 bottom-1/3 h-72 w-72 rounded-full bg-[#e50914]/2.5 blur-[90px] dark:bg-[#e50914]/4" />
       </div>
 
       {/* Subtle grid */}
@@ -73,7 +73,7 @@ export default function GlobalLoading() {
         {/* Globe */}
         <div className="relative flex h-52 w-52 items-center justify-center">
           {/* Outer glow */}
-          <div className="absolute h-40 w-40 rounded-full bg-[#e50914]/[0.04] blur-2xl dark:bg-[#e50914]/[0.08]" />
+          <div className="absolute h-40 w-40 rounded-full bg-[#e50914]/4 blur-2xl dark:bg-[#e50914]/8" />
 
           {/* Globe */}
           <div className="loading-globe relative h-36 w-36 rounded-full border border-[#e50914]/30">
