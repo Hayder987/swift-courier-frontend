@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LineDivider from "@/components/common/LineDivider";
 import { admin, courier, superAdmin } from "@/components/common/UserRole";
+import GlobalProgressBar from "@/components/loading/global-progress-bar";
+import ProcessSpinner from "@/components/loading/process-spinner";
 import { toast } from "@/components/ui/toast";
 import { useLogin } from "@/hooks";
 import { loginSchema } from "@/validation";
@@ -247,9 +249,7 @@ export default function LoginForm() {
             <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             <span className="relative flex items-center justify-center gap-2">
-              {loginPending && (
-                <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              )}
+              {loginPending && <ProcessSpinner />}
 
               {loginPending ? "Signing in..." : "Sign in"}
             </span>
@@ -283,32 +283,38 @@ export default function LoginForm() {
         </Link>
       </p>
       <LineDivider text="Credential" />
-      <div className="flex flex-wrap gap-2 justify-center items-center">
-        <Button
-          hidden={loginPending}
-          disabled={loginPending}
-          onClick={() => handleCredentialRole("SUPER_ADMIN")}
-          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Super Admin
-        </Button>
-        <Button
-          hidden={loginPending}
-          disabled={loginPending}
-          onClick={() => handleCredentialRole("ADMIN")}
-          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Admin
-        </Button>
-        <Button
-          hidden={loginPending}
-          disabled={loginPending}
-          onClick={() => handleCredentialRole("COURIER")}
-          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Courier
-        </Button>
-      </div>
+      {loginPending ? (
+        <div className="">
+          <GlobalProgressBar />
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2 justify-center items-center">
+          <Button
+            hidden={loginPending}
+            disabled={loginPending}
+            onClick={() => handleCredentialRole("SUPER_ADMIN")}
+            className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Super Admin
+          </Button>
+          <Button
+            hidden={loginPending}
+            disabled={loginPending}
+            onClick={() => handleCredentialRole("ADMIN")}
+            className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Admin
+          </Button>
+          <Button
+            hidden={loginPending}
+            disabled={loginPending}
+            onClick={() => handleCredentialRole("COURIER")}
+            className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Courier
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import { ImagePlus, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import ImageUploadProgressBar from "@/components/layout/dashboard/commmon/ImageUploadProgressBar";
+import ImageUploadProgressBar from "@/components/loading/ImageUploadProgressBar";
 import { Button } from "@/components/ui/button";
 import {
   Field,

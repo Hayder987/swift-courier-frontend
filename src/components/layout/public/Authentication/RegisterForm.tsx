@@ -4,6 +4,8 @@ import { useForm } from "@tanstack/react-form";
 import { Eye, EyeClosed, Mail, Phone, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import GlobalProgressBar from "@/components/loading/global-progress-bar";
+import ProcessSpinner from "@/components/loading/process-spinner";
 import { toast } from "@/components/ui/toast";
 import { useRegisterUser } from "@/hooks";
 import { registerZodSchema } from "@/validation";
@@ -245,17 +247,19 @@ export default function RegisterForm() {
           </form.Field>
 
           {/* Submit */}
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="h-11 w-full bg-[#e50914] font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all duration-300 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.25)]"
-          >
-            {isPending && (
-              <span className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-            )}
+          {isPending ? (
+            <GlobalProgressBar />
+          ) : (
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="h-11 w-full bg-[#e50914] font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all duration-300 hover:bg-[#c90812] hover:shadow-[0_14px_35px_rgba(229,9,20,0.25)]"
+            >
+              {isPending && <ProcessSpinner />}
 
-            {isPending ? "Submitting..." : "Register"}
-          </Button>
+              {isPending ? "Submitting..." : "Register"}
+            </Button>
+          )}
         </FieldGroup>
       </form>
 
