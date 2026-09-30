@@ -3,6 +3,7 @@
 import { Package } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import SwiftLogo from "@/components/common/SwiftLogo";
 import { useGetMe } from "@/hooks";
 import { NAV_ITEMS } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
@@ -17,6 +18,7 @@ const NavbarThreeBackground = dynamic(() => import("./NavbarThreeBackground"), {
 export default function NavHeader() {
   const { data, isLoading } = useGetMe();
   const user = data?.data?.user;
+  const profileImg = data?.data?.profile?.imageUrl;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
@@ -25,17 +27,7 @@ export default function NavHeader() {
       <div className="mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <div className="flex h-18 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-3">
-            <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#e50914] text-white shadow-lg shadow-red-500/20">
-              <Package className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-
-              <span className="absolute -right-1.5 -top-1.5 h-2.5 w-2.5 rounded-full bg-white ring-2 ring-background" />
-            </span>
-
-            <span className="hidden text-xl font-bold tracking-tight sm:block">
-              Swift<span className="text-[#e50914]">Courier</span>
-            </span>
-          </Link>
+          <SwiftLogo />
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 lg:flex">
@@ -71,7 +63,11 @@ export default function NavHeader() {
 
             {/* Logged In */}
             {!isLoading && user && (
-              <ProfileMenu userName={user?.name} userRole={user?.role} />
+              <ProfileMenu
+                userName={user?.name}
+                userRole={user?.role}
+                image={profileImg}
+              />
             )}
           </div>
 

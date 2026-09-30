@@ -1,12 +1,12 @@
-import MyLocation from '@/components/common/MyLocation'
-import React from 'react'
+import React from "react";
+import MyLocation from "@/components/common/MyLocation";
 
 const CustomerLocationPage = () => {
   return (
     <div>
-      <MyLocation/>
+      <MyLocation />
     </div>
-  )
-}
+  );
+};
 
-export default CustomerLocationPage
+export default CustomerLocationPage;

@@ -13,6 +13,7 @@ export default function MobileMenu() {
   const { data, isLoading } = useGetMe();
 
   const user = data?.data?.user;
+  const profileImg = data?.data?.profile?.imageUrl;
 
   return (
     <div className="lg:hidden">
@@ -57,7 +58,7 @@ export default function MobileMenu() {
 
             {/* Logged In */}
             {!isLoading && user && (
-              <ProfileMenu userName={user.name} userRole={user.role} />
+              <ProfileMenu userName={user.name} userRole={user.role} image={profileImg} />
             )}
           </nav>
         </div>

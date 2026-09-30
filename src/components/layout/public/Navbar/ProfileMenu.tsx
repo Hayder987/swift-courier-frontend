@@ -2,6 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { ChevronDown, LogOut, Settings, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,9 +13,14 @@ import type { UserRole } from "@/types";
 type ProfileMenuProps = {
   userName: string;
   userRole: UserRole;
+  image?: string;
 };
 
-export default function ProfileMenu({ userName, userRole }: ProfileMenuProps) {
+export default function ProfileMenu({
+  userName,
+  userRole,
+  image,
+}: ProfileMenuProps) {
   const [open, setOpen] = useState(false);
 
   const dashboardRoute: Record<UserRole, string> = {
@@ -66,8 +72,18 @@ export default function ProfileMenu({ userName, userRole }: ProfileMenuProps) {
         aria-expanded={open}
         className="flex h-10 items-center gap-2 rounded-xl border border-border bg-background/70 px-3 text-sm font-medium transition hover:bg-muted"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#e50914] text-white">
-          <User className="h-4 w-4" />
+        <span className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#e50914] text-white">
+          {image ? (
+            <Image
+              src={image}
+              alt="User avatar"
+              fill
+              sizes="28px"
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <User className="h-4 w-4" />
+          )}
         </span>
 
         <span className="hidden max-w-24 truncate sm:block">{userName}</span>

@@ -1,11 +1,11 @@
-import ServiceContent from "@/components/layout/public/services/ServiceContent"
+import ServiceContent from "@/components/layout/public/services/ServiceContent";
 
 const ServicesPage = () => {
   return (
     <div>
-        <ServiceContent/>
+      <ServiceContent />
     </div>
-  )
-}
+  );
+};
 
-export default ServicesPage
+export default ServicesPage;
