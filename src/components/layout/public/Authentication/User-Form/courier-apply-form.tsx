@@ -9,11 +9,11 @@ import {
   FileUp,
   GraduationCap,
   IdCard,
-  Loader2,
   MapPin,
   UploadCloud,
 } from "lucide-react";
-
+import type { FetchError } from "ofetch";
+import GlobalProgressBar from "@/components/loading/global-progress-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -27,7 +27,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/toast";
 import { useApplyCourier } from "@/hooks/employee.hook";
 import { courierApplicationSchema } from "@/validation/courier-application-validation";
-
 import {
   FileList,
   FileUploadBox,
@@ -49,7 +48,8 @@ const defaultValues = {
 };
 
 const CourierApplyForm = () => {
-  const { mutate: applyCourier, isPending } = useApplyCourier();
+  const { mutate: applyCourier, isPending, isError } = useApplyCourier();
+  console.log(isError);
 
   const form = useForm({
     defaultValues,
@@ -66,10 +66,20 @@ const CourierApplyForm = () => {
         qualifications: value.qualifications.trim(),
       };
 
+      if (!value.resume) {
+        toast.add({
+          title: "Resume Required",
+          description: "Please upload your resume before submitting.",
+          type: "error",
+        });
+
+        return;
+      }
+
       applyCourier(
         {
           data: courierData,
-          resume: value.resume as File,
+          resume: value.resume,
           vehicleDocuments: value.vehicleDocuments,
           nationalIdPic: value.nationalIdPic,
         },
@@ -97,13 +107,16 @@ const CourierApplyForm = () => {
             form.reset();
           },
 
-          onError: (error) => {
+          onError: (error: FetchError) => {
+            const errorMessage =
+              error.data?.message ??
+              error.data?.errors?.[0]?.message ??
+              error.message ??
+              "Unable to submit your application. Please try again.";
+
             toast.add({
               title: "Something Went Wrong",
-              description:
-                error instanceof Error
-                  ? error.message
-                  : "Unable to submit your application. Please try again.",
+              description: errorMessage,
               type: "error",
             });
           },
@@ -315,16 +328,16 @@ const CourierApplyForm = () => {
                       title="Upload your resume"
                       description={`PDF or image • Maximum ${MAX_FILE_SIZE}MB`}
                       onChange={(files) => {
-                        const file = files[0];
+                        const selectedFile = files[0];
 
-                        if (!file) return;
+                        if (!selectedFile) return;
 
-                        if (!isValidFile(file)) {
+                        if (!isValidFile(selectedFile)) {
                           field.handleBlur();
                           return;
                         }
 
-                        field.handleChange(file);
+                        field.handleChange(selectedFile);
                         field.handleBlur();
                       }}
                     />
@@ -459,24 +472,27 @@ const CourierApplyForm = () => {
           </div>
 
           {/* Submit */}
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="group h-13 w-full rounded-xl bg-[#e50914] font-bold text-white shadow-lg shadow-[#e50914]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#c70812] hover:shadow-[#e50914]/30 disabled:translate-y-0"
-          >
-            {isPending ? (
-              <>
-                <Loader2 className="size-4 animate-spin" />
-                Submitting Application...
-              </>
-            ) : (
-              <>
-                <UploadCloud className="size-4" />
-                Submit Application
-                <ArrowUpRight className="ml-auto size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </>
-            )}
-          </Button>
+          {isPending ? (
+            <GlobalProgressBar
+              isError={isError}
+              completeTitle={isError ? "UnSuccessFull!!!" : "SuccessFull"}
+              completeDescription={
+                isError
+                  ? "Unable to submit your application. Please try again."
+                  : "Your Application Send SuccessFull"
+              }
+            />
+          ) : (
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="group h-13 w-full rounded-xl bg-[#e50914] font-bold text-white shadow-lg shadow-[#e50914]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#c70812] hover:shadow-[#e50914]/30 disabled:translate-y-0"
+            >
+              <UploadCloud className="size-4" />
+              Submit Application
+              <ArrowUpRight className="ml-auto size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Button>
+          )}
         </form>
       </CardContent>
     </Card>

@@ -1,6 +1,12 @@
 "use client";
 
-import { CheckCircle2, FileUp, LockKeyhole, UploadCloud } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle2,
+  FileUp,
+  LockKeyhole,
+  UploadCloud,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Progress } from "@/components/ui/progress";
@@ -10,8 +16,12 @@ interface GlobalProgressBarProps {
   label?: string;
   title?: string;
   description?: string;
+  isError?: boolean;
+
   completeTitle?: string;
   completeDescription?: string;
+  errorTitle?: string;
+  errorDescription?: string;
 }
 
 const processingStages = [
@@ -27,8 +37,11 @@ export default function GlobalProgressBar({
   label,
   title = "SwiftCourier",
   description = "Secure request processing",
+  isError = false,
   completeTitle = "Process complete",
   completeDescription = "Your request has been completed",
+  errorTitle = "Request unsuccessful",
+  errorDescription = "Unable to complete your request. Please try again.",
 }: GlobalProgressBarProps) {
   const [progress, setProgress] = useState(0);
   const [stageIndex, setStageIndex] = useState(0);
@@ -64,9 +77,25 @@ export default function GlobalProgressBar({
 
   const isComplete = progress >= 100;
 
-  const currentLabel = isComplete
-    ? "Request completed successfully"
-    : label || processingStages[stageIndex];
+  const showError = isComplete && isError;
+
+  const currentTitle = !isComplete
+    ? title
+    : showError
+      ? errorTitle
+      : completeTitle;
+
+  const currentDescription = !isComplete
+    ? description
+    : showError
+      ? errorDescription
+      : completeDescription;
+
+  const currentLabel = !isComplete
+    ? label || processingStages[stageIndex]
+    : showError
+      ? "Request failed"
+      : "Request completed successfully";
 
   return (
     <div className="w-full max-w-lg space-y-5 rounded-2xl border border-border/60 bg-background/80 p-5 shadow-xl shadow-black/5 backdrop-blur-xl">
@@ -74,11 +103,19 @@ export default function GlobalProgressBar({
       <div className="flex items-center justify-between gap-4">
         {/* Brand / Icon */}
         <div className="flex min-w-0 items-center gap-3">
-          <div className="relative flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#e50914]/10 text-[#e50914]">
-            {isComplete ? (
-              <CheckCircle2 className="size-5" />
-            ) : (
+          <div
+            className={`relative flex size-10 shrink-0 items-center justify-center rounded-xl ${
+              showError
+                ? "bg-destructive/10 text-destructive"
+                : "bg-[#e50914]/10 text-[#e50914]"
+            }`}
+          >
+            {!isComplete ? (
               <UploadCloud className="size-5" />
+            ) : showError ? (
+              <AlertCircle className="size-5" />
+            ) : (
+              <CheckCircle2 className="size-5" />
             )}
 
             {!isComplete && (
@@ -88,12 +125,10 @@ export default function GlobalProgressBar({
 
           {/* Title */}
           <div className="min-w-0">
-            <p className="truncate text-sm font-semibold">
-              {isComplete ? completeTitle : title}
-            </p>
+            <p className="truncate text-sm font-semibold">{currentTitle}</p>
 
             <p className="truncate text-xs text-muted-foreground">
-              {isComplete ? completeDescription : description}
+              {currentDescription}
             </p>
           </div>
         </div>
@@ -112,15 +147,23 @@ export default function GlobalProgressBar({
                 Working
               </span>
             </>
+          ) : showError ? (
+            <>
+              <span className="flex size-4 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+                <AlertCircle className="size-3.5" />
+              </span>
+
+              <span className="text-xs font-medium text-destructive">
+                Failed
+              </span>
+            </>
           ) : (
             <>
               <span className="flex size-4 items-center justify-center rounded-full bg-green-500/10 text-green-500">
                 <CheckCircle2 className="size-3.5" />
               </span>
 
-              <span className="text-xs font-medium text-muted-foreground">
-                Done
-              </span>
+              <span className="text-xs font-medium text-green-500">Done</span>
             </>
           )}
         </div>
@@ -129,26 +172,33 @@ export default function GlobalProgressBar({
       {/* Progress */}
       <div className="relative pt-2">
         {/* Glow */}
-        <div className="absolute inset-x-0 top-[18px] h-1 rounded-full bg-[#e50914]/10 blur-md" />
+        <div
+          className={`absolute inset-x-0 top-[18px] h-1 rounded-full blur-md ${
+            showError ? "bg-destructive/10" : "bg-[#e50914]/10"
+          }`}
+        />
 
         <Progress
           value={progress}
-          className="
+          className={`
             relative
             h-1.5
             overflow-visible
             rounded-full
             bg-muted/80
+
             [&>div]:rounded-full
-            [&>div]:bg-gradient-to-r
-            [&>div]:from-[#e50914]
-            [&>div]:via-[#ff3944]
-            [&>div]:to-[#e50914]
-            [&>div]:shadow-[0_0_14px_rgba(229,9,20,0.65)]
+
+            ${
+              showError
+                ? "[&>div]:bg-gradient-to-r [&>div]:from-destructive [&>div]:via-red-500 [&>div]:to-destructive [&>div]:shadow-[0_0_14px_rgba(239,68,68,0.65)]"
+                : "[&>div]:bg-gradient-to-r [&>div]:from-[#e50914] [&>div]:via-[#ff3944] [&>div]:to-[#e50914] [&>div]:shadow-[0_0_14px_rgba(229,9,20,0.65)]"
+            }
+
             [&>div]:transition-[width]
             [&>div]:duration-100
             [&>div]:ease-linear
-          "
+          `}
         />
 
         {/* Moving File Indicator */}
@@ -167,10 +217,20 @@ export default function GlobalProgressBar({
           </div>
         )}
 
-        {/* Complete Indicator */}
+        {/* Complete / Error Indicator */}
         {isComplete && (
-          <div className="absolute right-0 top-[4px] flex size-7 items-center justify-center rounded-full bg-[#e50914] text-white shadow-[0_0_18px_rgba(229,9,20,0.5)]">
-            <CheckCircle2 className="size-4" />
+          <div
+            className={`absolute right-0 top-[4px] flex size-7 items-center justify-center rounded-full text-white ${
+              showError
+                ? "bg-destructive shadow-[0_0_18px_rgba(239,68,68,0.5)]"
+                : "bg-[#e50914] shadow-[0_0_18px_rgba(229,9,20,0.5)]"
+            }`}
+          >
+            {showError ? (
+              <AlertCircle className="size-4" />
+            ) : (
+              <CheckCircle2 className="size-4" />
+            )}
           </div>
         )}
       </div>
@@ -180,7 +240,11 @@ export default function GlobalProgressBar({
         <div className="flex min-w-0 items-center gap-2">
           <span
             className={`size-1.5 shrink-0 rounded-full ${
-              isComplete ? "bg-green-500" : "bg-[#e50914]"
+              !isComplete
+                ? "bg-[#e50914]"
+                : showError
+                  ? "bg-destructive"
+                  : "bg-green-500"
             }`}
           />
 

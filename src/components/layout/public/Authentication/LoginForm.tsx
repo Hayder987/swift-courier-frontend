@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type { FetchError } from "ofetch";
 import { useState } from "react";
 import LineDivider from "@/components/common/LineDivider";
 import { admin, courier, superAdmin } from "@/components/common/UserRole";
@@ -65,11 +66,17 @@ export default function LoginForm() {
           router.push("/");
         },
 
-        onError: (err) => {
+        onError: (error: FetchError) => {
+          const errorMessage =
+            error.data?.message ??
+            error.data?.errors?.[0]?.message ??
+            error.message ??
+            "Unable to submit your application. Authorization failure";
+
           toast.add({
             title: "Authorization failure",
             description:
-              err.message || "Something went wrong. Please try again",
+              errorMessage || "Something went wrong. Please try again",
             type: "error",
           });
         },

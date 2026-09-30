@@ -3,6 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import { Eye, EyeClosed, Mail, Phone, User } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { FetchError } from "ofetch";
 import { useState } from "react";
 import GlobalProgressBar from "@/components/loading/global-progress-bar";
 import ProcessSpinner from "@/components/loading/process-spinner";
@@ -59,11 +60,17 @@ export default function RegisterForm() {
           router.push(`/register/verify-account?${params.toString()}`);
         },
 
-        onError: (err) => {
+        onError: (error: FetchError) => {
+          const errorMessage =
+            error.data?.message ??
+            error.data?.errors?.[0]?.message ??
+            error.message ??
+            "Unable to submit your application. Authorization failure";
+
           toast.add({
             title: "Authorization failure",
             description:
-              err.message || "Something went wrong. Please try again",
+              errorMessage || "Something went wrong. Please try again",
             type: "error",
           });
         },

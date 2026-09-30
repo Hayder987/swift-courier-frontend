@@ -11,3 +11,15 @@ export interface CourierApplicationPayload {
   nationalIdPic: File[];
   data: CourierApplicationData;
 }
+
+export interface ApplyCourierPayload {
+  data: {
+    permanentAddress: string;
+    permanentCity: string;
+    vehicleLicenseNumber: string;
+    qualifications: string;
+  };
+  resume: File;
+  vehicleDocuments: File[];
+  nationalIdPic: File[];
+}
