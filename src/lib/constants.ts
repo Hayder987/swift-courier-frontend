@@ -12,6 +12,10 @@ export const NAV_ITEMS = [
     href: "/contact",
   },
   {
+    label: "Services",
+    href: "/services",
+  },
+  {
     label: "FAQs",
     href: "/faq",
   },

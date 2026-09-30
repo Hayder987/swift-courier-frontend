@@ -1,12 +1,12 @@
 import MyLocation from '@/components/common/MyLocation'
 import React from 'react'
 
-const CustomerLocationPage = () => {
+const CourierLocationPage = () => {
   return (
     <div>
-      <MyLocation/>
+        <MyLocation/>
     </div>
   )
 }
 
-export default CustomerLocationPage
+export default CourierLocationPage
