@@ -42,3 +42,14 @@ export function getMe() {
 export function googleOAuth(payload: { idToken: string }) {
   return apiClient("/auth/google", { method: "POST", body: payload });
 }
+
+export function updateProfilePhoto(file: File) {
+  const formData = new FormData();
+
+  formData.append("profileImage", file);
+
+  return apiClient("/users/profile-image", {
+    method: "PATCH",
+    body: formData,
+  });
+}

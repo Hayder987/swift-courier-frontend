@@ -34,6 +34,7 @@ import {
   getRoleBadgeClass,
   getRoleLabel,
 } from "@/utils/shared/user.utils";
+import ProfileImageDialog from "./ProfileImageDialog";
 
 const employeeRoles: UserRole[] = ["SUPER_ADMIN", "ADMIN", "COURIER"];
 
@@ -189,6 +190,10 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
                   {/* Online indicator */}
                   <span className="absolute bottom-1 right-1 flex size-5 items-center justify-center rounded-full border-2 border-background bg-emerald-500">
                     <span className="size-1.5 rounded-full bg-white" />
+                  </span>
+                  {/* upload image */}
+                  <span className="absolute bottom-1 left-1 flex size-6 items-center justify-center rounded-full border-2 border-background ">
+                    <ProfileImageDialog />
                   </span>
                 </div>
 

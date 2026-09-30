@@ -1,10 +1,11 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   forgotPassword,
   getMe,
   googleOAuth,
   resendAuthOtp,
   resetPassword,
+  updateProfilePhoto,
   userLogin,
   userLogout,
   userRegister,
@@ -64,5 +65,19 @@ export function useGetMe() {
     queryKey: ["user"],
     queryFn: getMe,
     retry: false,
+  });
+}
+
+export function useUpdateProfileImage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProfilePhoto,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+    },
   });
 }
