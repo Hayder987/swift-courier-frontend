@@ -8,10 +8,11 @@ import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import LineDivider from "@/components/common/LineDivider";
+import { admin, courier, superAdmin } from "@/components/common/UserRole";
 import { toast } from "@/components/ui/toast";
 import { useLogin } from "@/hooks";
 import { loginSchema } from "@/validation";
-
 import { Field, FieldError, FieldGroup, FieldLabel } from "../../../ui/field";
 import GoogleLoginComponent from "../../modules/GoogleLogin";
 
@@ -20,13 +21,22 @@ export default function LoginForm() {
 
   const router = useRouter();
   const queryClient = useQueryClient();
+  const credentials = {
+    SUPER_ADMIN: superAdmin,
+    ADMIN: admin,
+    COURIER: courier,
+  };
+
+  type CredentialRole = keyof typeof credentials;
+
+  const [role, setRole] = useState<CredentialRole | "">("");
 
   const { mutate: login, isPending: loginPending } = useLogin();
 
   const form = useForm({
     defaultValues: {
-      email: "superadmin@swift.com",
-      password: "Swift@Admin123",
+      email: role ? (credentials[role]?.email ?? "") : "",
+      password: role ? (credentials[role]?.password ?? "") : "",
     },
 
     validators: {
@@ -64,6 +74,37 @@ export default function LoginForm() {
       });
     },
   });
+
+  const handleCredentialRole = (role: CredentialRole) => {
+    setRole(role);
+    const loginData = {
+      email: role ? (credentials[role]?.email ?? "") : "",
+      password: role ? (credentials[role]?.password ?? "") : "",
+    };
+
+    login(loginData, {
+      onSuccess: async () => {
+        toast.add({
+          title: "Login Success",
+          description: "Welcome back",
+          type: "success",
+        });
+
+        await queryClient.invalidateQueries({
+          queryKey: ["user"],
+        });
+        router.push("/");
+      },
+
+      onError: (err) => {
+        toast.add({
+          title: "Authorization failure",
+          description: err.message || "Something went wrong. Please try again",
+          type: "error",
+        });
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -217,15 +258,7 @@ export default function LoginForm() {
       </form>
 
       {/* Divider */}
-      <div className="relative flex items-center">
-        <div className="h-px flex-1 bg-border" />
-
-        <span className="px-3 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-          Or continue with
-        </span>
-
-        <div className="h-px flex-1 bg-border" />
-      </div>
+      <LineDivider text="Or Sign With" />
 
       {/* Google */}
       <GoogleLoginComponent />
@@ -249,6 +282,33 @@ export default function LoginForm() {
           Reset Now
         </Link>
       </p>
+      <LineDivider text="Credential" />
+      <div className="flex flex-wrap gap-2 justify-center items-center">
+        <Button
+          hidden={loginPending}
+          disabled={loginPending}
+          onClick={() => handleCredentialRole("SUPER_ADMIN")}
+          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Super Admin
+        </Button>
+        <Button
+          hidden={loginPending}
+          disabled={loginPending}
+          onClick={() => handleCredentialRole("ADMIN")}
+          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Admin
+        </Button>
+        <Button
+          hidden={loginPending}
+          disabled={loginPending}
+          onClick={() => handleCredentialRole("COURIER")}
+          className="group relative px-3 py-1 overflow-hidden rounded-xl bg-[#e50914] text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.18)] transition-all hover:bg-[#c90812] hover:shadow-[0_14px_36px_rgba(229,9,20,0.24)] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Courier
+        </Button>
+      </div>
     </div>
   );
 }
