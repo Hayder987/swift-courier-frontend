@@ -27,6 +27,11 @@ export const superAdminRoutes: SidebarItems = [
         url: `${prefix}/audit-logs`,
         icon: ScrollText,
       },
+      {
+        title: "All Employees",
+        url: `${prefix}/employees`,
+        icon: ScrollText,
+      },
     ],
   },
 ];

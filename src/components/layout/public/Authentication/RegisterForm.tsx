@@ -25,7 +25,7 @@ export default function RegisterForm() {
     defaultValues: {
       name: "",
       email: "",
-      password: "User@123",
+      password: "",
       phone: "",
     },
 

@@ -58,7 +58,11 @@ export default function MobileMenu() {
 
             {/* Logged In */}
             {!isLoading && user && (
-              <ProfileMenu userName={user.name} userRole={user.role} image={profileImg} />
+              <ProfileMenu
+                userName={user.name}
+                userRole={user.role}
+                image={profileImg}
+              />
             )}
           </nav>
         </div>
