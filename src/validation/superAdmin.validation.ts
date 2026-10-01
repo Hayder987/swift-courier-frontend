@@ -40,11 +40,12 @@ export const createEmployeeZodSchema = z.object({
   permanentAddress: z.string().optional(),
   permanentCity: z.string().optional(),
 
-  basicSalary: z.number().min(0),
-  houseAllowance: z.number().min(0),
-  medicalAllowance: z.number().min(0),
-  transportAllowance: z.number().min(0),
-  perDeliveryAmount: z.number().min(0).default(0),
+  basicSalary: z.coerce.number().min(0),
+  houseAllowance: z.coerce.number().min(0),
+  medicalAllowance: z.coerce.number().min(0),
+  transportAllowance: z.coerce.number().min(0),
+  perDeliveryAmount: z.coerce.number().min(0),
+
   vehicleLicenseNumber: z.string().optional(),
   qualifications: z.string().optional(),
 });

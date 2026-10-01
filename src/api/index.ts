@@ -1,3 +1,4 @@
+export * from "./admin.api";
 export * from "./auth.api";
 export * from "./employee.api";
 export * from "./location.api";

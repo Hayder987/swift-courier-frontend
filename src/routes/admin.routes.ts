@@ -4,6 +4,7 @@ import {
   MapPlus,
   PackageCheck,
   Truck,
+  UserCog,
   UserRound,
   Users,
 } from "lucide-react";
@@ -54,6 +55,11 @@ export const adminRoutes: SidebarItems = [
         title: "All Users",
         url: `${prefix}/all-users`,
         icon: Users,
+      },
+      {
+        title: "Employee Management",
+        url: `${prefix}/employees`,
+        icon: UserCog,
       },
       {
         title: "All Shipments",

@@ -28,11 +28,13 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { useCreateEmployee } from "@/hooks";
 import { createEmployeeZodSchema } from "@/validation";
+import { useRouter } from "next/navigation";
 
 type CreateEmployeeFormValues = z.input<typeof createEmployeeZodSchema>;
 
 const CreateEmployeeForm = () => {
   const { mutate: createEmployee, isPending } = useCreateEmployee();
+  const router = useRouter()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,11 +51,11 @@ const CreateEmployeeForm = () => {
     vehicleLicenseNumber: "",
     qualifications: "",
 
-    basicSalary: 0,
-    houseAllowance: 0,
-    medicalAllowance: 0,
-    transportAllowance: 0,
-    perDeliveryAmount: 0,
+    basicSalary: "",
+    houseAllowance: "",
+    medicalAllowance: "",
+    transportAllowance: "",
+    perDeliveryAmount: "",
   };
 
   const form = useForm({
@@ -94,6 +96,7 @@ const CreateEmployeeForm = () => {
           });
 
           form.reset();
+          router.push("/super-admin-dashboard/employees")
         },
 
         onError: (err) => {

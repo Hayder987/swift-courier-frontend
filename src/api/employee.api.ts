@@ -1,6 +1,7 @@
 import apiClient from "@/lib/apiClient";
 import type { ApplyCourierPayload } from "@/types";
 
+// apply courier
 export function applyCourier(payload: ApplyCourierPayload) {
   const formData = new FormData();
 
