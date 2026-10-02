@@ -21,11 +21,8 @@ import EmployeeTableComponent from "./EmployeeTableComponent";
 
 const AllEmployeeTable = () => {
   const { data: userData } = useGetMe();
-
   const loginUserRole = userData?.data?.user?.role;
-
   const [page, setPage] = useState(1);
-
   const [search, setSearch] = useState("");
 
   const [filters, setFilters] = useState<IGetAllEmployeesParams>({

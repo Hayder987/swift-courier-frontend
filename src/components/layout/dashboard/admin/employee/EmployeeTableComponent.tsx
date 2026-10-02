@@ -1,9 +1,8 @@
 "use client";
 
 import { Eye, MoreHorizontal, Trash2 } from "lucide-react";
-
+import type { FetchError } from "ofetch";
 import { useState } from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,14 +14,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TableCell } from "@/components/ui/table";
+import { toast } from "@/components/ui/toast";
 import { useGetMe } from "@/hooks";
 import { useDeleteEmployee } from "@/hooks/admin.hook";
 import { cn } from "@/lib/utils";
 import type { IEmployee } from "@/types";
-
+import {
+  getRoleClassName,
+  getStatusClassName,
+} from "@/utils/DashBoard/employee.utils";
 import DeleteEmployeeDialog from "./employee-delete-dialoge";
 import EmployeeDetailsSheet from "./employee-details.sheet";
-import { getRoleClassName, getStatusClassName } from "@/utils/DashBoard/employee.utils";
 
 interface EmployeeTableComponentProps {
   employee: IEmployee;
@@ -74,6 +76,24 @@ const EmployeeTableComponent = ({ employee }: EmployeeTableComponentProps) => {
     deleteEmployee(undefined, {
       onSuccess: () => {
         setDeleteEmployeeId(null);
+        toast.add({
+          title: "Deleted Successfully!",
+          description: "This notification was deleted successfully.",
+          type: "success",
+        });
+      },
+      onError: (error: FetchError) => {
+        const errorMessage =
+          error.data?.message ??
+          error.data?.errors?.[0]?.message ??
+          error.message ??
+          "Unable to submit your application. Please try again.";
+
+        toast.add({
+          title: "Something Went Wrong",
+          description: errorMessage,
+          type: "error",
+        });
       },
     });
   };

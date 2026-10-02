@@ -1,4 +1,10 @@
-import { HourglassCog, LayoutDashboard, ScrollText, UserCog, UserRound } from "lucide-react";
+import {
+  HourglassCog,
+  LayoutDashboard,
+  ScrollText,
+  UserCog,
+  UserRound,
+} from "lucide-react";
 import type { SidebarItems } from "@/types";
 
 const prefix = "/super-admin-dashboard";
@@ -25,12 +31,12 @@ export const superAdminRoutes: SidebarItems = [
       {
         title: "All Audit Logs",
         url: `${prefix}/audit-logs`,
-        icon:  HourglassCog,
+        icon: HourglassCog,
       },
       {
         title: "Employee Management",
         url: `${prefix}/employees`,
-        icon:  UserCog,
+        icon: UserCog,
       },
     ],
   },

@@ -15,6 +15,8 @@ import {
   User,
   UserRoundCog,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import type { FetchError } from "ofetch";
 import { useState } from "react";
 import type { z } from "zod";
 import ProcessSpinner from "@/components/loading/process-spinner";
@@ -28,13 +30,12 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
 import { useCreateEmployee } from "@/hooks";
 import { createEmployeeZodSchema } from "@/validation";
-import { useRouter } from "next/navigation";
 
 type CreateEmployeeFormValues = z.input<typeof createEmployeeZodSchema>;
 
 const CreateEmployeeForm = () => {
   const { mutate: createEmployee, isPending } = useCreateEmployee();
-  const router = useRouter()
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -96,14 +97,19 @@ const CreateEmployeeForm = () => {
           });
 
           form.reset();
-          router.push("/super-admin-dashboard/employees")
+          router.push("/super-admin-dashboard/employees");
         },
 
-        onError: (err) => {
+        onError: (error: FetchError) => {
+          const errorMessage =
+            error.data?.message ??
+            error.data?.errors?.[0]?.message ??
+            error.message ??
+            "Unable to submit your application. Please try again.";
+
           toast.add({
-            title: "Employee Creation Failed",
-            description:
-              err.message || "Something went wrong. Please try again.",
+            title: "Something Went Wrong",
+            description: errorMessage,
             type: "error",
           });
         },
