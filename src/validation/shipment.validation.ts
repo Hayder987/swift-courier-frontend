@@ -67,3 +67,26 @@ export const shipmentCreateSchema = z.object({
 
   ItemsImage: imageFileSchema,
 });
+
+// update shipment status by admin
+export const adminShipmentStatusSchema = z.object({
+  status: z.enum([
+    "READY_FOR_PAYMENT",
+    "RETURNED",
+    "OUT_FOR_DELIVERY",
+    "IN_TRANSIT",
+    "ASSIGNED",
+    "CANCELLED",
+    "DELIVERY_FAILED",
+    "DELIVERED",
+  ]),
+  note: z
+    .string()
+    .trim()
+    .min(1, "Note is required")
+    .max(500, "Note cannot exceed 500 characters"),
+});
+
+export type IAdminShipmentStatusUpdate = z.infer<
+  typeof adminShipmentStatusSchema
+>;

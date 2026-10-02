@@ -62,7 +62,7 @@ export const adminRoutes: SidebarItems = [
         icon: UserCog,
       },
       {
-        title: "All Shipments",
+        title: "Shipment Management",
         url: `${prefix}/all-shipment`,
         icon: PackageCheck,
       },

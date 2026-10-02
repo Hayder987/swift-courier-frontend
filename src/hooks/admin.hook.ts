@@ -41,25 +41,3 @@ export function useDeleteEmployee(employeeId: string | null) {
     },
   });
 }
-
-// export function useSuspenseGetAllEmployee (params:IGetAllEmployeesParams){
-//   return useSuspenseQuery({
-//     queryKey : ["employees", params],
-//     queryFn : ()=> getAllEmployee(params)
-//   })
-// }
-
-// export function useGetSingleEmployee (employeeId:string) {
-//     return useQuery({
-//         queryKey:["employee", employeeId],
-//         queryFn : ()=> getEmployeeById(employeeId),
-//         enabled : !!employeeId
-//     })
-// }
-
-// export function useDeleteEmployee (employeeId:string | null) {
-//     return useMutation({
-//         mutationFn : ()=> deleteEmployeeById(employeeId),
-
-//     })
-// }

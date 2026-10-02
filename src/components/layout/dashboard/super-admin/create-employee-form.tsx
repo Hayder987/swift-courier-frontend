@@ -118,7 +118,7 @@ const CreateEmployeeForm = () => {
   });
 
   return (
-    <div className="max-w-380 mx-auto">
+    <div className="max-w-7xl mx-auto">
       <form
         onSubmit={(event) => {
           event.preventDefault();

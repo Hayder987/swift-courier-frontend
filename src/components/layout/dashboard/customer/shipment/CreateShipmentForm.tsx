@@ -10,10 +10,9 @@ import {
   Scale,
   Truck,
 } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 import type { FetchError } from "ofetch";
 import { useState } from "react";
-
 import GlobalProgressBar from "@/components/loading/global-progress-bar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -29,7 +28,6 @@ import { toast } from "@/components/ui/toast";
 import { useLiveLocation } from "@/hooks/location.hook";
 import { useCreateShipment } from "@/hooks/shipment.hook";
 import { shipmentCreateSchema } from "@/validation/shipment.validation";
-
 import ShipmentImageUpload from "./ShipmentImageUpload";
 import ShipmentLocationMap from "./ShipmentLocationMap";
 
@@ -57,6 +55,7 @@ const CreateShipmentForm = () => {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
 
   const [locationSource, setLocationSource] = useState<LocationSource>(null);
+  const router = useRouter();
 
   const form = useForm({
     defaultValues,
@@ -130,6 +129,7 @@ const CreateShipmentForm = () => {
 
             form.reset();
             setLocationSource(null);
+            router.push("/customer-dashboard/my-shipment");
           },
 
           onError: (error: FetchError) => {
