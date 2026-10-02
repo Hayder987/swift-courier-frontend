@@ -8,6 +8,7 @@ const ProfileContainer = () => {
   const { data, isPending, isError } = useGetMe();
 
   const userData = data?.data;
+  console.log(data);
 
   if (isPending) {
     return (

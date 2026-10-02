@@ -3,6 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import { ImagePlus, Upload, X } from "lucide-react";
 import Image from "next/image";
+import type { FetchError } from "ofetch";
 import { useRef, useState } from "react";
 import ImageUploadProgressBar from "@/components/loading/ImageUploadProgressBar";
 import { Button } from "@/components/ui/button";
@@ -52,13 +53,16 @@ export default function ProfilePhotoUploadForm({
           openChange();
         },
 
-        onError: (error) => {
+        onError: (error: FetchError) => {
+          const errorMessage =
+            error.data?.message ??
+            error.data?.errors?.[0]?.message ??
+            error.message ??
+            "Unable to update your profile photo. Please try again.";
+
           toast.add({
-            title: "Upload Failed",
-            description:
-              error instanceof Error
-                ? error.message
-                : "Unable to update your profile photo. Please try again.",
+            title: "Something Went Wrong",
+            description: errorMessage,
             type: "error",
           });
         },

@@ -97,7 +97,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
   const isEmployee = employeeRoles.includes(account.role);
 
   const imageUrl =
-    typeof profile.imageUrl === "string" && profile.imageUrl.trim().length > 0
+    typeof profile?.imageUrl === "string" && profile.imageUrl.trim().length > 0
       ? profile.imageUrl
       : null;
 
