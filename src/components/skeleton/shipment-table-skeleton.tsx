@@ -21,7 +21,7 @@ const SKELETON_ROWS = [
   "shipment-skeleton-8",
 ];
 
-const AdminShipmentTableSkeleton = () => {
+const ShipmentTableSkeleton = () => {
   return (
     <div className="w-full space-y-5">
       {/* Header Skeleton */}
@@ -85,19 +85,19 @@ const AdminShipmentTableSkeleton = () => {
           <Table>
             <TableHeader>
               <TableRow className="border-border/60 hover:bg-transparent">
-                <TableHead className="min-w-65">Shipment</TableHead>
+                <TableHead className="min-w-65"></TableHead>
 
-                <TableHead className="min-w-45">Customer</TableHead>
+                <TableHead className="min-w-45"></TableHead>
 
-                <TableHead>Status</TableHead>
+                <TableHead></TableHead>
 
-                <TableHead>Type</TableHead>
+                <TableHead></TableHead>
 
-                <TableHead className="hidden lg:table-cell">Route</TableHead>
+                <TableHead className="hidden lg:table-cell"></TableHead>
 
-                <TableHead className="hidden xl:table-cell">Fee</TableHead>
+                <TableHead className="hidden xl:table-cell"></TableHead>
 
-                <TableHead className="text-right">Action</TableHead>
+                <TableHead className="text-right"></TableHead>
               </TableRow>
             </TableHeader>
 
@@ -177,4 +177,4 @@ const AdminShipmentTableSkeleton = () => {
   );
 };
 
-export default AdminShipmentTableSkeleton;
+export default ShipmentTableSkeleton;

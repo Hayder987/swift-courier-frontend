@@ -18,7 +18,6 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -29,11 +28,10 @@ import {
 } from "@/components/ui/sheet";
 import type { IShipment, ShipmentStatus } from "@/types/shipment.type";
 
-interface AdminShipmenDetailsSheetProps {
+interface MyShipmenDetailsSheetProps {
   shipment: IShipment | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onUpdateStatus: (shipment: IShipment, status?: ShipmentStatus) => void;
 }
 
 const statusFlow: Record<ShipmentStatus, ShipmentStatus[]> = {
@@ -202,12 +200,11 @@ const AddressCard = ({
   );
 };
 
-const AdminShipmenDetailsSheet = ({
+const MyShipmenDetailsSheet = ({
   shipment,
   open,
   onOpenChange,
-  onUpdateStatus,
-}: AdminShipmenDetailsSheetProps) => {
+}: MyShipmenDetailsSheetProps) => {
   if (!shipment) {
     return (
       <Sheet open={open} onOpenChange={onOpenChange}>
@@ -283,29 +280,6 @@ const AdminShipmenDetailsSheet = ({
                   </div>
                 </div>
               </div>
-
-              {nextStatuses.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {nextStatuses.map((nextStatus) => (
-                    <Button
-                      key={nextStatus}
-                      type="button"
-                      size="sm"
-                      variant={
-                        nextStatus === "CANCELLED" ? "outline" : "default"
-                      }
-                      onClick={() => onUpdateStatus(shipment, nextStatus)}
-                      className={
-                        nextStatus === "CANCELLED"
-                          ? "rounded-xl border-red-500/30 text-red-600 hover:bg-red-500/10 dark:text-red-400"
-                          : "rounded-xl bg-[#e50914] text-white hover:bg-[#c70811]"
-                      }
-                    >
-                      {nextStatus.replaceAll("_", " ")}
-                    </Button>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
 
@@ -531,4 +505,4 @@ const AdminShipmenDetailsSheet = ({
   );
 };
 
-export default AdminShipmenDetailsSheet;
+export default MyShipmenDetailsSheet;

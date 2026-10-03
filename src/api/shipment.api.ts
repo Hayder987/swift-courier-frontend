@@ -22,6 +22,12 @@ export function getAdminShipment(params: ShipmentQueryParams) {
   });
 }
 
+export function getMyShipment(params: ShipmentQueryParams) {
+  return apiClient<IApiResponse<IShipment[]>>("/shipments/my-shipments", {
+    params,
+  });
+}
+
 export function updateAdminShipment(
   payload: IAdminShipmentStatusUpdate,
   shipmentId: string,

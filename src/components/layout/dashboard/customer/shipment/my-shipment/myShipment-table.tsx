@@ -1,10 +1,11 @@
 "use client";
 
-import { Package} from "lucide-react";
+import { Package, Plus } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -12,10 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetSuspenseShipmentAdmin } from "@/hooks/shipment.hook";
+import { useGetSuspenseMyShipment } from "@/hooks/shipment.hook";
 import type { IShipment, ShipmentQueryParams } from "@/types/shipment.type";
-import ShipmentFilter from "../../commmon/ShipmentFilter";
-import AdminShipmentTableComponent from "./admin-shipment-table-component";
+import ShipmentFilter from "../../../commmon/ShipmentFilter";
+import MyShipmentTableComponent from "./myShipment-table-component";
 
 const DEFAULT_FILTERS: ShipmentQueryParams = {
   limit: 10,
@@ -28,9 +29,8 @@ const DEFAULT_FILTERS: ShipmentQueryParams = {
   type: undefined,
 };
 
-const AdminShipmentTable = () => {
+const MyShipmentTable = () => {
   const [page, setPage] = useState(1);
-
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
@@ -57,7 +57,7 @@ const AdminShipmentTable = () => {
     [filters, page, debouncedSearch],
   );
 
-  const { data } = useGetSuspenseShipmentAdmin(queryParams);
+  const { data } = useGetSuspenseMyShipment(queryParams);
 
   const shipments: IShipment[] = data?.data ?? [];
 
@@ -105,7 +105,7 @@ const AdminShipmentTable = () => {
           </div>
         </div>
 
-        {/* <Link href="/admin-dashboard/create-shipment">
+        <Link href="/customer-dashboard/create-shipment">
           <Button
             type="button"
             className="h-10 w-full gap-2 rounded-xl bg-[#e50914] px-4 text-white shadow-sm shadow-[#e50914]/20 hover:bg-[#c70811] sm:w-auto"
@@ -113,7 +113,7 @@ const AdminShipmentTable = () => {
             <Plus className="size-4" />
             Create Shipment
           </Button>
-        </Link> */}
+        </Link>
       </div>
 
       {/* Filters */}
@@ -163,6 +163,8 @@ const AdminShipmentTable = () => {
 
                     <TableHead className="hidden xl:table-cell">Fee</TableHead>
 
+                    <TableHead className="text-right">Payment</TableHead>
+
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -173,7 +175,7 @@ const AdminShipmentTable = () => {
                       key={shipment.id}
                       className="border-border/50 transition-colors hover:bg-muted/30"
                     >
-                      <AdminShipmentTableComponent shipment={shipment} />
+                      <MyShipmentTableComponent shipment={shipment} />
                     </TableRow>
                   ))}
                 </TableBody>
@@ -196,4 +198,4 @@ const AdminShipmentTable = () => {
   );
 };
 
-export default AdminShipmentTable;
+export default MyShipmentTable;

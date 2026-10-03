@@ -2,9 +2,6 @@ import {
   Bike,
   LayoutDashboard,
   Locate,
-  MapPinned,
-  MapPlus,
-  PackagePlus,
   PackageSearch,
   UserRound,
 } from "lucide-react";
@@ -31,11 +28,6 @@ export const customerRoutes: SidebarItems = [
   {
     title: "Shipment",
     items: [
-      {
-        title: "Create Shipment",
-        url: `${prefix}/create-shipment`,
-        icon: PackagePlus,
-      },
       {
         title: "My Shipment",
         url: `${prefix}/my-shipment`,

@@ -87,7 +87,7 @@ const formatStatus = (status: string) => {
     .join(" ");
 };
 
-const AdminShipmentFilter = ({
+const ShipmentFilter = ({
   search,
   filters,
   shipments,
@@ -611,4 +611,4 @@ const AdminShipmentFilter = ({
   );
 };
 
-export default AdminShipmentFilter;
+export default ShipmentFilter;

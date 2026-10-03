@@ -7,6 +7,7 @@ import {
   assignCourier,
   createShipment,
   getAdminShipment,
+  getMyShipment,
   updateAdminShipment,
 } from "@/api/shipment.api";
 import type { ShipmentQueryParams } from "@/types/shipment.type";
@@ -22,6 +23,13 @@ export function useGetSuspenseShipmentAdmin(params: ShipmentQueryParams) {
   return useSuspenseQuery({
     queryKey: ["adminShipments", params],
     queryFn: () => getAdminShipment(params),
+  });
+}
+
+export function useGetSuspenseMyShipment(params: ShipmentQueryParams) {
+  return useSuspenseQuery({
+    queryKey: ["myShipments", params],
+    queryFn: () => getMyShipment(params),
   });
 }
 
