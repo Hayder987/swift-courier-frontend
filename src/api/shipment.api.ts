@@ -28,6 +28,18 @@ export function getMyShipment(params: ShipmentQueryParams) {
   });
 }
 
+export function getCourierShipment(
+  params: ShipmentQueryParams,
+  type: "pickup" | "delivery",
+) {
+  return apiClient<IApiResponse<IShipment[]>>(
+    `/shipments/courier-shipments/${type}`,
+    {
+      params,
+    },
+  );
+}
+
 export function updateAdminShipment(
   payload: IAdminShipmentStatusUpdate,
   shipmentId: string,

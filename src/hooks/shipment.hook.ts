@@ -7,6 +7,7 @@ import {
   assignCourier,
   createShipment,
   getAdminShipment,
+  getCourierShipment,
   getMyShipment,
   updateAdminShipment,
 } from "@/api/shipment.api";
@@ -30,6 +31,13 @@ export function useGetSuspenseMyShipment(params: ShipmentQueryParams) {
   return useSuspenseQuery({
     queryKey: ["myShipments", params],
     queryFn: () => getMyShipment(params),
+  });
+}
+
+export function useGetSuspenseCourierShipment(params: ShipmentQueryParams, type:"pickup" | "delivery") {
+  return useSuspenseQuery({
+    queryKey: ["courierShipments", params, type],
+    queryFn: () => getCourierShipment(params, type),
   });
 }
 
