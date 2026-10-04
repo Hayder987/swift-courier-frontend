@@ -1,11 +1,10 @@
 "use client";
 
-import { Package, Plus } from "lucide-react";
-import Link from "next/link";
+import { Package } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import { useGetSuspenseCourierShipment } from "@/hooks/shipment.hook";
 import type { IShipment, ShipmentQueryParams } from "@/types/shipment.type";
+
 import ShipmentFilter from "../../commmon/ShipmentFilter";
 import CourierShipmentTableComponent from "./courierShipment-table-component";
 
@@ -29,11 +29,10 @@ const DEFAULT_FILTERS: ShipmentQueryParams = {
   type: undefined,
 };
 
-const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
+const CourierShipmentTable = ({ type }: { type: "pickup" | "delivery" }) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-
   const [filters, setFilters] = useState<ShipmentQueryParams>(DEFAULT_FILTERS);
 
   useEffect(() => {
@@ -60,7 +59,6 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
   const { data } = useGetSuspenseCourierShipment(queryParams, type);
 
   const shipments: IShipment[] = data?.data ?? [];
-
   const totalPages = data?.meta?.totalPages ?? 0;
   const totalShipments = data?.meta?.total ?? 0;
 
@@ -87,7 +85,6 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
 
   return (
     <div className="w-full space-y-5">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#e50914]/10 text-[#e50914]">
@@ -96,9 +93,7 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
 
           <div>
             <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
-              {
-                type === "pickup" ? "Pickup Shipments" : "Delivered Courier"
-              }
+              {type === "pickup" ? "Pickup Shipments" : "Delivery Shipments"}
             </h1>
 
             <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
@@ -108,7 +103,6 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
         </div>
       </div>
 
-      {/* Filters */}
       <ShipmentFilter
         search={search}
         filters={filters}
@@ -118,7 +112,6 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
         onReset={handleReset}
       />
 
-      {/* Table */}
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-sm backdrop-blur-xl">
         {!isEmpty ? (
           <>
@@ -167,7 +160,10 @@ const CourierShipmentTable = ({type} : {type:"pickup" | "delivery"}) => {
                       key={shipment.id}
                       className="border-border/50 transition-colors hover:bg-muted/30"
                     >
-                      <CourierShipmentTableComponent shipment={shipment} courierType={type} />
+                      <CourierShipmentTableComponent
+                        shipment={shipment}
+                        courierType={type}
+                      />
                     </TableRow>
                   ))}
                 </TableBody>

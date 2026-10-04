@@ -90,3 +90,17 @@ export const adminShipmentStatusSchema = z.object({
 export type IAdminShipmentStatusUpdate = z.infer<
   typeof adminShipmentStatusSchema
 >;
+
+// update shipment by courier
+export const shipmentStatusCourierZodSchema = z.object({
+  status: z.enum(["PICKED_UP", "DELIVERY_FAILED", "DELIVERED"]),
+  note: z
+    .string()
+    .trim()
+    .min(1, "Note is required")
+    .max(500, "Note cannot exceed 500 characters"),
+});
+
+export type ICourierShipmentStatusUpdate = z.infer<
+  typeof shipmentStatusCourierZodSchema
+>;

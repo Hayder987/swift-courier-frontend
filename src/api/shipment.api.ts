@@ -5,7 +5,10 @@ import type {
   IShipmentCreatePayload,
   ShipmentQueryParams,
 } from "@/types/shipment.type";
-import type { IAdminShipmentStatusUpdate } from "@/validation/shipment.validation";
+import type {
+  IAdminShipmentStatusUpdate,
+  ICourierShipmentStatusUpdate,
+} from "@/validation/shipment.validation";
 
 export function createShipment(payload: IShipmentCreatePayload) {
   const formData = new FormData();
@@ -49,6 +52,32 @@ export function updateAdminShipment(
     body: payload,
   });
 }
+
+export function updateShipmentByCourier(
+  shipmentId: string,
+  payload: ICourierShipmentStatusUpdate,
+) {
+  return apiClient<IApiResponse<IShipment>>(
+    `/shipments/courier-status/${shipmentId}`,
+    {
+      method: "PATCH",
+      body: payload,
+    },
+  );
+}
+
+// export function updateShipmentByCourier(
+//   shipmentId: string,
+//   payload: ICourierShipmentStatusUpdate,
+// ) {
+//   return apiClient<IApiResponse<IShipment>>(
+//     `/shipments/courier-status/${shipmentId}`,
+//     {
+//       method: "PATCH",
+//       body: payload,
+//     },
+//   );
+// }
 
 export function assignCourier(shipmentId: string) {
   return apiClient(`/shipments/assign/${shipmentId}`, {

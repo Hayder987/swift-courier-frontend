@@ -3,6 +3,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+import { FetchError } from "ofetch";
 import {
   assignCourier,
   createShipment,
@@ -10,9 +11,14 @@ import {
   getCourierShipment,
   getMyShipment,
   updateAdminShipment,
+  updateShipmentByCourier,
 } from "@/api/shipment.api";
+import { toast } from "@/components/ui/toast";
 import type { ShipmentQueryParams } from "@/types/shipment.type";
-import type { IAdminShipmentStatusUpdate } from "@/validation/shipment.validation";
+import type {
+  IAdminShipmentStatusUpdate,
+  ICourierShipmentStatusUpdate,
+} from "@/validation/shipment.validation";
 
 export function useCreateShipment() {
   return useMutation({
@@ -34,7 +40,10 @@ export function useGetSuspenseMyShipment(params: ShipmentQueryParams) {
   });
 }
 
-export function useGetSuspenseCourierShipment(params: ShipmentQueryParams, type:"pickup" | "delivery") {
+export function useGetSuspenseCourierShipment(
+  params: ShipmentQueryParams,
+  type: "pickup" | "delivery",
+) {
   return useSuspenseQuery({
     queryKey: ["courierShipments", params, type],
     queryFn: () => getCourierShipment(params, type),
@@ -58,6 +67,55 @@ export function useUpdateShipmentStatusAdmin(
       if (shipmentId) {
         queryClient.invalidateQueries({
           queryKey: ["adminShipments", shipmentId],
+        });
+      }
+    },
+  });
+}
+
+// export function useUpdateShipmentByCourier(
+//   payload: ICourierShipmentStatusUpdate,
+//   shipmentId: string,
+// ) {
+//   const queryClient = useQueryClient();
+
+//   return useMutation({
+//     mutationFn: () => updateShipmentByCourier(shipmentId, payload),
+
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({
+//         queryKey: ["courierShipments"],
+//       });
+
+//       if (shipmentId) {
+//         queryClient.invalidateQueries({
+//           queryKey: ["courierShipments", shipmentId],
+//         });
+//       }
+//     },
+//   });
+// }
+
+export function useUpdateShipmentByCourier() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      shipmentId,
+      payload,
+    }: {
+      shipmentId: string;
+      payload: ICourierShipmentStatusUpdate;
+    }) => updateShipmentByCourier(shipmentId, payload),
+
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["courierShipments"],
+      });
+
+      if (variables.shipmentId) {
+        queryClient.invalidateQueries({
+          queryKey: ["courierShipments", variables.shipmentId],
         });
       }
     },

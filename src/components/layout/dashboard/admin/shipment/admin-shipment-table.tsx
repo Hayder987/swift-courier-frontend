@@ -104,16 +104,6 @@ const AdminShipmentTable = () => {
             </p>
           </div>
         </div>
-
-        {/* <Link href="/admin-dashboard/create-shipment">
-          <Button
-            type="button"
-            className="h-10 w-full gap-2 rounded-xl bg-[#e50914] px-4 text-white shadow-sm shadow-[#e50914]/20 hover:bg-[#c70811] sm:w-auto"
-          >
-            <Plus className="size-4" />
-            Create Shipment
-          </Button>
-        </Link> */}
       </div>
 
       {/* Filters */}

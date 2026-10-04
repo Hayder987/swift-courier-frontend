@@ -92,20 +92,15 @@ export type IShipment = {
   customerId: string;
   pickupCourierId: string | null;
   deliveryCourierId: string | null;
-
   imageUrl: string | null;
   imagePublicId: string | null;
-
   parcelName: string;
   description: string;
   parcelWeightGM: string;
-
   deliveryFee: string | null;
   deliveryDistance: string | null;
-
   status: ShipmentStatus;
   type: ShipmentType;
-
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
@@ -123,7 +118,6 @@ export type IShipment = {
   deliveryZoneId: string;
 
   customer: ShipmentCustomer;
-
   pickupCourier: IDataCourier | null;
   deliveryCourier: IDataCourier | null;
 
@@ -139,3 +133,13 @@ export type ShipmentPaginationMeta = {
   total: number;
   totalPages: number;
 };
+
+export type CourierShipmentUpdateStatus =
+  | "PICKED_UP"
+  | "DELIVERY_FAILED"
+  | "DELIVERED";
+
+export interface ICourierShipmentStatusUpdate {
+  status: CourierShipmentUpdateStatus;
+  note: string;
+}
