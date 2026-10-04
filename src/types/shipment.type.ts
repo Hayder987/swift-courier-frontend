@@ -79,6 +79,13 @@ export type ShipmentTracking = {
   createdAt: string;
 };
 
+export interface IDataCourier {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export type IShipment = {
   id: string;
   trackingNumber: string;
@@ -117,8 +124,8 @@ export type IShipment = {
 
   customer: ShipmentCustomer;
 
-  pickupCourier: unknown | null;
-  deliveryCourier: unknown | null;
+  pickupCourier: IDataCourier | null;
+  deliveryCourier: IDataCourier | null;
 
   pickupZone: ShipmentZone;
   deliveryZone: ShipmentZone;

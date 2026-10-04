@@ -28,6 +28,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import type { IShipment, ShipmentStatus } from "@/types/shipment.type";
+import ShipmentCourierCard from "../../commmon/shipment-courier-card";
 
 interface AdminShipmenDetailsSheetProps {
   shipment: IShipment | null;
@@ -38,25 +39,15 @@ interface AdminShipmenDetailsSheetProps {
 
 const statusFlow: Record<ShipmentStatus, ShipmentStatus[]> = {
   CREATED: ["READY_FOR_PAYMENT", "CANCELLED"],
-
   READY_FOR_PAYMENT: ["PENDING", "CANCELLED"],
-
   PENDING: ["ASSIGNED", "CANCELLED"],
-
   ASSIGNED: ["PICKED_UP", "CANCELLED"],
-
   PICKED_UP: ["IN_TRANSIT", "CANCELLED"],
-
   IN_TRANSIT: ["OUT_FOR_DELIVERY", "CANCELLED"],
-
   OUT_FOR_DELIVERY: ["DELIVERED", "DELIVERY_FAILED", "CANCELLED"],
-
   DELIVERED: ["RETURNED"],
-
   DELIVERY_FAILED: ["RETURNED"],
-
   RETURNED: [],
-
   CANCELLED: [],
 };
 
@@ -233,7 +224,8 @@ const AdminShipmenDetailsSheet = ({
           <SheetTitle>Shipment Details</SheetTitle>
 
           <SheetDescription>
-            View complete shipment, customer, route and tracking information.
+            View complete shipment, customer, courier, route and tracking
+            information.
           </SheetDescription>
         </SheetHeader>
 
@@ -276,7 +268,9 @@ const AdminShipmenDetailsSheet = ({
                   <div className="mt-3 flex flex-wrap gap-2">
                     <Badge
                       variant="outline"
-                      className={`rounded-full ${statusClassName(shipment.status)}`}
+                      className={`rounded-full ${statusClassName(
+                        shipment.status,
+                      )}`}
                     >
                       {shipment.status.replaceAll("_", " ")}
                     </Badge>
@@ -409,6 +403,37 @@ const AdminShipmenDetailsSheet = ({
 
           <Separator />
 
+          {/* Couriers */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <UserRound className="size-4 text-[#e50914]" />
+
+              <div>
+                <h4 className="text-sm font-semibold">Courier Assignment</h4>
+
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Pickup and delivery courier information
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-1">
+              <ShipmentCourierCard
+                title="Pickup Courier"
+                courier={shipment.pickupCourier}
+                type="pickup"
+              />
+
+              <ShipmentCourierCard
+                title="Delivery Courier"
+                courier={shipment.deliveryCourier}
+                type="delivery"
+              />
+            </div>
+          </section>
+
+          <Separator />
+
           {/* Route */}
           <section>
             <div className="mb-3 flex items-center gap-2">
@@ -490,7 +515,9 @@ const AdminShipmenDetailsSheet = ({
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <Badge
                           variant="outline"
-                          className={`rounded-full text-[10px] ${statusClassName(tracking.status)}`}
+                          className={`rounded-full text-[10px] ${statusClassName(
+                            tracking.status,
+                          )}`}
                         >
                           {tracking.status.replaceAll("_", " ")}
                         </Badge>

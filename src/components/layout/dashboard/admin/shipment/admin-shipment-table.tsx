@@ -1,6 +1,6 @@
 "use client";
 
-import { Package} from "lucide-react";
+import { Package } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import CommonPagination from "@/components/common/CommonPaginaton";

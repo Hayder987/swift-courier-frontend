@@ -27,6 +27,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import type { IShipment, ShipmentStatus } from "@/types/shipment.type";
+import ShipmentCourierCard from "../../../commmon/shipment-courier-card";
 
 interface MyShipmenDetailsSheetProps {
   shipment: IShipment | null;
@@ -213,7 +214,7 @@ const MyShipmenDetailsSheet = ({
     );
   }
 
-  const nextStatuses = statusFlow[shipment.status];
+  // const nextStatuses = statusFlow[shipment.status];
 
   const latestTracking =
     shipment.tracking.length > 0
@@ -377,6 +378,35 @@ const MyShipmenDetailsSheet = ({
                 icon={FileText}
                 label="Customer ID"
                 value={shipment.customer.id}
+              />
+            </div>
+          </section>
+
+          {/* Couriers */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <UserRound className="size-4 text-[#e50914]" />
+
+              <div>
+                <h4 className="text-sm font-semibold">Courier Assignment</h4>
+
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Pickup and delivery courier information
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-1">
+              <ShipmentCourierCard
+                title="Pickup Courier"
+                courier={shipment?.pickupCourier}
+                type="pickup"
+              />
+
+              <ShipmentCourierCard
+                title="Delivery Courier"
+                courier={shipment?.deliveryCourier}
+                type="delivery"
               />
             </div>
           </section>
