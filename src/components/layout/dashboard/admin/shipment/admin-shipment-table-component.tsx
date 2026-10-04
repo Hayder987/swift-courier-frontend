@@ -27,6 +27,7 @@ import {
 } from "@/utils/DashBoard/shipment.utils";
 import AdminShipmentUpdateDialog from "./admin-shipment-dialog";
 import AdminShipmenDetailsSheet from "./admin-shipment-sheet";
+import ProcessSpinner from "@/components/loading/process-spinner";
 
 interface AdminShipmentTableComponentProps {
   shipment: IShipment;
@@ -189,11 +190,16 @@ const AdminShipmentTableComponent = ({
               <Button
                 type="button"
                 variant="outline"
+                disabled = {isAssigningCourier}
                 size="icon"
                 className="size-8 rounded-lg"
                 aria-label={`Actions for ${shipment.trackingNumber}`}
               >
-                <MoreHorizontal className="size-4" />
+                {isAssigningCourier ? (
+                  <ProcessSpinner />
+                ) : (
+                  <MoreHorizontal className="size-4" />
+                )}
               </Button>
             }
           >

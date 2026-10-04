@@ -3,7 +3,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { FetchError } from "ofetch";
+
 import {
   assignCourier,
   createShipment,
@@ -13,7 +13,6 @@ import {
   updateAdminShipment,
   updateShipmentByCourier,
 } from "@/api/shipment.api";
-import { toast } from "@/components/ui/toast";
 import type { ShipmentQueryParams } from "@/types/shipment.type";
 import type {
   IAdminShipmentStatusUpdate,
@@ -73,28 +72,6 @@ export function useUpdateShipmentStatusAdmin(
   });
 }
 
-// export function useUpdateShipmentByCourier(
-//   payload: ICourierShipmentStatusUpdate,
-//   shipmentId: string,
-// ) {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: () => updateShipmentByCourier(shipmentId, payload),
-
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({
-//         queryKey: ["courierShipments"],
-//       });
-
-//       if (shipmentId) {
-//         queryClient.invalidateQueries({
-//           queryKey: ["courierShipments", shipmentId],
-//         });
-//       }
-//     },
-//   });
-// }
 
 export function useUpdateShipmentByCourier() {
   const queryClient = useQueryClient();
