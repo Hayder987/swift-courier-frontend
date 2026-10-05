@@ -29,21 +29,6 @@ export const adminRoutes: SidebarItems = [
     ],
   },
   {
-    title: "Zone Management",
-    items: [
-      {
-        title: "Create Zones",
-        url: `${prefix}/create-zone`,
-        icon: MapPlus,
-      },
-      {
-        title: "All Zones",
-        url: `${prefix}/all-zones`,
-        icon: MapPinned,
-      },
-    ],
-  },
-  {
     title: "Management",
     items: [
       {
@@ -52,9 +37,9 @@ export const adminRoutes: SidebarItems = [
         icon: Truck,
       },
       {
-        title: "All Users",
-        url: `${prefix}/all-users`,
-        icon: Users,
+        title: "Zone Management",
+        url: `${prefix}/all-zones`,
+        icon: MapPinned,
       },
       {
         title: "Employee Management",
@@ -65,6 +50,11 @@ export const adminRoutes: SidebarItems = [
         title: "Shipment Management",
         url: `${prefix}/all-shipment`,
         icon: PackageCheck,
+      },
+      {
+        title: "User Management",
+        url: `${prefix}/all-users`,
+        icon: Users,
       },
     ],
   },

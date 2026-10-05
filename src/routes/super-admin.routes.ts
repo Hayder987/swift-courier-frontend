@@ -1,6 +1,7 @@
 import {
   HourglassCog,
   LayoutDashboard,
+  MapPinned,
   ScrollText,
   Truck,
   UserCog,
@@ -38,6 +39,11 @@ export const superAdminRoutes: SidebarItems = [
         title: "Courier Applications",
         url: `${prefix}/approve-courier`,
         icon: Truck,
+      },
+      {
+        title: "Zone Management",
+        url: `${prefix}/all-zones`,
+        icon: MapPinned,
       },
       {
         title: "Employee Management",
