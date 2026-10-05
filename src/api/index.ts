@@ -7,3 +7,4 @@ export * from "./payment.api";
 export * from "./public.api";
 export * from "./shipment.api";
 export * from "./superAdmin.api";
+export * from "./zone.api";

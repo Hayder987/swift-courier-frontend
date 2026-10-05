@@ -219,7 +219,7 @@ export const EmployeeDetailsContent = ({
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-1">
           <DetailItem icon={Mail} label="Email" value={user.email} />
 
           <DetailItem icon={Phone} label="Phone" value={user.phone} />
@@ -259,7 +259,7 @@ export const EmployeeDetailsContent = ({
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-1">
           <DetailItem
             icon={UserRound}
             label="Courier Name"

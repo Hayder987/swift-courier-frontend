@@ -75,8 +75,8 @@ const EmployeeDetailsSkeleton = () => {
         <Skeleton className="h-4 w-40 rounded-md" />
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <Skeleton className="aspect-[16/10] rounded-2xl" />
-          <Skeleton className="aspect-[16/10] rounded-2xl" />
+          <Skeleton className="aspect-16/10 rounded-2xl" />
+          <Skeleton className="aspect-16/10 rounded-2xl" />
         </div>
       </section>
     </div>

@@ -15,7 +15,7 @@ import CourierApplyForm from "@/components/layout/public/Authentication/User-For
 
 const BeACourierPage = () => {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+    <main className="min-h-screen max-w-380 py-4 mx-auto bg-slate-50 text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
       <div className="grid min-h-screen lg:grid-cols-2">
         {/* ============================================================ */}
         {/* LEFT — COURIER BANNER                                       */}
