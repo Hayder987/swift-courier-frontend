@@ -2,6 +2,7 @@ import {
   HourglassCog,
   LayoutDashboard,
   ScrollText,
+  Truck,
   UserCog,
   UserRound,
 } from "lucide-react";
@@ -32,6 +33,11 @@ export const superAdminRoutes: SidebarItems = [
         title: "All Audit Logs",
         url: `${prefix}/audit-logs`,
         icon: HourglassCog,
+      },
+      {
+        title: "Courier Applications",
+        url: `${prefix}/approve-courier`,
+        icon: Truck,
       },
       {
         title: "Employee Management",

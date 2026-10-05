@@ -47,7 +47,7 @@ export const adminRoutes: SidebarItems = [
     title: "Management",
     items: [
       {
-        title: "Approved Courier",
+        title: "Courier Applications",
         url: `${prefix}/approve-courier`,
         icon: Truck,
       },

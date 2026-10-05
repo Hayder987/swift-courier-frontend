@@ -66,19 +66,6 @@ export function updateShipmentByCourier(
   );
 }
 
-// export function updateShipmentByCourier(
-//   shipmentId: string,
-//   payload: ICourierShipmentStatusUpdate,
-// ) {
-//   return apiClient<IApiResponse<IShipment>>(
-//     `/shipments/courier-status/${shipmentId}`,
-//     {
-//       method: "PATCH",
-//       body: payload,
-//     },
-//   );
-// }
-
 export function assignCourier(shipmentId: string) {
   return apiClient(`/shipments/assign/${shipmentId}`, {
     method: "PATCH",

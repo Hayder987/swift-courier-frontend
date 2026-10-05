@@ -72,7 +72,6 @@ export function useUpdateShipmentStatusAdmin(
   });
 }
 
-
 export function useUpdateShipmentByCourier() {
   const queryClient = useQueryClient();
 

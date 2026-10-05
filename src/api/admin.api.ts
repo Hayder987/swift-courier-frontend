@@ -1,6 +1,9 @@
 import apiClient from "@/lib/apiClient";
-import type { IEmployee, IGetAllEmployeesParams } from "@/types";
-import type { ISingleEmployee } from "@/types/admin.employee.types";
+import type {
+  IEmployee,
+  IGetAllEmployeesParams,
+  ISingleEmployee,
+} from "@/types";
 import type { IApiResponse } from "@/types/api.type";
 
 export function getAllEmployee(params: IGetAllEmployeesParams) {

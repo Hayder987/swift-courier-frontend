@@ -78,6 +78,11 @@ export interface IZone {
 // Employee Details
 // ---------------------------------------------
 
+export interface ICourierDocument {
+  url: string;
+  publicId: string;
+}
+
 export interface ISingleZone {
   id: string;
   name: string;
@@ -97,8 +102,8 @@ export interface ISingleCourier {
   resumePublicId: string | null;
   applicationStatus: string;
   courierAvailability: string;
-  vehicleDocuments: string[] | null;
-  nationalidPic: string[] | null;
+  vehicleDocuments: ICourierDocument[] | null;
+  nationalIdPic: ICourierDocument[] | null;
   zoneId: string | null;
   createdAt: string;
   updatedAt: string;
@@ -122,7 +127,7 @@ export interface ISingleUser {
 export interface ISingleEmployee {
   id: string;
   userId: string;
-  employeeCode: string;
+  employeeCode: string | null;
   employmentStatus: string;
   imageUrl: string | null;
   imagePublicId: string | null;
@@ -149,10 +154,14 @@ export interface IGetAllEmployeesParams {
   limit?: number;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
-
   employeeStatus?: EmploymentStatus;
-
   role?: EmployeeRole;
-
   zoneCode?: string;
+}
+
+export interface IQueryParamsCourierApplicant {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
 }

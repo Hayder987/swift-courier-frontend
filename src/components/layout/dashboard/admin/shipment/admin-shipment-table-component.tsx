@@ -3,7 +3,7 @@
 import { Eye, MoreHorizontal, RefreshCcw, UserRoundCheck } from "lucide-react";
 import type { FetchError } from "ofetch";
 import { useState } from "react";
-
+import ProcessSpinner from "@/components/loading/process-spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,6 @@ import {
 } from "@/utils/DashBoard/shipment.utils";
 import AdminShipmentUpdateDialog from "./admin-shipment-dialog";
 import AdminShipmenDetailsSheet from "./admin-shipment-sheet";
-import ProcessSpinner from "@/components/loading/process-spinner";
 
 interface AdminShipmentTableComponentProps {
   shipment: IShipment;
@@ -190,7 +189,7 @@ const AdminShipmentTableComponent = ({
               <Button
                 type="button"
                 variant="outline"
-                disabled = {isAssigningCourier}
+                disabled={isAssigningCourier}
                 size="icon"
                 className="size-8 rounded-lg"
                 aria-label={`Actions for ${shipment.trackingNumber}`}
