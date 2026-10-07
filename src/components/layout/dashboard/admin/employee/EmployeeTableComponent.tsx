@@ -47,7 +47,6 @@ const EmployeeTableComponent = ({ employee }: EmployeeTableComponentProps) => {
   );
 
   const { data: userData } = useGetMe();
-
   const loginUserRole = userData?.data?.user?.role;
 
   const { mutate: deleteEmployee, isPending: empDeletePending } =
@@ -104,8 +103,8 @@ const EmployeeTableComponent = ({ employee }: EmployeeTableComponentProps) => {
         <div className="flex items-center gap-3">
           <Avatar className="size-10 shrink-0 rounded-xl border border-border/60">
             <AvatarImage
-              src={employee.imageUrl ?? undefined}
-              alt={employee.user.name}
+              src={employee?.imageUrl ?? undefined}
+              alt={employee?.user?.name}
             />
 
             <AvatarFallback className="rounded-xl bg-[#e50914]/10 font-semibold text-[#e50914]">

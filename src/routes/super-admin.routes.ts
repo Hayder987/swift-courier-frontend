@@ -2,10 +2,10 @@ import {
   HourglassCog,
   LayoutDashboard,
   MapPinned,
-  ScrollText,
   Truck,
   UserCog,
   UserRound,
+  Users,
 } from "lucide-react";
 import type { SidebarItems } from "@/types";
 
@@ -49,6 +49,11 @@ export const superAdminRoutes: SidebarItems = [
         title: "Employee Management",
         url: `${prefix}/employees`,
         icon: UserCog,
+      },
+      {
+        title: "User Management",
+        url: `${prefix}/all-users`,
+        icon: Users,
       },
     ],
   },

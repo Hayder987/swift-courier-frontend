@@ -2,7 +2,7 @@
 
 import { MapPinned, Plus } from "lucide-react";
 import Link from "next/link";
-import { Suspense, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
 import { Button } from "@/components/ui/button";
