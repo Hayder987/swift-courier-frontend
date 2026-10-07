@@ -37,50 +37,62 @@ const AdminUsersTable = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const initialSearch = searchParams.get("searchTerm") ?? "";
+
   const [page, setPage] = useState(() => {
     const urlPage = Number(searchParams.get("page"));
+
     return urlPage > 0 ? urlPage : 1;
   });
 
-  const [search, setSearch] = useState(
-    () => searchParams.get("searchTerm") ?? "",
-  );
+  const [search, setSearch] = useState(initialSearch);
 
-  const [debouncedSearch, setDebouncedSearch] = useState(
-    () => searchParams.get("searchTerm") ?? "",
-  );
+  const [debouncedSearch, setDebouncedSearch] =
+    useState(initialSearch);
 
-  const [filters, setFilters] = useState<IAdminUserQueryParams>(() => ({
-    ...DEFAULT_FILTERS,
-    role:
-      (searchParams.get("role") as IAdminUserQueryParams["role"]) ?? undefined,
-    status:
-      (searchParams.get("status") as IAdminUserQueryParams["status"]) ??
-      undefined,
-    authMethod:
-      (searchParams.get("authMethod") as IAdminUserQueryParams["authMethod"]) ??
-      undefined,
-    sortBy:
-      (searchParams.get("sortBy") as IAdminUserQueryParams["sortBy"]) ??
-      "createdAt",
-    sortOrder:
-      (searchParams.get("sortOrder") as IAdminUserQueryParams["sortOrder"]) ??
-      "desc",
-  }));
+  const [filters, setFilters] = useState<IAdminUserQueryParams>(
+    () => ({
+      ...DEFAULT_FILTERS,
+      role:
+        (searchParams.get(
+          "role",
+        ) as IAdminUserQueryParams["role"]) ?? undefined,
+      status:
+        (searchParams.get(
+          "status",
+        ) as IAdminUserQueryParams["status"]) ?? undefined,
+      authMethod:
+        (searchParams.get(
+          "authMethod",
+        ) as IAdminUserQueryParams["authMethod"]) ?? undefined,
+      sortBy:
+        (searchParams.get(
+          "sortBy",
+        ) as IAdminUserQueryParams["sortBy"]) ?? "createdAt",
+      sortOrder:
+        (searchParams.get(
+          "sortOrder",
+        ) as IAdminUserQueryParams["sortOrder"]) ?? "desc",
+    }),
+  );
 
   const { data: userData } = useGetMe();
   const loginUserRole = userData?.data?.user?.role;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setDebouncedSearch(search.trim());
-      setPage(1);
+      const trimmedSearch = search.trim();
+
+      if (trimmedSearch !== debouncedSearch) {
+        setDebouncedSearch(trimmedSearch);
+        setPage(1);
+      }
     }, 600);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [search]);
+  }, [search, debouncedSearch]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -115,9 +127,12 @@ const AdminUsersTable = () => {
 
     const queryString = params.toString();
 
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
-      scroll: false,
-    });
+    router.replace(
+      queryString ? `${pathname}?${queryString}` : pathname,
+      {
+        scroll: false,
+      },
+    );
   }, [
     pathname,
     router,
@@ -165,6 +180,15 @@ const AdminUsersTable = () => {
     setPage(1);
     setFilters({
       ...DEFAULT_FILTERS,
+    });
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    setPage(nextPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   };
 
@@ -237,7 +261,9 @@ const AdminUsersTable = () => {
                     <TableHead className="hidden lg:table-cell">
                       Created
                     </TableHead>
-                    <TableHead className="text-right">Action</TableHead>
+                    <TableHead className="text-right">
+                      Action
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
 
@@ -260,7 +286,7 @@ const AdminUsersTable = () => {
             <CommonPagination
               page={page}
               totalPages={totalPages}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           </>
         ) : (
