@@ -2,7 +2,8 @@
 
 import { Plus, Users } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
 import { Button } from "@/components/ui/button";
@@ -19,20 +20,97 @@ import type { IGetAllEmployeesParams } from "@/types";
 import EmployeeFilters from "./EmployeeFilters";
 import EmployeeTableComponent from "./EmployeeTableComponent";
 
+const DEFAULT_FILTERS: IGetAllEmployeesParams = {
+  limit: 10,
+  sortBy: "createdAt",
+  sortOrder: "desc",
+  employeeStatus: undefined,
+  role: undefined,
+  zoneCode: undefined,
+};
+
 const AllEmployeeTable = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const { data: userData } = useGetMe();
   const loginUserRole = userData?.data?.user?.role;
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
 
-  const [filters, setFilters] = useState<IGetAllEmployeesParams>({
-    limit: 10,
-    sortBy: "createdAt",
-    sortOrder: "desc",
-    employeeStatus: undefined,
-    role: undefined,
-    zoneCode: undefined,
+  const [page, setPage] = useState(() => {
+    const urlPage = Number(searchParams.get("page"));
+
+    return urlPage > 0 ? urlPage : 1;
   });
+
+  const [search, setSearch] = useState(
+    () => searchParams.get("searchTerm") ?? "",
+  );
+
+  const [filters, setFilters] = useState<IGetAllEmployeesParams>(() => ({
+    ...DEFAULT_FILTERS,
+    employeeStatus:
+      (searchParams.get(
+        "employeeStatus",
+      ) as IGetAllEmployeesParams["employeeStatus"]) ?? undefined,
+    role:
+      (searchParams.get("role") as IGetAllEmployeesParams["role"]) ?? undefined,
+    zoneCode: searchParams.get("zoneCode") ?? undefined,
+    sortBy:
+      (searchParams.get("sortBy") as IGetAllEmployeesParams["sortBy"]) ??
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IGetAllEmployeesParams["sortOrder"]) ??
+      "desc",
+  }));
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+
+    if (search.trim()) {
+      params.set("searchTerm", search.trim());
+    }
+
+    if (filters.employeeStatus) {
+      params.set("employeeStatus", filters.employeeStatus);
+    }
+
+    if (filters.role) {
+      params.set("role", filters.role);
+    }
+
+    if (filters.zoneCode) {
+      params.set("zoneCode", filters.zoneCode);
+    }
+
+    if (filters.sortBy && filters.sortBy !== "createdAt") {
+      params.set("sortBy", filters.sortBy);
+    }
+
+    if (filters.sortOrder && filters.sortOrder !== "desc") {
+      params.set("sortOrder", filters.sortOrder);
+    }
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }, [
+    pathname,
+    router,
+    page,
+    search,
+    filters.employeeStatus,
+    filters.role,
+    filters.zoneCode,
+    filters.sortBy,
+    filters.sortOrder,
+  ]);
 
   const queryParams: IGetAllEmployeesParams = useMemo(
     () => ({
@@ -58,13 +136,9 @@ const AllEmployeeTable = () => {
 
     return employees.filter((employee) => {
       const name = employee.user.name?.toLowerCase() ?? "";
-
       const email = employee.user.email?.toLowerCase() ?? "";
-
       const code = employee.employeeCode?.toLowerCase() ?? "";
-
       const role = employee.user.role?.toLowerCase() ?? "";
-
       const zone = employee.courier?.zone?.name?.toLowerCase() ?? "";
 
       return (
@@ -93,16 +167,18 @@ const AllEmployeeTable = () => {
 
   const handleReset = () => {
     setSearch("");
-
     setPage(1);
-
     setFilters({
-      limit: 10,
-      sortBy: "createdAt",
-      sortOrder: "desc",
-      employeeStatus: undefined,
-      role: undefined,
-      zoneCode: undefined,
+      ...DEFAULT_FILTERS,
+    });
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    setPage(nextPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   };
 
@@ -115,7 +191,6 @@ const AllEmployeeTable = () => {
 
   return (
     <div className="w-full space-y-5">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="flex items-center gap-3">
@@ -136,7 +211,7 @@ const AllEmployeeTable = () => {
         </div>
 
         {loginUserRole === "SUPER_ADMIN" && (
-          <Link href={"/super-admin-dashboard/create-employee"}>
+          <Link href="/super-admin-dashboard/create-employee">
             <Button
               type="button"
               className="h-10 gap-2 rounded-xl bg-[#e50914] px-4 text-white shadow-sm shadow-[#e50914]/20 hover:bg-[#c70811]"
@@ -148,7 +223,6 @@ const AllEmployeeTable = () => {
         )}
       </div>
 
-      {/* Filters */}
       <EmployeeFilters
         employees={employees}
         filters={filters}
@@ -156,7 +230,6 @@ const AllEmployeeTable = () => {
         onReset={handleReset}
       />
 
-      {/* Table Card */}
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-sm backdrop-blur-xl">
         {!isEmpty ? (
           <>
@@ -165,15 +238,10 @@ const AllEmployeeTable = () => {
                 <TableHeader>
                   <TableRow className="border-border/60 hover:bg-transparent">
                     <TableHead className="min-w-60">Employee</TableHead>
-
                     <TableHead>Employee ID</TableHead>
-
                     <TableHead>Role</TableHead>
-
                     <TableHead>Status</TableHead>
-
                     <TableHead className="hidden lg:table-cell">Zone</TableHead>
-
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -194,7 +262,7 @@ const AllEmployeeTable = () => {
             <CommonPagination
               page={page}
               totalPages={totalPages}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           </>
         ) : (

@@ -2,7 +2,9 @@
 
 import { MapPinned, Plus } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
 import { Button } from "@/components/ui/button";
@@ -25,9 +27,18 @@ const DEFAULT_PARAMS: GetAllZonesParams = {
 };
 
 const AdminZoneTable = () => {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [page, setPage] = useState(() => {
+    const urlPage = Number(searchParams.get("page"));
+    return urlPage > 0 ? urlPage : 1;
+  });
+
   const { data: userData } = useGetMe();
   const userRole = userData.data.user.role;
+
   const roleRoute =
     userRole === "ADMIN"
       ? "/admin-dashboard/create-zone"
@@ -53,6 +64,20 @@ const AdminZoneTable = () => {
 
   const handlePageChange = (nextPage: number) => {
     setPage(nextPage);
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (nextPage > 1) {
+      params.set("page", String(nextPage));
+    } else {
+      params.delete("page");
+    }
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
 
     window.scrollTo({
       top: 0,

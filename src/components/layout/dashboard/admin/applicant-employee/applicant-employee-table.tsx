@@ -2,7 +2,9 @@
 
 import { Plus, Users } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
 import { Button } from "@/components/ui/button";
@@ -21,13 +23,48 @@ import type {
 import ApplicantEmployeeTableComponent from "./applicantemployee-table-ccomponent";
 
 const ApplicantEmployeeTable = () => {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<IQueryParamsCourierApplicant>({
-    limit: 10,
-    sortBy: "createdAt",
-    sortOrder: "desc",
+  const [page, setPage] = useState(() => {
+    const urlPage = Number(searchParams.get("page"));
+
+    return urlPage > 0 ? urlPage : 1;
   });
+
+  const [filters, setFilters] = useState<IQueryParamsCourierApplicant>(() => ({
+    limit: 10,
+    sortBy:
+      (searchParams.get("sortBy") as IQueryParamsCourierApplicant["sortBy"]) ??
+      "createdAt",
+    sortOrder:
+      (searchParams.get(
+        "sortOrder",
+      ) as IQueryParamsCourierApplicant["sortOrder"]) ?? "desc",
+  }));
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+
+    if (filters.sortBy && filters.sortBy !== "createdAt") {
+      params.set("sortBy", filters.sortBy);
+    }
+
+    if (filters.sortOrder && filters.sortOrder !== "desc") {
+      params.set("sortOrder", filters.sortOrder);
+    }
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }, [pathname, router, page, filters.sortBy, filters.sortOrder]);
 
   const queryParams: IQueryParamsCourierApplicant = useMemo(
     () => ({
@@ -56,6 +93,15 @@ const ApplicantEmployeeTable = () => {
       ...previous,
       [key]: value || undefined,
     }));
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    setPage(nextPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   console.log("Pagination:", {
@@ -92,17 +138,18 @@ const ApplicantEmployeeTable = () => {
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-sm backdrop-blur-xl">
         {!isEmpty ? (
           <>
-            <div className="overflow-x-auto min-h-[calc(100vh-450px)]">
+            <div className="min-h-[calc(100vh-450px)] overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/60 hover:bg-transparent">
-                    <TableHead className="min-w-60 ">Employee</TableHead>
+                    <TableHead className="min-w-60">Employee</TableHead>
 
                     <TableHead>Employee ID</TableHead>
 
                     <TableHead>Status</TableHead>
 
                     <TableHead className="hidden lg:table-cell">Zone</TableHead>
+
                     <TableHead className="hidden lg:table-cell">
                       Applied At
                     </TableHead>
@@ -127,7 +174,7 @@ const ApplicantEmployeeTable = () => {
             <CommonPagination
               page={page}
               totalPages={totalPages}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           </>
         ) : (

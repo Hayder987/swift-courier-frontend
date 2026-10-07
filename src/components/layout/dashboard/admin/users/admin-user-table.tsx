@@ -1,12 +1,11 @@
 "use client";
 
 import { UsersRound } from "lucide-react";
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import CommonPagination from "@/components/common/CommonPaginaton";
 import NoDataFound from "@/components/common/NoDataFound";
-
 import {
   Table,
   TableBody,
@@ -16,12 +15,10 @@ import {
 } from "@/components/ui/table";
 import { useSuspenseGetAllUsers } from "@/hooks/admin.hook";
 import { useGetMe } from "@/hooks/auth.hook";
-
 import type {
   IAdminUser,
   IAdminUserQueryParams,
 } from "@/types/admin.employee.types";
-
 import AdminUserFilter from "./admin-user-filter";
 import AdminUserTableComponents from "./admin-user-table-component";
 
@@ -36,20 +33,44 @@ const DEFAULT_FILTERS: IAdminUserQueryParams = {
 };
 
 const AdminUsersTable = () => {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [page, setPage] = useState(() => {
+    const urlPage = Number(searchParams.get("page"));
+    return urlPage > 0 ? urlPage : 1;
+  });
 
-  const [filters, setFilters] =
-    useState<IAdminUserQueryParams>(DEFAULT_FILTERS);
+  const [search, setSearch] = useState(
+    () => searchParams.get("searchTerm") ?? "",
+  );
 
-  /* Logged in user */
+  const [debouncedSearch, setDebouncedSearch] = useState(
+    () => searchParams.get("searchTerm") ?? "",
+  );
+
+  const [filters, setFilters] = useState<IAdminUserQueryParams>(() => ({
+    ...DEFAULT_FILTERS,
+    role:
+      (searchParams.get("role") as IAdminUserQueryParams["role"]) ?? undefined,
+    status:
+      (searchParams.get("status") as IAdminUserQueryParams["status"]) ??
+      undefined,
+    authMethod:
+      (searchParams.get("authMethod") as IAdminUserQueryParams["authMethod"]) ??
+      undefined,
+    sortBy:
+      (searchParams.get("sortBy") as IAdminUserQueryParams["sortBy"]) ??
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IAdminUserQueryParams["sortOrder"]) ??
+      "desc",
+  }));
+
   const { data: userData } = useGetMe();
-
   const loginUserRole = userData?.data?.user?.role;
 
-  /* Search debounce */
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setDebouncedSearch(search.trim());
@@ -61,7 +82,54 @@ const AdminUsersTable = () => {
     };
   }, [search]);
 
-  /* Query params */
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+
+    if (debouncedSearch) {
+      params.set("searchTerm", debouncedSearch);
+    }
+
+    if (filters.role) {
+      params.set("role", filters.role);
+    }
+
+    if (filters.status) {
+      params.set("status", filters.status);
+    }
+
+    if (filters.authMethod) {
+      params.set("authMethod", filters.authMethod);
+    }
+
+    if (filters.sortBy && filters.sortBy !== "createdAt") {
+      params.set("sortBy", filters.sortBy);
+    }
+
+    if (filters.sortOrder && filters.sortOrder !== "desc") {
+      params.set("sortOrder", filters.sortOrder);
+    }
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }, [
+    pathname,
+    router,
+    page,
+    debouncedSearch,
+    filters.role,
+    filters.status,
+    filters.authMethod,
+    filters.sortBy,
+    filters.sortOrder,
+  ]);
+
   const queryParams = useMemo<IAdminUserQueryParams>(
     () => ({
       ...filters,
@@ -72,18 +140,13 @@ const AdminUsersTable = () => {
     [filters, page, debouncedSearch],
   );
 
-  /* Users */
   const { data } = useSuspenseGetAllUsers(queryParams);
 
   const users: IAdminUser[] = data?.data ?? [];
-
   const totalPages = data?.meta?.totalPages ?? 0;
-
   const totalUsers = data?.meta?.total ?? 0;
-
   const isEmpty = users.length === 0;
 
-  /* Filter change */
   const handleFilterChange = (
     key: keyof IAdminUserQueryParams,
     value: string,
@@ -96,12 +159,10 @@ const AdminUsersTable = () => {
     }));
   };
 
-  /* Reset */
   const handleReset = () => {
     setSearch("");
     setDebouncedSearch("");
     setPage(1);
-
     setFilters({
       ...DEFAULT_FILTERS,
     });
@@ -109,7 +170,6 @@ const AdminUsersTable = () => {
 
   return (
     <div className="w-full space-y-5">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#e50914]/10 text-[#e50914]">
@@ -138,7 +198,6 @@ const AdminUsersTable = () => {
         </div>
       </div>
 
-      {/* Filters */}
       <AdminUserFilter
         search={search}
         filters={filters}
@@ -147,7 +206,6 @@ const AdminUsersTable = () => {
         onReset={handleReset}
       />
 
-      {/* Table */}
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-sm backdrop-blur-xl">
         {!isEmpty ? (
           <>
@@ -171,19 +229,14 @@ const AdminUsersTable = () => {
                 <TableHeader>
                   <TableRow className="border-border/60 hover:bg-transparent">
                     <TableHead className="min-w-65">User</TableHead>
-
                     <TableHead>Role</TableHead>
-
                     <TableHead>Status</TableHead>
-
                     <TableHead className="hidden md:table-cell">
                       Authentication
                     </TableHead>
-
                     <TableHead className="hidden lg:table-cell">
                       Created
                     </TableHead>
-
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>

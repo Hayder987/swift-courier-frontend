@@ -29,36 +29,8 @@ export function deleteEmployeeById(id: string | null) {
   });
 }
 
-// // user management
-// export function getAllUsers(params: IAdminUserQueryParams) {
-//   return apiClient<IApiResponse<IAdminUser[]>>("/users/all-user", {
-//     params,
-//   });
-// }
-
-// export function getUserById(userId: string) {
-//   return apiClient<IApiResponse<IAdminSingleUser>>(`/users/user/${userId}`);
-// }
-
-// export function deleteUserById(userId: string | null) {
-//   return apiClient<IApiResponse<null>>(`/users/user/${userId}`, {
-//     method: "PATCH",
-//   });
-// }
-
-// export function updateAdminUserStatus(
-//   payload: IAdminUserStatusUpdate,
-//   userId: string
-// ) {
-//   return apiClient(`/users/user/${userId}`, {
-//     method: "PATCH",
-//     body: payload,
-//   });
-// }
-
-// user management
-
 export function getAllUsers(params: IAdminUserQueryParams) {
+  console.log("USER API PARAMS:", params);
   return apiClient<IApiResponse<IAdminUser[]>>("/users/all-user", {
     params,
   });

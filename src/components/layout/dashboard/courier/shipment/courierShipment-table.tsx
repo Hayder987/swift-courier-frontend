@@ -1,6 +1,7 @@
 "use client";
 
 import { Package } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import CommonPagination from "@/components/common/CommonPaginaton";
@@ -30,21 +31,115 @@ const DEFAULT_FILTERS: ShipmentQueryParams = {
 };
 
 const CourierShipmentTable = ({ type }: { type: "pickup" | "delivery" }) => {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [filters, setFilters] = useState<ShipmentQueryParams>(DEFAULT_FILTERS);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [page, setPage] = useState(() => {
+    const urlPage = Number(searchParams.get("page"));
+
+    return urlPage > 0 ? urlPage : 1;
+  });
+
+  const [search, setSearch] = useState(
+    () => searchParams.get("searchTerm") ?? "",
+  );
+
+  const [debouncedSearch, setDebouncedSearch] = useState(
+    () => searchParams.get("searchTerm") ?? "",
+  );
+
+  const [filters, setFilters] = useState<ShipmentQueryParams>(() => ({
+    ...DEFAULT_FILTERS,
+    status:
+      (searchParams.get("status") as ShipmentQueryParams["status"]) ??
+      undefined,
+    pickupZoneId: searchParams.get("pickupZoneId") ?? undefined,
+    deliveryZoneId: searchParams.get("deliveryZoneId") ?? undefined,
+    dateFilter:
+      (searchParams.get("dateFilter") as ShipmentQueryParams["dateFilter"]) ??
+      undefined,
+    type:
+      (searchParams.get("type") as ShipmentQueryParams["type"]) ?? undefined,
+    sortBy:
+      (searchParams.get("sortBy") as ShipmentQueryParams["sortBy"]) ??
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as ShipmentQueryParams["sortOrder"]) ??
+      "desc",
+  }));
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setDebouncedSearch(search.trim());
-      setPage(1);
+
+      if (search.trim() !== debouncedSearch) {
+        setPage(1);
+      }
     }, 600);
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [search]);
+  }, [search, debouncedSearch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+
+    if (debouncedSearch) {
+      params.set("searchTerm", debouncedSearch);
+    }
+
+    if (filters.status) {
+      params.set("status", filters.status);
+    }
+
+    if (filters.pickupZoneId) {
+      params.set("pickupZoneId", filters.pickupZoneId);
+    }
+
+    if (filters.deliveryZoneId) {
+      params.set("deliveryZoneId", filters.deliveryZoneId);
+    }
+
+    if (filters.dateFilter) {
+      params.set("dateFilter", filters.dateFilter);
+    }
+
+    if (filters.type) {
+      params.set("type", filters.type);
+    }
+
+    if (filters.sortBy && filters.sortBy !== "createdAt") {
+      params.set("sortBy", filters.sortBy);
+    }
+
+    if (filters.sortOrder && filters.sortOrder !== "desc") {
+      params.set("sortOrder", filters.sortOrder);
+    }
+
+    const queryString = params.toString();
+
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }, [
+    pathname,
+    router,
+    page,
+    debouncedSearch,
+    filters.status,
+    filters.pickupZoneId,
+    filters.deliveryZoneId,
+    filters.dateFilter,
+    filters.type,
+    filters.sortBy,
+    filters.sortOrder,
+  ]);
 
   const queryParams = useMemo<ShipmentQueryParams>(
     () => ({
@@ -79,6 +174,15 @@ const CourierShipmentTable = ({ type }: { type: "pickup" | "delivery" }) => {
     setDebouncedSearch("");
     setPage(1);
     setFilters({ ...DEFAULT_FILTERS });
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    setPage(nextPage);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const isEmpty = shipments.length === 0;
@@ -173,7 +277,7 @@ const CourierShipmentTable = ({ type }: { type: "pickup" | "delivery" }) => {
             <CommonPagination
               page={page}
               totalPages={totalPages}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           </>
         ) : (
