@@ -15,7 +15,7 @@ export function createZone(payload: ICreateZonePayload) {
 }
 
 export function getAllZones(params: GetAllZonesParams) {
-  return apiClient<IApiResponse<ISingleZone[]>>("zones", {
+  return apiClient<IApiResponse<ISingleZone[]>>("/zones", {
     params,
   });
 }

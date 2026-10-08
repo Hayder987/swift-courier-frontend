@@ -1,4 +1,5 @@
 import {
+  Banknote,
   LayoutDashboard,
   MapPinned,
   PackageCheck,
@@ -61,9 +62,9 @@ export const adminRoutes: SidebarItems = [
         icon: Users,
       },
       {
-        title: "Generate Payroll",
-        url: `${prefix}/generate-payroll`,
-        icon: Users,
+        title: "Payroll Management",
+        url: `${prefix}/payroll`,
+        icon: Banknote,
       },
     ],
   },

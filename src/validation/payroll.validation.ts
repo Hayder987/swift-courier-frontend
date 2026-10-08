@@ -9,3 +9,13 @@ export const createPayrollSchema = z.object({
 
   totalDeduction: z.number().min(0, "Total deduction cannot be negative"),
 });
+
+export const paySalarySchema = z.object({
+  paymentReference: z
+    .string()
+    .trim()
+    .min(3, "Payment reference must be at least 3 characters.")
+    .max(100, "Payment reference cannot exceed 100 characters."),
+});
+
+export type PaySalaryFormValues = z.infer<typeof paySalarySchema>;
