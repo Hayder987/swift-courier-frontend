@@ -16,7 +16,6 @@ export function useGeneratePayroll() {
   });
 }
 
-
 export function useGetSuspenseAllPayroll(params: IPayrollQueryParams) {
   return useSuspenseQuery({
     queryKey: ["payrolls", params],
