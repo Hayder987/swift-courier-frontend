@@ -21,6 +21,11 @@ export const superAdminRoutes: SidebarItems = [
         icon: LayoutDashboard,
       },
       {
+        title: "Overview",
+        url: `${prefix}/overview`,
+        icon: LayoutDashboard,
+      },
+      {
         title: "My Profile",
         url: `${prefix}/my-profile`,
         icon: UserRound,

@@ -1,7 +1,6 @@
 import {
   LayoutDashboard,
   MapPinned,
-  MapPlus,
   PackageCheck,
   Truck,
   UserCog,
@@ -19,6 +18,11 @@ export const adminRoutes: SidebarItems = [
       {
         title: "Dashboard",
         url: `${prefix}`,
+        icon: LayoutDashboard,
+      },
+      {
+        title: "Overview",
+        url: `${prefix}/overview`,
         icon: LayoutDashboard,
       },
       {

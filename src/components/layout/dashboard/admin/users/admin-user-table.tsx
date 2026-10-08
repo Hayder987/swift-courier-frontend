@@ -47,34 +47,25 @@ const AdminUsersTable = () => {
 
   const [search, setSearch] = useState(initialSearch);
 
-  const [debouncedSearch, setDebouncedSearch] =
-    useState(initialSearch);
+  const [debouncedSearch, setDebouncedSearch] = useState(initialSearch);
 
-  const [filters, setFilters] = useState<IAdminUserQueryParams>(
-    () => ({
-      ...DEFAULT_FILTERS,
-      role:
-        (searchParams.get(
-          "role",
-        ) as IAdminUserQueryParams["role"]) ?? undefined,
-      status:
-        (searchParams.get(
-          "status",
-        ) as IAdminUserQueryParams["status"]) ?? undefined,
-      authMethod:
-        (searchParams.get(
-          "authMethod",
-        ) as IAdminUserQueryParams["authMethod"]) ?? undefined,
-      sortBy:
-        (searchParams.get(
-          "sortBy",
-        ) as IAdminUserQueryParams["sortBy"]) ?? "createdAt",
-      sortOrder:
-        (searchParams.get(
-          "sortOrder",
-        ) as IAdminUserQueryParams["sortOrder"]) ?? "desc",
-    }),
-  );
+  const [filters, setFilters] = useState<IAdminUserQueryParams>(() => ({
+    ...DEFAULT_FILTERS,
+    role:
+      (searchParams.get("role") as IAdminUserQueryParams["role"]) ?? undefined,
+    status:
+      (searchParams.get("status") as IAdminUserQueryParams["status"]) ??
+      undefined,
+    authMethod:
+      (searchParams.get("authMethod") as IAdminUserQueryParams["authMethod"]) ??
+      undefined,
+    sortBy:
+      (searchParams.get("sortBy") as IAdminUserQueryParams["sortBy"]) ??
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IAdminUserQueryParams["sortOrder"]) ??
+      "desc",
+  }));
 
   const { data: userData } = useGetMe();
   const loginUserRole = userData?.data?.user?.role;
@@ -127,12 +118,9 @@ const AdminUsersTable = () => {
 
     const queryString = params.toString();
 
-    router.replace(
-      queryString ? `${pathname}?${queryString}` : pathname,
-      {
-        scroll: false,
-      },
-    );
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
   }, [
     pathname,
     router,
@@ -261,9 +249,7 @@ const AdminUsersTable = () => {
                     <TableHead className="hidden lg:table-cell">
                       Created
                     </TableHead>
-                    <TableHead className="text-right">
-                      Action
-                    </TableHead>
+                    <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
 
