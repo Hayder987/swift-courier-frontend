@@ -60,6 +60,11 @@ export const adminRoutes: SidebarItems = [
         url: `${prefix}/all-users`,
         icon: Users,
       },
+      {
+        title: "Generate Payroll",
+        url: `${prefix}/generate-payroll`,
+        icon: Users,
+      },
     ],
   },
 ];
