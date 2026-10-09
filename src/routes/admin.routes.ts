@@ -1,5 +1,6 @@
 import {
   Banknote,
+  History,
   LayoutDashboard,
   MapPinned,
   PackageCheck,
@@ -25,6 +26,11 @@ export const adminRoutes: SidebarItems = [
         title: "Overview",
         url: `${prefix}/overview`,
         icon: LayoutDashboard,
+      },
+      {
+        title: "Payment History",
+        url: `${prefix}/payment`,
+        icon: History,
       },
       {
         title: "My Profile",

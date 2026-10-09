@@ -1,4 +1,6 @@
 import {
+  Banknote,
+  History,
   HourglassCog,
   LayoutDashboard,
   MapPinned,
@@ -24,6 +26,11 @@ export const superAdminRoutes: SidebarItems = [
         title: "Overview",
         url: `${prefix}/overview`,
         icon: LayoutDashboard,
+      },
+      {
+        title: "Payment History",
+        url: `${prefix}/payment`,
+        icon: History,
       },
       {
         title: "My Profile",
@@ -59,6 +66,11 @@ export const superAdminRoutes: SidebarItems = [
         title: "User Management",
         url: `${prefix}/all-users`,
         icon: Users,
+      },
+      {
+        title: "Payroll Management",
+        url: `${prefix}/payroll`,
+        icon: Banknote,
       },
     ],
   },
