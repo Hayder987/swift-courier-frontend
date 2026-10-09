@@ -108,7 +108,7 @@ const PaymentsTable = () => {
 
   return (
     <div className="min-h-screen space-y-6 bg-background px-3 py-5 text-foreground sm:px-5 sm:py-7 lg:px-8">
-      <div className="mx-auto w-full max-w-7xl space-y-6">
+      <div className="mx-auto w-full max-w-380 space-y-6">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
