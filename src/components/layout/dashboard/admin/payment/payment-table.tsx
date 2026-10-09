@@ -38,7 +38,7 @@ const PaymentsTable = () => {
 
   const { data: response } = useGetSuspenseAllPayments(filters);
 
-  const payments = response.data ?? [];
+  const payments = Array.isArray(response?.data) ? response.data : [];
 
   const statistics = useMemo(() => {
     return payments.reduce(
