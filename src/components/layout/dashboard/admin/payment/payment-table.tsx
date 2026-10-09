@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -11,12 +10,10 @@ import {
   Wallet,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetSuspenseAllPayments } from "@/hooks/payment.hook";
 import type { IPayment, IPaymentQuery } from "@/types/payment.type";
-
 import PaymentFilter from "./payment-filter";
 import PaymentDetailsSheet from "./payment-sheet";
 import PaymentTableComponent from "./payment-table-components";
@@ -30,99 +27,50 @@ const initialFilters: IPaymentQuery = {
   sortOrder: "desc",
 };
 
-interface PaymentStatistics {
-  total: number;
-  paid: number;
-  pending: number;
-  unsuccessful: number;
-  revenue: number;
-}
-
-const initialStatistics: PaymentStatistics = {
-  total: 0,
-  paid: 0,
-  pending: 0,
-  unsuccessful: 0,
-  revenue: 0,
-};
-
-function getPayments(response: unknown): IPayment[] {
-  if (!response || typeof response !== "object") {
-    console.error("Payment API returned an invalid response:", response);
-    return [];
-  }
-
-  const result = response as {
-    data?: unknown;
-  };
-
-  if (Array.isArray(result.data)) {
-    return result.data as IPayment[];
-  }
-
-  if (
-    result.data &&
-    typeof result.data === "object" &&
-    "payments" in result.data &&
-    Array.isArray(result.data.payments)
-  ) {
-    return result.data.payments as IPayment[];
-  }
-
-  console.error(
-    "Payment API response does not contain a payment array. Check the production API response:",
-    response,
-  );
-
-  return [];
-}
-
-function calculateStatistics(payments: IPayment[]): PaymentStatistics {
-  const statistics: PaymentStatistics = { ...initialStatistics };
-
-  for (const payment of payments) {
-    const amount = Number(payment.amount) || 0;
-
-    statistics.total += 1;
-
-    if (payment.status === "PAID") {
-      statistics.paid += 1;
-      statistics.revenue += amount;
-    } else if (payment.status === "PENDING") {
-      statistics.pending += 1;
-    } else if (
-      payment.status === "FAILED" ||
-      payment.status === "CANCELLED"
-    ) {
-      statistics.unsuccessful += 1;
-    }
-  }
-
-  return statistics;
-}
-
 const PaymentsTable = () => {
-  const [filters, setFilters] = useState<IPaymentQuery>({
-    ...initialFilters,
-  });
+  const [filters, setFilters] = useState<IPaymentQuery>(initialFilters);
 
-  const [draftFilters, setDraftFilters] = useState<IPaymentQuery>({
-    ...initialFilters,
-  });
+  const [draftFilters, setDraftFilters] =
+    useState<IPaymentQuery>(initialFilters);
 
   const [filterOpen, setFilterOpen] = useState(false);
-  const [selectedPayment, setSelectedPayment] = useState<IPayment | null>(
-    null,
-  );
+  const [selectedPayment, setSelectedPayment] = useState<IPayment | null>(null);
 
   const { data: response } = useGetSuspenseAllPayments(filters);
 
-  const payments = useMemo(() => getPayments(response), [response]);
+  const payments = Array.isArray(response?.data) ? response.data : [];
 
-  const statistics = useMemo(
-    () => calculateStatistics(payments),
-    [payments],
-  );
+  const statistics = useMemo(() => {
+    return payments.reduce(
+      (result, payment) => {
+        const amount = Number(payment.amount) || 0;
+
+        result.total += 1;
+
+        if (payment.status === "PAID") {
+          result.paid += 1;
+          result.revenue += amount;
+        }
+
+        if (payment.status === "PENDING") {
+          result.pending += 1;
+        }
+
+        if (payment.status === "FAILED" || payment.status === "CANCELLED") {
+          result.unsuccessful += 1;
+        }
+
+        return result;
+      },
+      {
+        total: 0,
+        paid: 0,
+        pending: 0,
+        unsuccessful: 0,
+        revenue: 0,
+      },
+    );
+  }, [payments]);
 
   const activeFilterCount = [
     filters.createdAt,
@@ -141,16 +89,12 @@ const PaymentsTable = () => {
       page: 1,
       limit: PAGE_SIZE,
     });
-
     setFilterOpen(false);
   };
 
   const resetFilters = () => {
-    const reset = { ...initialFilters };
-
-    setDraftFilters(reset);
-    setFilters(reset);
-    setFilterOpen(false);
+    setDraftFilters({ ...initialFilters });
+    setFilters({ ...initialFilters });
   };
 
   const changePage = (page: number) => {
@@ -171,7 +115,6 @@ const PaymentsTable = () => {
               <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <CreditCard className="size-5" />
               </div>
-
               <p className="text-sm font-medium text-muted-foreground">
                 Finance / Payments
               </p>
@@ -203,7 +146,6 @@ const PaymentsTable = () => {
             >
               <Filter className="size-4" />
               Filters
-
               {activeFilterCount > 0 && (
                 <span className="flex size-5 items-center justify-center rounded-full bg-primary-foreground text-xs font-semibold text-primary">
                   {activeFilterCount}
@@ -224,7 +166,6 @@ const PaymentsTable = () => {
                   {statistics.total}
                 </p>
               </div>
-
               <div className="flex size-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
                 <Wallet className="size-5" />
               </div>
@@ -241,7 +182,6 @@ const PaymentsTable = () => {
                   {statistics.paid}
                 </p>
               </div>
-
               <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
                 <CheckCircle2 className="size-5" />
               </div>
@@ -258,7 +198,6 @@ const PaymentsTable = () => {
                   {statistics.pending}
                 </p>
               </div>
-
               <div className="flex size-11 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
                 <Clock3 className="size-5" />
               </div>
@@ -279,7 +218,6 @@ const PaymentsTable = () => {
                   }).format(statistics.revenue)}
                 </p>
               </div>
-
               <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Banknote className="size-5" />
               </div>
@@ -307,9 +245,7 @@ const PaymentsTable = () => {
         <PaymentDetailsSheet
           open={selectedPayment !== null}
           onOpenChange={(open) => {
-            if (!open) {
-              setSelectedPayment(null);
-            }
+            if (!open) setSelectedPayment(null);
           }}
           payment={selectedPayment}
         />
@@ -319,4 +255,3 @@ const PaymentsTable = () => {
 };
 
 export default PaymentsTable;
-
