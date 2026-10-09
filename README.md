@@ -4,333 +4,368 @@
 
 ### Courier & Logistics Management Platform
 
-**A modern, role-based web platform that connects customers, couriers, and administrators to move parcels from pickup to delivery — with live tracking, scheduling, payments, and operations management.**
+**A modern, role-based courier and logistics platform for managing the complete parcel journey — from shipment creation and online payment to courier dispatch, delivery tracking, and business operations.**
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.3.5-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-19.2.8-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/query)
-[![Zod](https://img.shields.io/badge/Zod-4-3E67B1?style=for-the-badge&logo=zod&logoColor=white)](https://zod.dev)
-[![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=for-the-badge&logo=leaflet&logoColor=white)](https://leafletjs.com)
-[![Biome](https://img.shields.io/badge/Biome-2.4-60A5FA?style=for-the-badge&logo=biome&logoColor=white)](https://biomejs.dev)
-[![pnpm](https://img.shields.io/badge/pnpm-11-F69220?style=for-the-badge&logo=pnpm&logoColor=white)](https://pnpm.io)
+<p>
+  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-16.3.5-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"></a>
+  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"></a>
+  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"></a>
+  <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"></a>
+  <a href="https://tanstack.com/query"><img src="https://img.shields.io/badge/TanStack_Query-5-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" alt="TanStack Query"></a>
+  <a href="https://zod.dev"><img src="https://img.shields.io/badge/Zod-4-3E67B1?style=for-the-badge&logo=zod&logoColor=white" alt="Zod"></a>
+  <a href="https://leafletjs.com"><img src="https://img.shields.io/badge/Leaflet-1.9-199900?style=for-the-badge&logo=leaflet&logoColor=white" alt="Leaflet"></a>
+  <a href="https://biomejs.dev"><img src="https://img.shields.io/badge/Biome-2.4-60A5FA?style=for-the-badge&logo=biome&logoColor=white" alt="Biome"></a>
+</p>
 
-[Backend Repository](https://github.com/Hayder987/swift-courier-backend) ·
-[Backend Live URL](https://swiftcourier-backend.vercel.app) ·
-[Portfolio](https://hayder4290.vercel.app) ·
-[GitHub](https://github.com/Hayder987)
+<p>
+  <a href="https://github.com/Hayder987/swift-courier-backend">Backend Repository</a> ·
+  <a href="https://swiftcourier-backend.vercel.app">Backend API</a> ·
+  <a href="https://hayder4290.vercel.app">Portfolio</a> ·
+  <a href="https://github.com/Hayder987">GitHub Profile</a>
+</p>
 
 </div>
 
 ---
 
-## 📖 Table of Contents
+## 📸 Project Preview
 
-- [Project Overview](#-project-overview)
-- [Features](#-features)
-- [User Roles and Permissions](#-user-roles-and-permissions)
+### Courier & Logistics Management Platform
+
+<table>
+  <tr>
+    <td width="50%">
+      <a href="./public/screenshot1.png">
+        <img src="./public/screenshot1.png" alt="SwiftCourier screenshot 1" width="100%">
+      </a>
+    </td>
+    <td width="50%">
+      <a href="./public/screenshot2.png">
+        <img src="./public/screenshot2.png" alt="SwiftCourier screenshot 2" width="100%">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <a href="./public/screenshot3.png">
+        <img src="./public/screenshot3.png" alt="SwiftCourier screenshot 3" width="100%">
+      </a>
+    </td>
+    <td width="50%">
+      <a href="./public/screenshot4.png">
+        <img src="./public/screenshot4.png" alt="SwiftCourier screenshot 4" width="100%">
+      </a>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <sub>Product screenshots from the SwiftCourier frontend.</sub>
+</p>
+
+---
+
+## 📚 Table of Contents
+
+- [Overview](#-overview)
+- [Core Features](#-core-features)
+- [Roles and Permissions](#-roles-and-permissions)
 - [Shipment Lifecycle](#-shipment-lifecycle)
 - [Technology Stack](#-technology-stack)
-- [Architecture and Project Structure](#-architecture-and-project-structure)
-- [Prerequisites](#-prerequisites)
-- [Installation and Setup](#-installation-and-setup)
+- [Architecture](#-architecture)
+- [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
+- [Available Scripts](#-available-scripts)
 - [API Integration](#-api-integration)
-- [Database and Domain Model](#-database-and-domain-model)
 - [Security and Validation](#-security-and-validation)
 - [External Integrations](#-external-integrations)
-- [Testing and Quality](#-testing-and-quality)
+- [Quality Checks](#-quality-checks)
 - [Deployment](#-deployment)
-- [Screenshots and Demo](#-screenshots-and-demo)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
 - [License](#-license)
-- [Author and Contact](#-author-and-contact)
-- [Closing](#-closing)
+- [Author](#-author)
 
 ---
 
-## 🚀 Project Overview
+## 🚀 Overview
 
-**SwiftCourier** is a courier and logistics management platform built to digitise the full parcel journey — from when a customer creates a shipment, through courier pickup and delivery, to payment settlement and back-office reporting.
+**SwiftCourier** is a role-based courier and logistics management platform designed to digitise and organise the complete parcel delivery workflow. Customers can create shipments and manage payments, couriers can handle assigned pickup and delivery jobs, and administrators can manage day-to-day logistics operations from a centralised interface.
 
-This repository is the **frontend application**. It is a Next.js App Router project that delivers four role-specific experiences on top of a single REST API:
+This repository contains the **frontend application**, built with Next.js App Router, React, TypeScript, and Tailwind CSS. It connects to a versioned REST API provided by the [SwiftCourier backend](https://github.com/Hayder987/swift-courier-backend).
 
-| Audience | What they get |
-| --- | --- |
-| 🧑 **Customers** | Create shipments, track them, pay for deliveries, apply to become a courier, and manage a profile and live location. |
-| 🛵 **Couriers** | A delivery workspace with pickup and delivery job queues, status updates, and location sharing. |
-| 🛡️ **Admins** | Day-to-day operations: courier approvals, zones, employees, users, shipments, and payroll. |
-| 👑 **Super Admins** | Platform-wide administration, employee account creation, and audit log visibility. |
+### The problem it solves
 
-**The business problem it solves:** courier operations are usually fragmented across phone calls, spreadsheets, and disconnected tools. SwiftCourier centralises shipment intake, courier dispatch, status tracking, geolocation, payment, and administration into one consistent, role-aware web platform.
+Courier operations can become fragmented across phone calls, spreadsheets, manual dispatching, and disconnected tracking tools. SwiftCourier brings shipment intake, courier assignment, delivery status, location features, payment workflows, and operational administration together in one role-aware application.
 
-### Primary workflows
+### Main workflows
 
-1. **Authentication** — email/password with OTP email verification and password reset, plus Google OAuth sign-in.
-2. **Shipment creation** — a customer uploads a parcel image, provides pickup coordinates (browser geolocation or map selection) and a delivery address.
-3. **Payment** — a customer starts a hosted checkout session and is redirected back to success/cancel pages.
-4. **Dispatch** — an admin reviews the shipment and assigns a courier.
-5. **Pickup & delivery** — the assigned courier advances the shipment through pickup and delivery statuses with notes.
-6. **Tracking & notifications** — status history and notifications keep users informed.
-7. **Administration** — zones, courier applications, employees, users, payroll, and audit logs.
+1. **Account access** — register, sign in, verify email, reset passwords, and use Google sign-in.
+2. **Shipment creation** — enter parcel details, upload an item image, and specify pickup and delivery information.
+3. **Payment** — start a hosted checkout flow and return to the payment success or cancellation page.
+4. **Dispatch** — administrators review shipments and assign couriers.
+5. **Pickup and delivery** — couriers update shipment progress and record tracking notes.
+6. **Tracking and notifications** — users can review shipment status history and notifications.
+7. **Operations management** — administrators manage users, employees, courier applications, zones, payroll, and audit logs.
 
-> **Scope note:** This repository contains the frontend only. The REST API, database, authentication sessions, payment provider, media storage, and email delivery are implemented in the connected [backend repository](https://github.com/Hayder987/swift-courier-backend) and are not defined here.
+> **Scope:** This repository is the frontend only. API logic, database access, backend authorisation, payment verification, email delivery, and media storage are handled by the connected backend service.
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-Features below are implemented in this repository.
+### 🔐 Authentication and Account Management
 
-### 🔐 Authentication & Account Security
-- Email/password **sign-up and login** with strong password rules.
-- **Email OTP verification** with a 6-digit code and resend support.
-- **Forgot password / reset password** flows driven by OTP.
-- **Google OAuth** sign-in via `@react-oauth/google`.
-- Cookie-based session handling (`credentials: "include"` on every API request).
-- Client-side **route protection** with an auth guard and a role guard.
-- Profile photo upload.
+- Email and password registration and sign-in.
+- Six-digit email OTP verification with resend support.
+- Forgot-password and reset-password workflows.
+- Google OAuth sign-in through `@react-oauth/google`.
+- Cookie-based session requests using `credentials: "include"`.
+- Authentication and role-based route guards.
+- User profile and profile-image management.
 
-### 🧑‍💼 User & Employee Management
-- Admin **user management** with filtering, detail sheets, status updates (active/suspended), and soft delete.
-- Admin **employee management** with filters by role, status, and zone, plus detail and delete flows.
-- Super-admin **employee account creation** for `ADMIN` and `COURIER` roles, including salary structure fields.
-- Role-aware profile pages for every signed-in user.
+### 📦 Shipment Management
 
-### 🛵 Courier Onboarding & Management
-- Customer-facing **courier application** form with resume, vehicle documents, and national ID uploads.
-- Admin/super-admin **courier application review** with approve/reject decisions and applicant detail views.
-- Courier **availability and zone** association surfaced in employee details.
+- Multi-step shipment creation with parcel details and image upload.
+- Pickup location capture using browser geolocation and map selection.
+- Customer shipment list with detail views and payment actions.
+- Admin shipment management with status filters and courier assignment.
+- Courier job queues for pickup and delivery.
+- Shipment tracking history with status, note, coordinates, and timestamp.
 
-### 📦 Shipment Creation & Tracking
-- Multi-step shipment creation with **parcel image upload**, weight, description, pickup coordinates, and delivery address.
-- **Admin shipment management** with status filters, status timeline, and courier assignment.
-- **Customer "My Shipments"** view with per-parcel detail sheets and payment actions.
-- **Courier job queues** split into `pickup` and `delivery` views.
-- Full **status history** (`tracking` entries with note, latitude/longitude, and timestamp).
+### 🛵 Courier Applications and Operations
 
-### 💳 Payment
-- Customer-initiated **hosted checkout session** per shipment.
-- Dedicated **payment success** and **payment cancel** pages, with the checkout session id surfaced on success.
-- Payment status and delivery fee shown across shipment views.
+- Customer-facing courier application form.
+- Resume, vehicle document, and national ID file uploads.
+- Admin and super-admin application review with approve/reject actions.
+- Courier availability and zone information.
+- Courier shipment status updates and destination directions.
 
-### 🔔 Notifications
-- In-app notification center (slide-over sheet) with typed notifications: `GENERAL`, `SHIPMENT`, `PAYMENT`, `APPLICATION`.
-- Unread indicator and per-notification delete.
+### 💳 Payments
 
-### 📊 Dashboards & Reporting
-- Admin/super-admin **stats dashboard** powered by a single stats endpoint: overview counters, shipment status distribution, shipment and revenue trends, payment distributions, courier availability & performance, and recent audit activity.
-- Charts rendered with **Recharts**.
-- Period selection (`7d`, `30d`, `90d`, `1y`).
+- Shipment checkout session creation through the backend.
+- Redirect to the hosted checkout URL.
+- Dedicated payment success and cancellation pages.
+- Payment status and delivery fee visibility in shipment views.
 
-### 🗺️ Location, Zones & Distance
-- Browser **geolocation** capture for pickup and live location.
-- **Leaflet / OpenStreetMap** maps for pickup selection, live location, zone boundaries, and courier directions.
-- **Zone management** (create, list, update, delete) with radius, active flag, and a **GeoJSON polygon boundary**.
-- Courier **direction view** with straight-line (Haversine) distance to the destination.
+### 👥 User and Employee Administration
+
+- User listing, filtering, detail views, status updates, and soft deletion.
+- Employee listing with role, employment status, and zone filters.
+- Super-admin employee creation for admin and courier roles.
+- Employee detail and status management.
+
+### 🗺️ Maps, Geolocation, and Zones
+
+- Browser geolocation for pickup and live location.
+- Leaflet maps using OpenStreetMap tiles.
+- Pickup selection, zone boundaries, and courier directions.
+- Zone create, list, update, and delete workflows.
+- Zone radius, active status, and GeoJSON polygon boundary support.
+- Straight-line distance calculations for courier directions.
+
+### 📊 Dashboards and Reporting
+
+- Admin and super-admin statistics dashboards.
+- Overview counters and shipment status distribution.
+- Shipment and revenue trends.
+- Payment distribution and courier availability/performance views.
+- Recent audit activity.
+- Dashboard period selection: `7d`, `30d`, `90d`, and `1y`.
+- Charts powered by Recharts.
 
 ### 💰 Payroll
-- Admin **payroll generation** by month/year with bonus and deductions.
-- Payroll listing, detail sheet, and **salary payment** with a payment reference.
 
-### 🧾 Auditing
-- Super-admin **audit log** browser with filters by action, resource, type, and date, plus detail dialog and delete.
+- Payroll generation by month and year.
+- Bonus and deduction fields.
+- Payroll listing and detail views.
+- Salary payment action with a payment reference.
 
-### 🔎 Search, Filtering & Pagination
-- Query-param driven filtering across shipments, users, employees, zones, payroll, and audit logs.
-- Consistent pagination envelope (`page`, `limit`, `total`, `totalPages`).
+### 🔔 Notifications and Audit Logs
 
-### 🎨 Experience & UI
-- Marketing site (Home, About, Services, FAQ, Contact) with **React Three Fiber** 3D scenes.
-- **Light/dark theme** support via `next-themes`.
-- Motion and micro-interactions with **Framer Motion**.
-- Skeleton loaders, global progress bars, and toast notifications.
-- Responsive dashboards built on a shadcn-style component library.
+- In-app notification center.
+- Notification types: `GENERAL`, `SHIPMENT`, `PAYMENT`, and `APPLICATION`.
+- Unread indicator and notification deletion.
+- Super-admin audit log filtering by action, resource, type, and date.
+
+### 🎨 User Experience
+
+- Responsive public marketing pages and role-specific dashboards.
+- Light and dark theme support.
+- Motion and micro-interactions with Framer Motion.
+- Skeleton loading states, global progress indicators, and toast feedback.
+- Reusable UI primitives and shared dashboard layouts.
+- Search, filters, sorting, and pagination across supported modules.
 
 ---
 
-## 👥 User Roles and Permissions
+## 👥 Roles and Permissions
 
-Roles are defined in the frontend as `SUPER_ADMIN`, `ADMIN`, `COURIER`, and `CUSTOMER`. Access to each dashboard is enforced client-side by a `RoleGuard` that only renders children when the signed-in user's role matches, otherwise showing an **Access Denied** screen and redirecting unauthenticated users to `/login`.
+The frontend defines four user roles. Dashboard access is organised around each role, while the backend remains responsible for enforcing actual API permissions.
 
-| Role | Dashboard | Verified frontend capabilities |
-| --- | --- | --- |
-| **CUSTOMER** | `/customer-dashboard` | Overview, profile, create shipment, my shipments, pay for shipments, apply to become a courier, live location. |
-| **COURIER** | `/courier-dashboard` | Overview, profile, my courier jobs (pickup/delivery), update assigned shipment status, live location sharing & directions. |
-| **ADMIN** | `/admin-dashboard` | Overview, profile, courier applications (approve/reject), zone management, employee management, shipment management & courier assignment, user management, payroll management. |
-| **SUPER_ADMIN** | `/super-admin-dashboard` | Overview, profile, **audit logs**, courier applications, zone management, employee management, user management, and **employee account creation**. |
+| Role | Dashboard route | Main capabilities |
+|---|---|---|
+| `CUSTOMER` | `/customer-dashboard` | Profile, create shipments, manage own shipments, pay for shipments, apply to become a courier, and manage location. |
+| `COURIER` | `/courier-dashboard` | Profile, view pickup/delivery jobs, update eligible shipment statuses, and share location or view directions. |
+| `ADMIN` | `/admin-dashboard` | Dashboard, courier applications, zones, employees, shipments and courier assignment, users, and payroll. |
+| `SUPER_ADMIN` | `/super-admin-dashboard` | Dashboard, audit logs, courier applications, zones, employees, users, and employee account creation. |
 
-> The frontend guards are a UX layer, not the security boundary. Final authorisation for every API operation is enforced by the backend, which is the source of truth for permissions.
+> **Security note:** Frontend route guards improve the user experience; they are not a security boundary. The backend must validate identity, permissions, and allowed operations for every protected request.
 
 ---
 
 ## 🔄 Shipment Lifecycle
 
-Shipment status is a typed union of 11 values. The transition map defined in [`src/utils/DashBoard/shipment.utils.ts`](src/utils/DashBoard/shipment.utils.ts) is modelled below.
+The frontend models the following shipment statuses and transitions. The backend is the source of truth for validating actual state transitions and payment-related side effects.
 
 ```mermaid
-flowchart LR
-    CREATED[CREATED] --> READY_FOR_PAYMENT[READY FOR PAYMENT]
-    READY_FOR_PAYMENT --> PENDING[PENDING]
-    PENDING --> ASSIGNED[ASSIGNED]
-    ASSIGNED --> PICKED_UP[PICKED UP]
-    PICKED_UP --> IN_TRANSIT[IN TRANSIT]
-    IN_TRANSIT --> OUT_FOR_DELIVERY[OUT FOR DELIVERY]
-    OUT_FOR_DELIVERY --> DELIVERED[DELIVERED]
-    OUT_FOR_DELIVERY --> DELIVERY_FAILED[DELIVERY FAILED]
-    DELIVERED --> RETURNED[RETURNED]
-    DELIVERY_FAILED --> RETURNED
-
-    CREATED -.-> CANCELLED[CANCELLED]
-    READY_FOR_PAYMENT -.-> CANCELLED
-    PENDING -.-> CANCELLED
-    ASSIGNED -.-> CANCELLED
-    PICKED_UP -.-> CANCELLED
-    IN_TRANSIT -.-> CANCELLED
-    OUT_FOR_DELIVERY -.-> CANCELLED
+flowchart TD
+    A[CREATED] --> B[READY_FOR_PAYMENT]
+    B --> C[PENDING]
+    C --> D[ASSIGNED]
+    D --> E[PICKED_UP]
+    E --> F[IN_TRANSIT]
+    F --> G[OUT_FOR_DELIVERY]
+    G --> H[DELIVERED]
+    G --> I[DELIVERY_FAILED]
+    H --> J[RETURNED]
+    I --> J
+    A -.-> K[CANCELLED]
+    B -.-> K
+    C -.-> K
+    D -.-> K
+    E -.-> K
+    F -.-> K
+    G -.-> K
 ```
 
-**Role responsibilities in the flow (as implemented in the UI):**
+### Workflow responsibilities
 
-- **Admin** can advance a shipment to `READY_FOR_PAYMENT`, `ASSIGNED`, `IN_TRANSIT`, `OUT_FOR_DELIVERY`, `DELIVERED`, `DELIVERY_FAILED`, `RETURNED`, or `CANCELLED`, and can assign a courier.
-- **Courier (pickup side)** can mark an `ASSIGNED` shipment as `PICKED_UP`.
-- **Courier (delivery side)** can mark an `OUT_FOR_DELIVERY` shipment as `DELIVERED` or `DELIVERY_FAILED`.
-- Every status change requires a **note**, and each update is recorded to the shipment's tracking history.
-- `RETURNED` and `CANCELLED` are terminal states.
-
-> The transition map above reflects the frontend's model. Actual allowed transitions and side effects (such as payment confirmation moving a shipment to `PENDING`) are validated by the backend.
+- **Admin:** manages eligible shipment statuses and assigns couriers.
+- **Courier:** can mark an assigned shipment as `PICKED_UP`; delivery-side actions include `DELIVERED` and `DELIVERY_FAILED` where allowed by the current state.
+- **Tracking history:** status changes include a note and are recorded in shipment tracking history.
+- **Terminal statuses:** `RETURNED` and `CANCELLED` are treated as terminal in the frontend flow.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Category | Technology | Notes |
-| --- | --- | --- |
-| **Framework** | Next.js `16.3.5` (App Router) | React Server Components, route groups, React Compiler enabled. |
-| **Language** | TypeScript `^5` | Strict mode enabled (`tsconfig.json`). |
-| **UI Library** | React `19.2.8`, React DOM `19.2.8` | — |
-| **Styling** | Tailwind CSS `^4`, `tw-animate-css` | CSS-first Tailwind v4 via `@tailwindcss/postcss`. |
-| **Components** | shadcn-style primitives, `@base-ui/react`, `class-variance-authority` | Config in `components.json` (`base-nova` style). |
-| **Icons** | lucide-react, react-icons | — |
-| **Animation & 3D** | Framer Motion, three.js, `@react-three/fiber`, `@react-three/drei` | Hero/About/warehouse scenes. |
-| **Data Fetching** | TanStack Query `^5` | Query cache, suspense queries, mutations & invalidation. |
-| **HTTP Client** | ofetch `^1.5` | Central instance in `src/lib/apiClient.ts`. |
-| **Forms** | TanStack Form `^1` | Field-level state and validation. |
-| **Validation** | Zod `^4` | Schemas in `src/validation`. |
-| **Maps** | Leaflet `^1.9`, react-leaflet `^5` | OpenStreetMap raster tiles (no map API key). |
-| **Charts** | Recharts `^3` | Dashboard visualisations. |
-| **Dates** | date-fns, react-day-picker | Filtering and calendars. |
-| **Theming** | next-themes | Light/dark mode. |
-| **Tooling** | Biome `2.4.2` | Linting + formatting (VCS-aware). |
-| **Package Manager** | pnpm `11.17.0` | Declared via `packageManager`. |
+| Category | Technology | Purpose |
+|---|---|---|
+| Framework | Next.js 16 App Router | Routing, layouts, and application structure |
+| UI | React 19 | Component-based interface |
+| Language | TypeScript 5 | Typed application code |
+| Styling | Tailwind CSS 4 | Responsive styling and design system |
+| UI primitives | Base UI and shadcn-style components | Reusable accessible interface elements |
+| Server state | TanStack Query 5 | Queries, mutations, caching, and invalidation |
+| HTTP client | ofetch | Shared REST API client |
+| Forms | TanStack Form | Form state and submission |
+| Validation | Zod 4 | Client-side input validation |
+| Maps | Leaflet and React Leaflet | Interactive maps |
+| Map data | OpenStreetMap | Map tiles |
+| Charts | Recharts | Dashboard data visualisation |
+| Animation | Framer Motion | UI transitions and micro-interactions |
+| Theming | next-themes | Light/dark theme support |
+| Icons | lucide-react and react-icons | Interface icons |
+| Quality tools | Biome | Formatting, linting, and code checks |
+| Package manager | pnpm | Dependency management |
 
 ---
 
-## 🏗️ Architecture and Project Structure
+## 🏗️ Architecture
 
-The app follows a **feature-by-domain, layered** structure:
+The frontend follows a feature-by-domain structure. API modules own HTTP calls, hooks expose query and mutation behaviour, validation schemas define form constraints, and components render the interface.
 
-- **`app/`** — routing and layouts. Route groups separate the public marketing/auth area from the authenticated `(dashboard)` area.
-- **`api/`** — one typed API module per backend domain, all sharing the `ofetch` client.
-- **`hooks/`** — TanStack Query hooks that wrap the API modules (queries and mutations).
-- **`validation/`** — Zod schemas used for form validation and as payload types.
-- **`types/`** — domain TypeScript contracts for API responses and UI models.
-- **`components/`** — presentation, split into `ui/` primitives, `layout/` modules per area, `auth/` guards, `common/`, `loading/`, and `skeleton/`.
-- **`routes/`** — role-based sidebar route maps.
-- **`providers/`** — app-wide providers (Google auth, React Query, theme).
-
-```
+```text
 swift-courier-frontend/
-├── public/                        # Static assets served as-is
+├── public/                       # Static assets and screenshots
 ├── src/
-│   ├── api/                       # Typed API clients (auth, shipment, payment, zone, ...)
-│   ├── app/                       # Next.js App Router
-│   │   ├── (dashboard)/           # Authenticated, role-guarded dashboards
+│   ├── api/                      # Typed API modules by domain
+│   ├── app/                      # Next.js App Router
+│   │   ├── (dashboard)/          # Authenticated dashboards
 │   │   │   ├── admin-dashboard/
 │   │   │   ├── super-admin-dashboard/
 │   │   │   ├── courier-dashboard/
 │   │   │   └── customer-dashboard/
-│   │   ├── (public)/              # Public site
-│   │   │   ├── (authentication)/  # login, register, verify, forgot/reset password
-│   │   │   └── (marketing)/       # home, about, services, faq, contact
-│   │   ├── payment/               # success / cancel return pages
-│   │   ├── layout.tsx             # Root layout, fonts, providers, toaster
-│   │   ├── error.tsx / not-found.tsx
+│   │   ├── (public)/             # Marketing and authentication pages
+│   │   ├── payment/              # Payment return pages
+│   │   ├── layout.tsx
 │   │   └── globals.css
-│   ├── assets/                    # Brand logo and service illustrations
+│   ├── assets/                   # Brand and illustration assets
 │   ├── components/
-│   │   ├── auth/                  # AuthGuard, RoleGuard, AccessDenied, LogoutButton
-│   │   ├── common/                # Maps, pagination, logo, no-data views
-│   │   ├── layout/                # dashboard/ + public/ + modules/
-│   │   ├── loading/  skeleton/    # Loading and skeleton states
-│   │   └── ui/                    # Reusable UI primitives
-│   ├── hooks/                     # TanStack Query hooks per domain
-│   ├── lib/                       # apiClient, constants, static content, utils
-│   ├── providers/                 # Query, Google auth, theme providers
-│   ├── routes/                    # Role-based sidebar route definitions
-│   ├── types/                     # Domain types
-│   ├── utils/                      # Formatters and domain helpers
-│   └── validation/                # Zod schemas
+│   │   ├── auth/                 # Authentication and role guards
+│   │   ├── common/               # Shared UI and utilities
+│   │   ├── layout/               # Public and dashboard layouts
+│   │   ├── loading/              # Loading indicators
+│   │   ├── skeleton/             # Skeleton states
+│   │   └── ui/                   # Reusable UI primitives
+│   ├── hooks/                    # TanStack Query hooks
+│   ├── lib/                      # API client, constants, and utilities
+│   ├── providers/                # App-wide providers
+│   ├── routes/                   # Role-based sidebar route maps
+│   ├── types/                    # TypeScript domain types
+│   ├── utils/                    # Domain helpers and formatters
+│   └── validation/               # Zod validation schemas
 ├── biome.json
 ├── components.json
-├── next.config.ts                 # React Compiler + static export
+├── next.config.ts
 ├── package.json
 ├── pnpm-lock.yaml
-├── pnpm-workspace.yaml
 ├── postcss.config.mjs
 └── tsconfig.json
 ```
 
-**Key architectural details**
+### Architecture notes
 
-- `next.config.ts` sets `output: "export"`, so production builds emit a **static site** to `out/`, with `images.unoptimized: true`.
-- A single `apiClient` (`ofetch.create`) applies `baseURL` from `NEXT_PUBLIC_API_BASE_URL` and `credentials: "include"` to every request.
-- The `(dashboard)` root layout is wrapped by `AuthGuard`; each role dashboard layout adds a `RoleGuard` and the shared `DashboardShell` (sidebar, header, notifications, theme toggle).
-
----
-
-## ⚙️ Prerequisites
-
-| Requirement | Version / Notes |
-| --- | --- |
-| **Node.js** | A version compatible with Next.js 16 and React 19 (Node 20+ recommended). |
-| **pnpm** | `11.17.0` (declared in `package.json`). |
-| **SwiftCourier backend API** | Required. The frontend needs a reachable REST API base URL. |
-| **Google OAuth client ID** | Required for Google sign-in. |
-
-> No `engines` field is declared in `package.json`, so no exact Node version is enforced by the repository.
+- `src/api/` contains API modules that share the central `ofetch` client.
+- `src/hooks/` wraps API functions in TanStack Query hooks.
+- `src/validation/` contains Zod schemas used by forms.
+- `src/types/` defines domain contracts used by the frontend.
+- `src/components/` contains shared UI, authentication guards, layouts, and loading states.
+- `src/routes/` contains role-based dashboard navigation definitions.
+- `next.config.ts` configures static export with `output: "export"` and `images.unoptimized: true`.
+- The shared API client reads `NEXT_PUBLIC_API_BASE_URL` and sends cookies with `credentials: "include"`.
 
 ---
 
-## 📥 Installation and Setup
+## ⚙️ Getting Started
 
-**1. Clone the repository**
+### Prerequisites
+
+Before running the project, make sure you have:
+
+- Node.js compatible with Next.js 16 and React 19 (Node.js 20+ recommended).
+- pnpm, matching the version declared by the repository.
+- A running SwiftCourier backend API.
+- A Google OAuth client ID for Google sign-in.
+
+### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone <your-frontend-repository-url>
 cd swift-courier-frontend
 ```
 
-**2. Install dependencies** (pnpm is the declared package manager)
+Replace `<your-frontend-repository-url>` with the actual URL of your frontend repository.
+
+### 2. Install dependencies
 
 ```bash
 pnpm install
 ```
 
-**3. Configure environment variables**
+### 3. Configure environment variables
 
-Create a `.env` (or `.env.local`) file in the project root:
+Create a `.env.local` file in the project root:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api/v1
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-oauth-client-id
 ```
 
-`.env*` files are git-ignored in this repository — do not commit real values.
+See [Environment Variables](#-environment-variables) for details.
 
-**4. Start the development server**
+### 4. Start the development server
 
 ```bash
 pnpm dev
@@ -338,308 +373,284 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-**5. Build for production**
+### 5. Build the application
 
 ```bash
 pnpm build
 ```
 
-Because `output: "export"` is configured, the build produces a static site in the `out/` directory. Serve that directory with a static host or file server.
+With static export enabled, the production output is generated in the `out/` directory.
 
-> The team must also make the **backend API** available and reachable from the browser at the URL configured in `NEXT_PUBLIC_API_BASE_URL`, and configure the Google OAuth client to allow the frontend origin.
-
-### Available scripts
-
-| Script | Command | Purpose |
-| --- | --- | --- |
-| `dev` | `next dev` | Start the development server. |
-| `build` | `next build` | Build the app (static export to `out/`). |
-| `start` | `next start` | Start the Next.js server (the repository is configured for static export). |
-| `lint` | `biome check .` | Run Biome linting and checks. |
-| `lint:fix` | `biome check --write .` | Apply safe lint/assist fixes. |
-| `format` | `biome format .` | Check formatting. |
-| `format:fix` | `biome format --write .` | Apply formatting. |
+> The backend must be reachable from the browser at the configured API URL. Configure the Google OAuth client to allow your local frontend origin as well as the production origin.
 
 ---
 
-## 🔐 Environment Variables
+## 🔑 Environment Variables
 
-| Variable | Required | Purpose | Safe placeholder |
-| --- | --- | --- | --- |
-| `NEXT_PUBLIC_API_BASE_URL` | ✅ Yes | Base URL of the SwiftCourier backend REST API, including the versioned `/api/v1` prefix. Used by the shared `ofetch` client. | `http://localhost:5000/api/v1` |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | ✅ Yes | Google OAuth 2.0 client ID used by the Google sign-in provider. The app throws a startup error if it is missing. | `your-google-oauth-client-id` |
+| Variable | Required | Description | Example |
+|---|---|---|---|
+| `NEXT_PUBLIC_API_BASE_URL` | Yes | Base URL for the backend REST API, including `/api/v1`. | `http://localhost:5000/api/v1` |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Yes | Google OAuth client ID used by the Google sign-in provider. | `your-google-oauth-client-id` |
 
-Both variables are prefixed with `NEXT_PUBLIC_`, meaning they are exposed to the browser. Never place server secrets in these variables. All other secrets belong to the backend.
+Both variables are prefixed with `NEXT_PUBLIC_`, so their values are exposed to the browser bundle. **Never put private API keys, payment secrets, or other server-side credentials in these variables.** Backend secrets belong in the backend environment configuration.
+
+---
+
+## 📜 Available Scripts
+
+| Command | Purpose |
+|---|---|
+| `pnpm dev` | Start the development server. |
+| `pnpm build` | Build the app and generate static output. |
+| `pnpm start` | Run the Next.js start command; the project is configured for static export, so production hosting should serve `out/`. |
+| `pnpm lint` | Run Biome checks. |
+| `pnpm lint:fix` | Apply supported Biome fixes. |
+| `pnpm format` | Check formatting with Biome. |
+| `pnpm format:fix` | Format files with Biome. |
 
 ---
 
 ## 🔌 API Integration
 
-This is a **frontend-only** repository, so it does not define a backend API. Instead, it consumes a versioned REST API through a single `ofetch` client:
+The frontend consumes the versioned REST API through a shared `ofetch` client. This section summarises the API routes used by the frontend; endpoint availability and access rules are determined by the backend.
 
-- **Base URL:** `NEXT_PUBLIC_API_BASE_URL` (configured with a `/api/v1` prefix).
-- **Auth transport:** cookie-based sessions (`credentials: "include"`).
-- **Response envelope:** most endpoints return `{ success, message, data, meta? }`, where `meta` is `{ page, limit, total, totalPages }`.
-- **Error handling:** errors are read from the `ofetch` `FetchError` shape, preferring `error.data?.message` then `error.data?.errors?.[0]?.message`.
+### API conventions
 
-The endpoints below are the ones **called by this frontend** (verified in `src/api/`). They are grouped by domain:
+- **Base URL:** `NEXT_PUBLIC_API_BASE_URL`, including the `/api/v1` prefix.
+- **Authentication transport:** cookie-based sessions using `credentials: "include"`.
+- **Response shape:** most endpoints follow `{ success, message, data, meta? }`.
+- **Pagination metadata:** commonly includes `page`, `limit`, `total`, and `totalPages`.
+- **Error feedback:** frontend notifications display user-facing API error messages.
 
-### Authentication & Account
+### Authentication and account
 
-| Method | Endpoint | Purpose | Auth |
-| --- | --- | --- | --- |
-| `POST` | `/auth/login` | Sign in with email and password. | Public |
-| `POST` | `/auth/sign-up` | Register a new customer account. | Public |
-| `POST` | `/auth/verify-email` | Verify email with a 6-digit OTP. | Public |
-| `POST` | `/auth/resend-otp` | Resend an email/verify OTP. | Public |
-| `POST` | `/auth/forgot-password` | Request a password reset OTP. | Public |
-| `POST` | `/auth/reset-password` | Reset the password using an OTP. | Public |
-| `POST` | `/auth/google` | Exchange a Google `idToken` for a session. | Public |
-| `POST` | `/auth/logout` | End the current session. | Authenticated |
-| `GET` | `/users/me` | Fetch the current user and profile. | Authenticated |
-| `PATCH` | `/users/profile-image` | Upload/replace the profile image (`multipart/form-data`, field `profileImage`). | Authenticated |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/auth/login` | Sign in with email and password |
+| `POST` | `/auth/sign-up` | Register a customer |
+| `POST` | `/auth/verify-email` | Verify email with OTP |
+| `POST` | `/auth/resend-otp` | Resend verification OTP |
+| `POST` | `/auth/forgot-password` | Request a password reset OTP |
+| `POST` | `/auth/reset-password` | Reset password using OTP |
+| `POST` | `/auth/google` | Exchange Google `idToken` for a session |
+| `POST` | `/auth/logout` | End the current session |
+| `GET` | `/users/me` | Get the current user and profile |
+| `PATCH` | `/users/profile-image` | Upload or replace a profile image |
 
 ### Shipments
 
-| Method | Endpoint | Purpose | Called from |
-| --- | --- | --- | --- |
-| `POST` | `/shipments` | Create a shipment (`multipart/form-data`: `data`, `ItemsImage`). | Customer |
-| `GET` | `/shipments` | List all shipments with filters/pagination. | Admin |
-| `GET` | `/shipments/my-shipments` | List the current customer's shipments. | Customer |
-| `GET` | `/shipments/courier-shipments/:type` | List courier jobs; `:type` is `pickup` or `delivery`. | Courier |
-| `PATCH` | `/shipments/admin-status/:shipmentId` | Update shipment status as admin. | Admin |
-| `PATCH` | `/shipments/courier-status/:shipmentId` | Update shipment status as courier (`PICKED_UP`, `DELIVERED`, `DELIVERY_FAILED`). | Courier |
-| `PATCH` | `/shipments/assign/:shipmentId` | Assign a courier to a shipment. | Admin |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/shipments` | Create a shipment using multipart form data |
+| `GET` | `/shipments` | List shipments with filters and pagination |
+| `GET` | `/shipments/my-shipments` | List the current customer's shipments |
+| `GET` | `/shipments/courier-shipments/:type` | List courier pickup or delivery jobs |
+| `PATCH` | `/shipments/admin-status/:shipmentId` | Update shipment status as an admin |
+| `PATCH` | `/shipments/courier-status/:shipmentId` | Update shipment status as a courier |
+| `PATCH` | `/shipments/assign/:shipmentId` | Assign a courier to a shipment |
 
-**Shipment query parameters** include `page`, `limit`, `sortBy`, `sortOrder`, `searchTerm`, `status`, `pickupZoneId`, `deliveryZoneId`, `dateFilter` (`today` \| `yesterday` \| `last_week`), and `type` (`NEW` \| `OLD`).
+Shipment queries can include pagination, sorting, search, status, pickup/delivery zone, date filter, and shipment type where supported by the API.
 
 ### Payments
 
-| Method | Endpoint | Purpose | Called from |
-| --- | --- | --- | --- |
-| `POST` | `/payments/create` | Create a hosted checkout session for a shipment (`{ shipmentId }`); the response provides a `checkoutUrl` the browser is redirected to. | Customer |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/payments/create` | Create a hosted checkout session for a shipment |
 
-### Courier Applications & Employees
+The backend returns a checkout URL for the browser to open. Payment processing and webhook verification are backend responsibilities.
 
-| Method | Endpoint | Purpose | Called from |
-| --- | --- | --- | --- |
-| `POST` | `/employee/be-courier` | Submit a courier application (`multipart/form-data`: `data`, `resume`, `vehicleDocuments`, `nationalIdPic`). | Customer |
-| `GET` | `/employee/jobs` | List courier applications. | Admin / Super Admin |
-| `PATCH` | `/employee/jobs/:employeeId` | Approve or reject an application (`{ status: "APPROVED" \| "REJECTED" }`). | Admin / Super Admin |
-| `GET` | `/employee/all-employee` | List employees with filters. | Admin |
-| `GET` | `/employee/emp/:id` | Fetch a single employee. | Admin |
-| `PATCH` | `/employee/emp/:id` | Deactivate/suspend an employee. | Admin |
+### Courier applications and employees
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/employee/be-courier` | Submit a courier application with supporting files |
+| `GET` | `/employee/jobs` | List courier applications |
+| `PATCH` | `/employee/jobs/:employeeId` | Approve or reject an application |
+| `GET` | `/employee/all-employee` | List employees with filters |
+| `GET` | `/employee/emp/:id` | Fetch an employee |
+| `PATCH` | `/employee/emp/:id` | Update employee status/details as supported |
 
 ### Users
 
-| Method | Endpoint | Purpose | Called from |
-| --- | --- | --- | --- |
-| `GET` | `/users/all-user` | List users with filters. | Admin / Super Admin |
-| `GET` | `/users/user/:userId` | Fetch a single user and profile. | Admin / Super Admin |
-| `PATCH` | `/users/user/:userId/status` | Update user status (`ACTIVE` \| `SUSPENDED`). | Admin / Super Admin |
-| `PATCH` | `/users/user/:userId` | Soft-delete a user. | Admin / Super Admin |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/users/all-user` | List users with filters |
+| `GET` | `/users/user/:userId` | Fetch a user and profile |
+| `PATCH` | `/users/user/:userId/status` | Update user status |
+| `PATCH` | `/users/user/:userId` | Soft-delete a user |
 
-### Super Admin
+### Super-admin operations
 
-| Method | Endpoint | Purpose | Auth |
-| --- | --- | --- | --- |
-| `POST` | `/super/admin/create-employee` | Create an `ADMIN` or `COURIER` employee account, including salary structure. | Super Admin |
-| `GET` | `/super/admin/logs` | List audit logs with filters. | Super Admin |
-| `DELETE` | `/super/admin/log/:auditId` | Delete an audit log entry. | Super Admin |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/super/admin/create-employee` | Create an admin or courier employee account |
+| `GET` | `/super/admin/logs` | List audit logs with filters |
+| `DELETE` | `/super/admin/log/:auditId` | Delete an audit log entry |
 
-### Zones, Payroll, Notifications, Dashboard & Contact
+### Zones, payroll, notifications, dashboards, and contact
 
-| Method | Endpoint | Purpose | Called from |
-| --- | --- | --- | --- |
-| `POST` | `/zones` | Create a zone. | Admin / Super Admin |
-| `GET` | `/zones` | List zones (paginated). | Admin / Super Admin |
-| `PATCH` | `/zones/:zoneId` | Update a zone. | Admin / Super Admin |
-| `DELETE` | `/zones/:zoneId` | Delete a zone. | Admin / Super Admin |
-| `POST` | `/payroll/generate` | Generate payroll for a month/year. | Admin |
-| `GET` | `/payroll/paid` | List paid payroll records. | Admin |
-| `PATCH` | `/payroll/:payrollId/pay` | Mark a payroll as paid (`{ paymentReference }`). | Admin |
-| `GET` | `/notifications/all-notifications` | List the current user's notifications. | Authenticated |
-| `DELETE` | `/notifications/:id` | Delete a notification. | Authenticated |
-| `GET` | `/dashboard/stats` | Fetch dashboard statistics (`?period=7d\|30d\|90d\|1y`). | Admin / Super Admin |
-| `POST` | `/contacts` | Submit the public contact form. | Public |
-| `POST` | `/location/generate` | Save/resolve the current user's live location (`{ latitude, longitude }`). | Authenticated |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `POST` | `/zones` | Create a zone |
+| `GET` | `/zones` | List zones |
+| `PATCH` | `/zones/:zoneId` | Update a zone |
+| `DELETE` | `/zones/:zoneId` | Delete a zone |
+| `POST` | `/payroll/generate` | Generate payroll for a month and year |
+| `GET` | `/payroll/paid` | List paid payroll records |
+| `PATCH` | `/payroll/:payrollId/pay` | Mark payroll as paid |
+| `GET` | `/notifications/all-notifications` | List notifications for the current user |
+| `DELETE` | `/notifications/:id` | Delete a notification |
+| `GET` | `/dashboard/stats` | Fetch dashboard statistics |
+| `POST` | `/contacts` | Submit the public contact form |
+| `POST` | `/location/generate` | Save or resolve the current user's location |
 
-> Endpoint behaviour, validation, and role restrictions are ultimately controlled by the backend. "Called from" reflects where the frontend issues each request.
-
----
-
-## 🗄️ Database and Domain Model
-
-This repository **does not contain a database schema, ORM, or migrations** — those live in the backend repository. The frontend defines TypeScript contracts for the API data it consumes. The core domain entities implied by those contracts are:
-
-| Entity | Key fields (as consumed) | Relationships |
-| --- | --- | --- |
-| **User** | `id`, `name`, `email`, `phone`, `role`, `status`, `authMethod`, `isEmailVerified`, `lastLoginAt` | Has one profile (employee or customer); owns shipments as a customer. |
-| **Employee profile** | `employeeCode`, `employmentStatus`, `joinAt`, salary structure | Belongs to a `User`; may have a `Courier` record. |
-| **Courier** | `vehicleLicenseNumber`, `qualifications`, `applicationStatus`, `zoneId`, `courierAvailability` | Belongs to an `Employee`; belongs to a `Zone`. |
-| **Customer profile** | `timezone`, `country` | Belongs to a `User`. |
-| **Zone** | `name`, `code`, `address`, `latitude`, `longitude`, `radiusKm`, `boundary` (GeoJSON Polygon), `isActive` | Linked to shipments (pickup/delivery) and couriers. |
-| **Shipment** | `trackingNumber`, `parcelName`, `parcelWeightGM`, `deliveryFee`, `deliveryDistance`, `status`, `type` | Belongs to a customer; references pickup and delivery couriers and zones. |
-| **Shipment tracking entry** | `status`, `note`, `lat`, `lng`, `updatedById`, `createdAt` | Belongs to a shipment (status history). |
-| **Payment** | status (`PAID`, `PENDING`, `FAILED`, `CANCELLED`), method (`CARD`) | Belongs to a shipment. |
-| **Payroll** | `month`, `year`, `basicSalary`, allowances, `deliveryEarning`, `bonus`, `deduction`, `netSalary`, `status` | Belongs to an employee. |
-| **Notification** | `title`, `message`, `type`, `isRead`, `shipmentId` | Belongs to a user; optionally references a shipment. |
-| **Audit log** | `action`, `type` (`CURRENT`/`OLD`), `resource`, `resourceId`, `metadata`, `createdAt` | Belongs to the acting user. |
+> This API list documents frontend integration points. Always consult the backend implementation for exact payloads, validation rules, status codes, and permission requirements.
 
 ---
 
 ## 🔒 Security and Validation
 
-### Implemented in this repository
+### Frontend responsibilities
 
-- **Session-based auth** — the API client sends credentials with every request; there are no tokens stored in `localStorage`.
-- **Route protection** — `AuthGuard` redirects unauthenticated visitors to `/login`; `RoleGuard` renders dashboards only for the matching role and shows an Access Denied screen otherwise.
-- **Client-side validation with Zod** — registration, login, password reset, shipment creation, courier application, zone, payroll, contact, and status-update schemas.
-- **Strong password rules** — minimum length plus lower/upper case, number, and special character requirements; registration enforces E.164 phone format.
-- **File upload constraints** — shipment item images are limited to `image/jpeg`, `image/png`, `image/webp` and **5 MB**. Courier application files are limited to PDF/DOC/DOCX/PNG/JPEG, also **5 MB**, with caps of **1–5 vehicle documents** and **1–2 national ID files**.
-- **Status transitions** — the UI only offers statuses valid for the current state and role.
-- **User-facing error feedback** — toasts surface backend error messages without exposing internals.
-- **Secret hygiene** — `.env*` files are git-ignored; only `NEXT_PUBLIC_` variables are read by the app.
+- Authentication and role-aware route guards.
+- Client-side validation with Zod for supported forms.
+- Strong password validation on relevant account forms.
+- File type and size checks for supported uploads.
+- UI status options based on current shipment state and role.
+- User-facing error messages through toast notifications.
+- Environment files excluded from version control.
 
-### Owned by the backend (not implemented here)
+### Backend responsibilities
 
-Authentication sessions, OTP/email verification, password hashing, authorisation for each endpoint, rate limiting, CORS, security headers, and payment webhook verification are the responsibility of the [backend](https://github.com/Hayder987/swift-courier-backend). They cannot be verified from this repository.
-
----
-
-## 💳 External Integrations
-
-| Integration | Where it is used | Status / configuration |
-| --- | --- | --- |
-| **Google Identity** (`@react-oauth/google`) | Login and registration | Requires a valid `NEXT_PUBLIC_GOOGLE_CLIENT_ID`. The provider throws if it is missing. |
-| **Hosted payment checkout** | `POST /payments/create` → redirect to `checkoutUrl`; `/payment/success` and `/payment/cancel` handle the return. | Provider is configured server-side. The success page reads a `session_id` query parameter. The provider itself is not defined in this repo. |
-| **OpenStreetMap tiles** via Leaflet | Pickup map, live location, zone boundaries, courier directions. | Public tile server; **no map API key required**. Attribution is rendered on the maps. |
-| **Browser Geolocation API** | Pickup location capture, live location, courier direction. | Requires user permission; graceful errors are shown for denied/unavailable/timed-out locations. |
-| **Remote media storage** | Profile images and courier/shipment documents | API responses include media URLs and `publicId` fields; the storage provider is configured in the backend. |
-| **Email delivery** | OTP verification, password reset | Triggered by backend endpoints; no email library is present in the frontend. |
+The backend must enforce authentication and authorisation, validate all incoming payloads, secure sessions and cookies, hash passwords, manage OTP expiry, apply rate limits and security headers, verify payment webhooks, and control access to protected resources. Frontend validation must never be treated as a replacement for server-side validation.
 
 ---
 
-## 🧪 Testing and Quality
+## 🔗 External Integrations
 
-**Code quality tooling is configured; there is no automated test suite in this repository.**
+| Integration | Usage | Configuration |
+|---|---|---|
+| Google Identity | Google sign-in | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` |
+| Hosted checkout | Shipment payment | Configured by the backend |
+| OpenStreetMap | Map tiles | Leaflet map attribution should remain visible |
+| Browser Geolocation API | Pickup and live location | Requires user permission and browser support |
+| Media storage | Profile, shipment, and application files | Configured by the backend |
+| Email delivery | OTP and password reset messages | Triggered by backend endpoints |
 
-- **Biome 2.4.2** provides linting, formatting, and import organisation (`biome.json`), with Next.js and React domain rules and Tailwind directive parsing.
+---
+
+## 🧪 Quality Checks
+
+Biome is configured for formatting and code-quality checks, and TypeScript is configured in strict mode.
+
+Run these commands before submitting changes:
 
 ```bash
-pnpm lint        # biome check .
-pnpm lint:fix    # biome check --write .
-pnpm format      # biome format .
-pnpm format:fix  # biome format --write .
+pnpm lint
+pnpm format
+pnpm build
 ```
 
-- TypeScript is configured in **strict mode**.
-- No `test` script, test runner, or test files were found in the repository.
-
-> No lint, format, type-check, or build results are asserted here; run the commands locally to verify.
+A successful command should be verified in your local environment; this README does not claim that checks have been run or passed.
 
 ---
 
 ## 🚀 Deployment
 
-The repository is configured for a **static export** (`output: "export"` in `next.config.ts`), which produces a self-contained site in `out/` after `pnpm build`. This output is well suited to static hosting platforms, including Vercel.
+The project is configured for **static export** through `output: "export"` in `next.config.ts`.
 
-**Build and serve**
+### Build
 
 ```bash
+pnpm install
 pnpm build
-# Static output is written to ./out
-# Serve ./out with any static host/server
 ```
 
-**Production checklist**
+The generated static site is placed in `out/`. Deploy that directory to a static hosting provider that supports the application's routing requirements.
 
-- Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend API URL (with the `/api/v1` prefix).
-- Set `NEXT_PUBLIC_GOOGLE_CLIENT_ID` to a client ID that authorises the production origin.
-- Ensure the backend has the correct frontend origin in its CORS and cookie configuration, and the correct payment success/cancel redirect URLs.
-- Because the variables are public (`NEXT_PUBLIC_`), never store server secrets in them.
+### Production checklist
 
-**Connected backend**
+- [ ] Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend URL with `/api/v1`.
+- [ ] Set `NEXT_PUBLIC_GOOGLE_CLIENT_ID` to the production OAuth client ID.
+- [ ] Allow the production frontend origin in backend CORS configuration.
+- [ ] Verify cookie and credential settings across frontend and backend origins.
+- [ ] Configure correct payment success and cancellation return URLs on the backend.
+- [ ] Confirm all required public assets are committed.
+- [ ] Build and test the deployed frontend against the production API.
 
-- Repository: [https://github.com/Hayder987/swift-courier-backend](https://github.com/Hayder987/swift-courier-backend)
-- Live URL (supplied by the project owner): [https://swiftcourier-backend.vercel.app](https://swiftcourier-backend.vercel.app)
+### Connected backend
 
-> The backend live URL is provided by the owner. Its availability and individual endpoint health have not been verified from this repository. A frontend deployment URL is not defined in this repository and is therefore not listed.
+- **Repository:** [Hayder987/swift-courier-backend](https://github.com/Hayder987/swift-courier-backend)
+- **Backend URL:** [swiftcourier-backend.vercel.app](https://swiftcourier-backend.vercel.app)
 
----
-
-## 🖥️ Screenshots and Demo
-
-No screenshots or verified public demo URL are included in this repository. Screenshots of the public site and the four dashboards can be added here later.
+The backend URL is included as the project's configured endpoint; its live availability and individual endpoint health should be checked separately.
 
 ---
 
 ## 🗺️ Roadmap
 
-Possible future improvements (not yet implemented in this repository):
+Potential future improvements:
 
-- An automated test suite (unit and end-to-end) with a `test` script.
-- Real-time shipment updates via WebSockets or server-sent events.
-- Internationalisation (i18n) and additional locales.
-- Offline-friendly PWA capabilities.
-- Expanded accessibility audits and automated checks.
+- Add automated unit, integration, and end-to-end tests.
+- Introduce real-time shipment updates using WebSockets or server-sent events.
+- Expand internationalisation and locale support.
+- Explore offline-friendly Progressive Web App capabilities.
+- Add accessibility audits and automated regression checks.
+
+These are roadmap ideas, not claims of currently implemented functionality.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome. To keep the codebase consistent:
+Contributions and suggestions are welcome.
 
-1. **Branch** — create a descriptive branch, e.g. `feat/shipment-filters` or `fix/login-redirect`.
-2. **Follow existing patterns** — add API calls in `src/api`, data hooks in `src/hooks`, validation in `src/validation`, and types in `src/types`.
-3. **Keep changes focused** — one feature or fix per pull request.
-4. **Write clear commits** — short, imperative commit messages describing the change.
-5. **Check quality before pushing** — run `pnpm lint` and `pnpm build`.
-6. **Open a pull request** — describe what changed, why, and how to verify it.
-
-Please do not commit secrets, `.env` files, or unrelated generated files.
+1. Fork the repository.
+2. Create a focused branch, such as `feat/shipment-filters` or `fix/login-redirect`.
+3. Follow existing patterns: API calls in `src/api/`, data hooks in `src/hooks/`, schemas in `src/validation/`, and domain types in `src/types/`.
+4. Keep pull requests focused and describe how the change can be verified.
+5. Run `pnpm lint` and `pnpm build` before opening a pull request.
+6. Never commit `.env` files, credentials, or private secrets.
 
 ---
 
 ## 📄 License
 
-No `LICENSE` file is present in this repository, and no license is specified in `package.json`. Unless the project owner states otherwise, all rights are reserved.
+No `LICENSE` file was identified in the supplied project documentation. Unless a license is added by the project owner, all rights remain reserved and reuse permissions are not explicitly granted.
 
 ---
 
-## 👨‍💻 Author and Contact
-
-**Hayder Ali — Full Stack Developer**
+## 👨‍💻 Author
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-hayderbd4290%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hayderbd4290@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Hayder987-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Hayder987)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Hayder_Ali-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hayder-ali-bb9175349)
-[![Portfolio](https://img.shields.io/badge/Portfolio-hayder4290.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://hayder4290.vercel.app)
+### Hayder Ali
+**Full Stack Developer**
+
+<p>
+  <a href="mailto:hayderbd4290@gmail.com"><img src="https://img.shields.io/badge/Email-Contact%20Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
+  <a href="https://github.com/Hayder987"><img src="https://img.shields.io/badge/GitHub-Hayder987-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
+  <a href="https://www.linkedin.com/in/hayder-ali-bb9175349"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://hayder4290.vercel.app"><img src="https://img.shields.io/badge/Portfolio-Visit%20Website-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio"></a>
+</p>
 
 </div>
 
-| | |
-| --- | --- |
-| 📧 **Email** | [hayderbd4290@gmail.com](mailto:hayderbd4290@gmail.com) |
-| 📱 **Phone** | +8801771814597 |
-| 🐙 **GitHub** | [github.com/Hayder987](https://github.com/Hayder987) |
-| 💼 **LinkedIn** | [linkedin.com/in/hayder-ali-bb9175349](https://www.linkedin.com/in/hayder-ali-bb9175349) |
-| 🌐 **Portfolio** | [hayder4290.vercel.app](https://hayder4290.vercel.app) |
-| 🔗 **Backend Repository** | [github.com/Hayder987/swift-courier-backend](https://github.com/Hayder987/swift-courier-backend) |
-| 🚀 **Backend Live URL** | [swiftcourier-backend.vercel.app](https://swiftcourier-backend.vercel.app) |
+| Contact | Details |
+|---|---|
+| Email | [hayderbd4290@gmail.com](mailto:hayderbd4290@gmail.com) |
+| Phone | +8801771814597 |
+| GitHub | [github.com/Hayder987](https://github.com/Hayder987) |
+| LinkedIn | [hayder-ali-bb9175349](https://www.linkedin.com/in/hayder-ali-bb9175349) |
+| Portfolio | [hayder4290.vercel.app](https://hayder4290.vercel.app) |
+| Backend Repository | [swift-courier-backend](https://github.com/Hayder987/swift-courier-backend) |
 
 ---
 
-## ⭐ Closing
-
-**SwiftCourier** brings the whole delivery journey into one place — customers create and pay for shipments, couriers move them from pickup to doorstep, and administrators keep the operation running with zones, payroll, and auditing. This frontend is built to be fast, type-safe, and maintainable with Next.js 16, React 19, TanStack Query, Zod, and Tailwind CSS.
-
-If you find this project useful or interesting, a ⭐ on the repository is always appreciated.
-
 <div align="center">
 
-**Built with ❤️ by [Hayder Ali](https://github.com/Hayder987)**
+**SwiftCourier — Bringing shipment creation, courier operations, tracking, and logistics administration into one platform.**
+
+Built with ❤️ by [Hayder Ali](https://github.com/Hayder987).
 
 </div>
