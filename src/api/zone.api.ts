@@ -32,3 +32,4 @@ export function deleteZone(zoneId: string) {
     method: "DELETE",
   });
 }
+

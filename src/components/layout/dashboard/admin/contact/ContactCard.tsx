@@ -64,7 +64,7 @@ const ContactCard = ({ contact }: { contact: IContactInfo }) => {
     <>
       <article className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#e50914]/40 hover:shadow-lg hover:shadow-[#e50914]/5">
         {/* Top accent */}
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#e50914] via-[#ff4651] to-transparent opacity-70 transition-opacity group-hover:opacity-100" />
+        <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#e50914] via-[#ff4651] to-transparent opacity-70 transition-opacity group-hover:opacity-100" />
 
         <div className="flex flex-1 flex-col p-4 sm:p-5">
           {/* Header */}
@@ -75,7 +75,7 @@ const ContactCard = ({ contact }: { contact: IContactInfo }) => {
               </div>
 
               <div className="min-w-0 pt-0.5">
-                <h3 className="line-clamp-2 break-words text-base font-bold leading-6 tracking-tight text-foreground sm:text-lg">
+                <h3 className="line-clamp-2 wrap-break-word text-base font-bold leading-6 tracking-tight text-foreground sm:text-lg">
                   {contact.title}
                 </h3>
 
@@ -110,7 +110,7 @@ const ContactCard = ({ contact }: { contact: IContactInfo }) => {
               Description
             </p>
 
-            <p className="whitespace-pre-wrap break-words text-sm leading-6 text-foreground/80">
+            <p className="whitespace-pre-wrap wrap-break-word text-sm leading-6 text-foreground/80">
               {contact.description}
             </p>
           </div>
