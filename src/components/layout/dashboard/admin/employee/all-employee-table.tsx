@@ -181,14 +181,6 @@ const AllEmployeeTable = () => {
       behavior: "smooth",
     });
   };
-
-  console.log("Pagination:", {
-    page,
-    totalPages,
-    employees: employees.length,
-    meta: data?.meta,
-  });
-
   return (
     <div className="w-full space-y-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

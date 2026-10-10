@@ -1,5 +1,6 @@
 import {
   Banknote,
+  Contact,
   History,
   LayoutDashboard,
   MapPinned,
@@ -36,6 +37,11 @@ export const adminRoutes: SidebarItems = [
         title: "My Profile",
         url: `${prefix}/my-profile`,
         icon: UserRound,
+      },
+      {
+        title: "Contact Info",
+        url: `${prefix}/contact-info`,
+        icon: Contact,
       },
     ],
   },

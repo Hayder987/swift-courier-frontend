@@ -5,8 +5,10 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import {
+  deleteContactInfo,
   deleteEmployeeById,
   deleteUserById,
+  getAllContactInfo,
   getAllEmployee,
   getAllUsers,
   getEmployeeById,
@@ -15,6 +17,7 @@ import {
 } from "@/api";
 import type { IGetAllEmployeesParams } from "@/types";
 import type { IAdminUserQueryParams } from "@/types/admin.employee.types";
+import type { IAllContactParams } from "@/types/contact.info.type";
 import type { IAdminUserStatusUpdate } from "@/validation/admin.user.validation";
 
 // employee management
@@ -105,6 +108,28 @@ export function useUpdateUserStatusAdmin(userId: string) {
 
       queryClient.invalidateQueries({
         queryKey: ["user", userId],
+      });
+    },
+  });
+}
+
+// contact service api
+export function useSuspenseGetAllContacts(params: IAllContactParams) {
+  return useSuspenseQuery({
+    queryKey: ["contact", params],
+    queryFn: () => getAllContactInfo(params),
+  });
+}
+
+export function useDeleteContactInfo(contactId: string | null) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => deleteContactInfo(contactId),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["contact"],
       });
     },
   });

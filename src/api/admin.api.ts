@@ -10,6 +10,10 @@ import type {
   IAdminUserQueryParams,
 } from "@/types/admin.employee.types";
 import type { IApiResponse } from "@/types/api.type";
+import type {
+  IAllContactParams,
+  IContactInfo,
+} from "@/types/contact.info.type";
 import type { IAdminUserStatusUpdate } from "@/validation/admin.user.validation";
 
 // employee management
@@ -30,7 +34,6 @@ export function deleteEmployeeById(id: string | null) {
 }
 
 export function getAllUsers(params: IAdminUserQueryParams) {
-  console.log("USER API PARAMS:", params);
   return apiClient<IApiResponse<IAdminUser[]>>("/users/all-user", {
     params,
   });
@@ -54,4 +57,13 @@ export function deleteUserById(userId: string) {
   return apiClient<IApiResponse<null>>(`/users/user/${userId}`, {
     method: "PATCH",
   });
+}
+
+// contact service api
+export function getAllContactInfo(params: IAllContactParams) {
+  return apiClient<IApiResponse<IContactInfo[]>>("/contacts", { params });
+}
+
+export function deleteContactInfo(contactId: string | null) {
+  return apiClient<null>(`/contacts/${contactId}`, { method: "DELETE" });
 }
