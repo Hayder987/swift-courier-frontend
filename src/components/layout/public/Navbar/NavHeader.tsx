@@ -4,6 +4,7 @@ import { Package } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import SwiftLogo from "@/components/common/SwiftLogo";
+import ProcessSpinner from "@/components/loading/process-spinner";
 import { useGetMe } from "@/hooks";
 import { NAV_ITEMS } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
@@ -48,7 +49,9 @@ export default function NavHeader() {
 
             {/* Loading */}
             {isLoading && (
-              <div className="h-10 w-20 animate-pulse rounded-xl bg-muted" />
+              <div className="h-10 w-20 flex items-center justify-center animate-pulse rounded-xl bg-muted">
+                <ProcessSpinner />
+              </div>
             )}
 
             {/* Logged Out */}

@@ -9,7 +9,7 @@ import { services } from "@/lib/services";
 
 export default function Services() {
   return (
-    <section className="relative py-20 sm:py-24 lg:py-28">
+    <section className="relative ">
       <div className="mx-auto w-full max-w-380 px-4 sm:px-6 lg:px-12">
         {/* Section Header */}
         <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-14 lg:mb-16">
@@ -55,67 +55,101 @@ export default function Services() {
             return (
               <Card
                 key={service.title}
-                className="group relative overflow-hidden rounded-[1.75rem] border-border/50 bg-transparent shadow-none backdrop-blur-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-[#e50914]/35 hover:shadow-[0_20px_60px_-25px_rgba(229,9,20,0.25)]"
+                className="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/60 bg-card shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-[#e50914]/35 hover:shadow-[0_24px_60px_-28px_rgba(229,9,20,0.28)]"
               >
-                {/* Premium Card Glow */}
-                <div className="pointer-events-none absolute -right-20 -top-20 size-40 rounded-full bg-[#e50914]/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+                {/* Card top accent */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-linear-to-r from-transparent via-[#e50914]/60 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                />
 
-                {/* Image Area */}
-                <div className="relative h-57.5 overflow-hidden rounded-t-[1.75rem] border-b border-border/40 bg-muted/10">
+                {/* Image / Illustration Area */}
+                <div className="relative aspect-4/3 overflow-hidden border-b border-border/40 bg-muted/20">
+                  {/* Soft radial vignette behind illustration (theme-aware) */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(229,9,20,0.06),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(229,9,20,0.10),transparent_65%)]"
+                  />
+
+                  {/* Subtle dot grid texture */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-[0.10] dark:opacity-[0.08]"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(currentColor 0.6px, transparent 0.6px)",
+                      backgroundSize: "16px 16px",
+                      color: "var(--color-muted-foreground, #6b7280)",
+                      maskImage:
+                        "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse at center, black 30%, transparent 80%)",
+                    }}
+                  />
+
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    className="relative object-contain p-5 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     priority={service.title === "Parcel Delivery"}
                   />
 
-                  {/* Image Overlay */}
-                  <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/85 via-background/5 to-transparent" />
-
-                  {/* Top Accent Line */}
-                  <div className="absolute left-0 right-0 top-0 h-px bg-linear-to-r from-transparent via-[#e50914]/60 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+                  {/* Bottom fade */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card via-card/40 to-transparent"
+                  />
 
                   {/* Icon */}
-                  <div className="absolute left-4 top-4 flex size-10 items-center justify-center rounded-xl border border-[#e50914]/20 bg-background/65 text-[#e50914] shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 group-hover:border-[#e50914]/40 group-hover:bg-[#e50914]/10">
-                    <Icon className="size-5" />
+                  <div className="absolute left-4 top-4 flex size-11 items-center justify-center rounded-xl border border-[#e50914]/20 bg-background/75 text-[#e50914] shadow-sm shadow-black/5 backdrop-blur-xl transition-all duration-300 group-hover:scale-[1.05] group-hover:border-[#e50914]/40 group-hover:bg-[#e50914]/10">
+                    <Icon aria-hidden="true" className="size-5" />
                   </div>
 
-                  {/* Status */}
-                  <div className="absolute bottom-4 left-4 rounded-full border border-[#e50914]/20 bg-background/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e50914] backdrop-blur-xl">
+                  {/* Meta badge */}
+                  <div className="absolute bottom-3.5 left-4 rounded-full border border-[#e50914]/20 bg-background/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e50914] backdrop-blur-xl">
                     {service.meta}
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <CardContent className="relative p-5 sm:p-6">
+                {/* Content */}
+                <CardContent className="relative flex flex-1 flex-col p-5 sm:p-6">
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="h-px w-6 bg-[#e50914]/70 transition-all duration-300 group-hover:w-10" />
+                    <span
+                      aria-hidden="true"
+                      className="h-px w-6 bg-[#e50914]/70 transition-all duration-300 group-hover:w-10"
+                    />
                     <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                       SwiftCourier
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-[#e50914]">
+                  <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-[#e50914] sm:text-xl">
                     {service.title}
                   </h3>
 
-                  <p className="mt-3 min-h-18 text-sm leading-6 text-muted-foreground">
+                  <p className="mt-2.5 flex-1 text-sm leading-6 text-muted-foreground">
                     {service.description}
                   </p>
 
                   <Link
                     href="/services"
-                    className="mt-5 inline-flex items-center text-sm font-semibold text-foreground transition-colors duration-300 hover:text-[#e50914]"
+                    className="mt-5 inline-flex items-center text-sm font-semibold text-foreground transition-colors duration-300 hover:text-[#e50914] focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e50914]"
                   >
                     Explore service
-                    <ArrowUpRight className="ml-1.5 size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="ml-1.5 size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
                   </Link>
                 </CardContent>
 
-                {/* Bottom Accent */}
-                <div className="pointer-events-none absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-[#e50914] shadow-[0_0_14px_#e50914] transition-all duration-500 group-hover:w-1/2" />
+                {/* Bottom accent */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-[#e50914] shadow-[0_0_14px_#e50914] transition-all duration-500 group-hover:w-1/2"
+                />
               </Card>
             );
           })}

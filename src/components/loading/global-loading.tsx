@@ -4,44 +4,61 @@ import { useEffect, useState } from "react";
 
 export default function GlobalLoading() {
   const [progress, setProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    let value = 0;
+    const storageKey = "swiftcourier-splash-shown";
 
-    const progressInterval = window.setInterval(() => {
-      value += Math.random() * 7;
-
-      if (value >= 95) {
-        value = 95;
-        window.clearInterval(progressInterval);
+    try {
+      if (sessionStorage.getItem(storageKey) === "true") {
+        setIsVisible(false);
+        setIsReady(true);
+        return;
       }
 
+      sessionStorage.setItem(storageKey, "true");
+    } catch {
+      // Continue showing the splash if storage is unavailable.
+    }
+
+    setIsVisible(true);
+    setIsReady(true);
+
+    let value = 0;
+    let hideTimer: number | undefined;
+
+    const progressInterval = window.setInterval(() => {
+      value = Math.min(value + Math.random() * 10, 95);
       setProgress(value);
-    }, 120);
+
+      if (value >= 95) {
+        window.clearInterval(progressInterval);
+      }
+    }, 80);
 
     const finishTimer = window.setTimeout(() => {
+      window.clearInterval(progressInterval);
       setProgress(100);
 
-      const hideTimer = window.setTimeout(() => {
+      hideTimer = window.setTimeout(() => {
         setIsVisible(false);
       }, 450);
-
-      return () => {
-        window.clearTimeout(hideTimer);
-      };
-    }, 1700);
+    }, 1200);
 
     return () => {
       window.clearInterval(progressInterval);
       window.clearTimeout(finishTimer);
+
+      if (hideTimer !== undefined) {
+        window.clearTimeout(hideTimer);
+      }
     };
   }, []);
 
-  if (!isVisible) {
+  if (!isReady || !isVisible) {
     return null;
   }
-
   return (
     <main
       aria-label="Loading SwiftCourier"

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import GlobalLoading from "@/components/loading/global-loading";
 import { Toaster } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
 import Providers from "@/providers";
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={cn(
         "h-full",
         geistSans.variable,
@@ -48,6 +50,7 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider>
             {children}
+            <GlobalLoading />
             <Toaster />
           </ThemeProvider>
         </Providers>

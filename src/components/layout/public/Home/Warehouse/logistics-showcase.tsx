@@ -7,7 +7,7 @@ import CourierWarehouseScene from "./courier-warehouse-scene";
 
 export default function LogisticsShowcase() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
+    <section className="relative overflow-hidden">
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 size-175 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e50914]/5 blur-[140px]" />
 
