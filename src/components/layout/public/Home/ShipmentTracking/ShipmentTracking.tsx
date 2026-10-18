@@ -83,7 +83,7 @@ export default function ShipmentTracking() {
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ───────── Section Header ───────── */}
-        <div className="mx-auto mb-14 max-w-3xl text-center sm:mb-16 lg:mb-20">
+        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-14 lg:mb-16">
           <Badge
             variant="outline"
             className="mb-6 gap-2 rounded-full border-[#e50914]/25 bg-[#e50914]/[0.06] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e50914] sm:text-[11px]"
@@ -94,7 +94,7 @@ export default function ShipmentTracking() {
 
           <h2
             id="delivery-experience-title"
-            className="text-balance text-3xl font-black leading-[1.1] tracking-[-0.045em] text-foreground sm:text-4xl lg:text-5xl"
+            className="text-balance text-3xl font-black leading-[1.1] tracking-[-0.045em] text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
           >
             Logistics, reimagined.
             <span className="mt-2 block text-[#e50914]">

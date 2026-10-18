@@ -77,6 +77,18 @@
   }
 }
 
+@keyframes ai-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
 .swiftcourier-location-tooltip {
   border: 1px solid rgba(148, 163, 184, 0.25) !important;
   border-radius: 12px !important;

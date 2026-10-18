@@ -45,6 +45,10 @@ export default function Services() {
               </Link>
             </Button>
           </div>
+          <div
+            aria-hidden="true"
+            className="mx-auto mt-7 h-[3px] w-14 rounded-full bg-gradient-to-r from-[#e50914] to-[#f04452] sm:mt-8"
+          />
         </div>
 
         {/* Service Cards */}

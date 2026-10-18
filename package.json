@@ -21,6 +21,8 @@
     "class-variance-authority": "^0.7.1",
     "cn": "^0.3.0",
     "date-fns": "^4.4.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^13.5.0",
     "input-otp": "^1.5.0",
     "leaflet": "^1.9.4",

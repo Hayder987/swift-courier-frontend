@@ -19,4 +19,12 @@ export const NAV_ITEMS = [
     label: "FAQs",
     href: "/faq",
   },
+  {
+    label: "Terms & Conditions",
+    href: "/terms",
+  },
+  {
+    label: "Privacy",
+    href: "/privacy",
+  },
 ] as const;

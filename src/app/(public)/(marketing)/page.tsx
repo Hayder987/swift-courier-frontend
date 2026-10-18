@@ -1,4 +1,5 @@
 import Hero from "@/components/layout/public/Home/Hero/Hero";
+import ImageSlider from "@/components/layout/public/Home/ImageSlider/ImageSlider";
 import Services from "@/components/layout/public/Home/Services/Services";
 import ShipmentTracking from "@/components/layout/public/Home/ShipmentTracking/ShipmentTracking";
 import LogisticsShowcase from "@/components/layout/public/Home/Warehouse/logistics-showcase";
@@ -10,6 +11,7 @@ export default function HomePage() {
       <Services />
       <LogisticsShowcase />
       <ShipmentTracking />
+      <ImageSlider />
     </div>
   );
 }

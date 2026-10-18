@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { AIChatWidget } from "@/components/ai-assistant/AIChatWidget";
 import GlobalLoading from "@/components/loading/global-loading";
 import { Toaster } from "@/components/ui/toast";
 import { cn } from "@/lib/utils";
@@ -51,6 +52,7 @@ export default function RootLayout({
           <ThemeProvider>
             {children}
             <GlobalLoading />
+            <AIChatWidget />
             <Toaster />
           </ThemeProvider>
         </Providers>
