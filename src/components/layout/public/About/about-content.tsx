@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 
 import { aboutFeatures, aboutStats } from "@/lib/about";
-
+import PublicPageNormalBg from "../Background/PublicPageNormalBg";
 import AboutThreeScene from "./about-3d-scene";
 
 interface AboutContentProps {
@@ -26,26 +26,7 @@ const AboutContent = ({ dark, mounted }: AboutContentProps) => {
     <main className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
       {/* ==================== BACKGROUND ==================== */}
 
-      {/* Top Red Glow */}
-      <div className="pointer-events-none absolute -right-40 -top-40 size-140 rounded-full bg-[#e50914]/6 blur-[130px] dark:bg-[#e50914]/15" />
-
-      {/* Bottom Red Glow */}
-      <div className="pointer-events-none absolute -bottom-48 -left-48 size-140 rounded-full bg-[#e50914]/5 blur-[140px] dark:bg-[#e50914]/10" />
-
-      {/* Center Red Glow */}
-      <div className="pointer-events-none absolute left-1/2 top-[35%] size-100 -translate-x-1/2 rounded-full bg-[#e50914]/3 blur-[150px] dark:bg-[#e50914]/5" />
-
-      {/* Subtle Grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-
+      <PublicPageNormalBg />
       {/* ==================== HERO ==================== */}
 
       <section className="relative min-h-[calc(100svh-5rem)] px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-20">

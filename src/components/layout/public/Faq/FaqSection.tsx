@@ -18,29 +18,13 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqData } from "@/lib/faq";
+import PublicPageNormalBg from "../Background/PublicPageNormalBg";
 
 const FaqSection = () => {
   return (
     <section className="relative overflow-hidden bg-slate-50 py-16 text-slate-950 transition-colors duration-300 dark:bg-slate-950 dark:text-white sm:py-20 lg:py-28">
       {/* Top Red Glow */}
-      <div className="pointer-events-none absolute -right-40 -top-40 size-140 rounded-full bg-[#e50914]/6 blur-[130px] dark:bg-[#e50914]/15" />
-
-      {/* Bottom Red Glow */}
-      <div className="pointer-events-none absolute -bottom-48 -left-48 size-140 rounded-full bg-[#e50914]/5 blur-[140px] dark:bg-[#e50914]/10" />
-
-      {/* Center Red Glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/3 size-100 -translate-x-1/2 rounded-full bg-[#e50914]/3 blur-[150px] dark:bg-[#e50914]/5" />
-
-      {/* Subtle Grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+      <PublicPageNormalBg />
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
